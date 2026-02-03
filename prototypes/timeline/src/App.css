@@ -1,0 +1,139 @@
+/* LifeOS Timeline Prototype Styles */
+
+:root {
+  --bg-primary: #000000;
+  --bg-card: #1c1c1e;
+  --text-primary: #ffffff;
+  --text-secondary: #8e8e93;
+  --radius: 16px;
+}
+
+.timeline-container {
+  min-height: 100vh;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  padding: 60px 20px 40px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* Status bar simulation */
+.status-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 44px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  background: var(--bg-primary);
+  z-index: 100;
+}
+
+.status-time {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.status-icons {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+}
+
+/* Timeline list */
+.timeline-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Timeline entry row */
+.timeline-entry {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+/* Time column */
+.entry-time {
+  flex-shrink: 0;
+  width: 50px;
+  padding-top: 16px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-align: left;
+}
+
+/* Card */
+.entry-card {
+  flex: 1;
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  min-height: 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.entry-mode {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+  letter-spacing: -0.3px;
+}
+
+.entry-title {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+/* Loading state */
+.loading {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  font-size: 16px;
+}
+
+/* Error state */
+.error {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  padding: 20px;
+  text-align: center;
+}
+
+.error h2 {
+  color: #ff453a;
+  margin-bottom: 8px;
+  font-size: 18px;
+}
+
+.error p {
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.error code {
+  background: var(--bg-card);
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-family: 'SF Mono', Monaco, monospace;
+  font-size: 12px;
+}

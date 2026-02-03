@@ -1,0 +1,149 @@
+{
+  "meta": {
+    "schema_version": "1.0",
+    "last_updated": "2030-03-15",
+    "data_type": "communications"
+  },
+  
+  "channels": {
+    "messages": {
+      "primary_use": "personal and casual professional",
+      "check_frequency": {
+        "during_focus": "batched every 60 minutes",
+        "during_casual": "reactive",
+        "during_social": "minimal"
+      },
+      "response_expectations": {
+        "emma_zhao": "immediate when available",
+        "inner_circle": "within 1 hour",
+        "others": "same day"
+      }
+    },
+    "email": {
+      "primary_use": "professional, academic, contracts",
+      "check_frequency": {
+        "during_focus": "batched 2x per day",
+        "during_casual": "as needed"
+      },
+      "response_expectations": {
+        "advisor": "within 24 hours",
+        "clients": "within 24 hours",
+        "others": "2-3 days"
+      }
+    },
+    "calls": {
+      "preference": "scheduled, not spontaneous",
+      "exceptions": ["emma_zhao", "family_emergency"],
+      "voicemail_check": "end of day"
+    }
+  },
+  
+  "notification_preferences": {
+    "always_immediate": [
+      "emma_zhao",
+      "calendar_reminders_15min",
+      "meeting_starting"
+    ],
+    "batched": [
+      "email",
+      "social_media",
+      "news",
+      "non_urgent_messages"
+    ],
+    "silenced_during_focus": [
+      "social_notifications",
+      "promotional",
+      "news_alerts"
+    ],
+    "never_silence": [
+      "emma_zhao",
+      "calendar_alerts",
+      "genuine_emergencies"
+    ]
+  },
+  
+  "communication_debt": {
+    "current_unanswered": {
+      "messages": 3,
+      "emails": 7,
+      "notes": "Normal range. Tends to accumulate during thesis sprints."
+    },
+    "overdue_responses": [
+      {
+        "from": "james_okonkwo",
+        "type": "message",
+        "days_overdue": 2,
+        "topic": "Gaming session planning",
+        "urgency": "low"
+      },
+      {
+        "from": "sarah_mitchell",
+        "type": "email",
+        "days_overdue": 1,
+        "topic": "Project timeline question",
+        "urgency": "medium"
+      }
+    ],
+    "lifeos_behavior": "Gentle reminder when debt reaches awkward threshold. Suggest batch response sessions."
+  },
+  
+  "communication_patterns": {
+    "initiation": {
+      "tendency": "more_reactive_than_initiating",
+      "lifeos_support": "Prompts relationship maintenance check-ins"
+    },
+    "tone": {
+      "professional": "Polite, clear, slightly formal",
+      "personal": "Warm, uses humor, occasional voice messages",
+      "stressed": "Shorter, more transactional"
+    },
+    "problematic_patterns": {
+      "avoidance": "Delays difficult conversations",
+      "over_explaining": "Long messages when anxious",
+      "radio_silence": "Goes quiet when overwhelmed"
+    }
+  },
+  
+  "triage_rules": {
+    "immediate_surface": [
+      {
+        "condition": "from emma_zhao",
+        "reason": "partner, always accessible"
+      },
+      {
+        "condition": "contains 'urgent' from known contacts",
+        "reason": "explicit urgency signal"
+      },
+      {
+        "condition": "from priya_sharma within 2 hours of meeting",
+        "reason": "likely meeting-related"
+      }
+    ],
+    "batch_for_later": [
+      {
+        "condition": "promotional email",
+        "reason": "never urgent"
+      },
+      {
+        "condition": "social media notification",
+        "reason": "distraction risk outweighs value"
+      },
+      {
+        "condition": "newsletter",
+        "reason": "process during dedicated reading time"
+      }
+    ],
+    "context_dependent": [
+      {
+        "condition": "work email during focus mode",
+        "action": "hold unless from active project stakeholder",
+        "reason": "protect deep work"
+      },
+      {
+        "condition": "friend message during work hours",
+        "action": "periphery, not center",
+        "reason": "available but not interrupting"
+      }
+    ]
+  }
+}

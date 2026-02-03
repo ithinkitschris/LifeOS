@@ -1,0 +1,143 @@
+{
+  "meta": {
+    "schema_version": "1.0",
+    "last_updated": "2030-10-14",
+    "data_type": "calendar_patterns"
+  },
+  "recurring_commitments": {
+    "academic": [
+      {
+        "name": "Thesis Advisor Meeting",
+        "day": "thursday",
+        "time": "14:00",
+        "duration": "60 minutes",
+        "location": "Prof. Martinez's office, SVA",
+        "preparation_needed": true,
+        "preparation_time": "30 minutes"
+      },
+      {
+        "name": "Design Studio Hours",
+        "days": [
+          "tuesday",
+          "wednesday",
+          "thursday"
+        ],
+        "time": "09:00-17:00",
+        "location": "SVA Design Studios, W 21st",
+        "type": "block"
+      }
+    ],
+    "personal": [
+      {
+        "name": "Morning Routine",
+        "days": [
+          "monday",
+          "tuesday",
+          "wednesday",
+          "thursday",
+          "friday"
+        ],
+        "time": "08:00-08:45",
+        "duration": "45 minutes",
+        "location": "home",
+        "flexible": true,
+        "notes": "Wake-up, coffee, messages, light content consumption"
+      },
+      {
+        "name": "Gym Session",
+        "days": [
+          "monday",
+          "wednesday",
+          "friday"
+        ],
+        "time": "17:00",
+        "duration": "75 minutes",
+        "location": "Blink Fitness Chelsea",
+        "flexible": true,
+        "notes": "Monday: upper body + cardio"
+      },
+      {
+        "name": "Call with Mom",
+        "day": "sunday",
+        "time": "11:00",
+        "duration": "30-45 minutes",
+        "flexible": true
+      }
+    ],
+    "social": [
+      {
+        "name": "Date Night",
+        "day": "friday",
+        "time": "19:00",
+        "duration": "evening",
+        "with": "emma_zhao",
+        "flexible": false,
+        "notes": "Protected time. Rarely cancelled."
+      }
+    ],
+    "work": [
+      {
+        "name": "Contract Work Block",
+        "days": [
+          "monday",
+          "tuesday"
+        ],
+        "time": "varies",
+        "notes": "Reserved for UX contract work when available"
+      }
+    ]
+  },
+  "upcoming_milestones": [
+    {
+      "name": "Thesis Critique - Milestone Review",
+      "date": "2030-10-14",
+      "time": "14:00",
+      "location": "SVA, W 21st",
+      "stress_level": "high",
+      "preparation_mode": "intensive_focus",
+      "duration": "105 minutes",
+      "participants": [
+        "prof_martinez",
+        "prof_chen",
+        "prof_williams"
+      ],
+      "format": "20-min presentation + 45-min discussion + feedback",
+      "notes": "High-stakes milestone affecting ability to continue to thesis development phase"
+    },
+    {
+      "name": "Emma's Birthday",
+      "date": "2030-11-05",
+      "type": "personal",
+      "reminder_advance": "2 weeks for planning"
+    },
+    {
+      "name": "Thesis Final Draft Deadline",
+      "date": "2030-12-15",
+      "stress_level": "high",
+      "preparation_mode": "intensive_focus"
+    }
+  ],
+  "scheduling_preferences": {
+    "meeting_batching": true,
+    "preferred_meeting_days": [
+      "tuesday",
+      "thursday"
+    ],
+    "no_meeting_times": [
+      "before 09:00",
+      "after 19:00",
+      "friday_evening"
+    ],
+    "buffer_between_meetings": "15 minutes minimum",
+    "deep_work_protection": [
+      "wednesday_morning",
+      "thursday_morning"
+    ]
+  },
+  "calendar_patterns": {
+    "overcommitment_tendency": "moderate",
+    "saying_no": "difficult, improving",
+    "scheduling_lead_time": "prefers 2+ days notice",
+    "spontaneity_tolerance": "low during thesis crunch, higher on weekends"
+  }
+}

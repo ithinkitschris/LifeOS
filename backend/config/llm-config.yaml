@@ -1,0 +1,193 @@
+# LifeOS LLM Configuration
+# Settings for Claude API integration
+# Schema version: 1.0
+
+# ============================================
+# API CONFIGURATION
+# ============================================
+
+api:
+  provider: "anthropic"
+  model: "claude-sonnet-4-5"  # Good balance of quality and cost
+  fallback_model: "claude-haiku-4-5"  # For simple generations
+  
+  # Cost controls
+  max_tokens_per_request: 1024
+  max_requests_per_minute: 20
+  
+  # Caching
+  cache_enabled: true
+  cache_ttl_seconds: 3600  # 1 hour for most responses
+  cache_key_includes:
+    - "prompt_hash"
+    - "context_hash"
+    - "mode"
+
+# ============================================
+# GENERATION SETTINGS
+# ============================================
+
+generation:
+  
+  # Temperature by use case
+  temperatures:
+    mode_explanation: 0.3      # Consistent, clear
+    triage_explanation: 0.3    # Consistent, clear
+    natural_language_ui: 0.5   # Slightly varied, natural
+    suggestions: 0.6           # More creative
+    conversational: 0.7        # Natural variation
+    
+  # Default system context
+  system_context: |
+    You are the voice of LifeOS, a personal operating system that helps Marcus 
+    manage his attention, time, and cognitive load. You speak directly to Marcus 
+    in second person.
+    
+    Your tone is:
+    - Warm but not effusive
+    - Concise, not verbose
+    - Helpful, not subservient
+    - Confident, not apologetic
+    
+    You never:
+    - Over-explain routine actions
+    - Apologize for doing your job
+    - Use corporate or clinical language
+    - Pretend to have emotions you don't have
+    
+    You always:
+    - Respect Marcus's intelligence
+    - Provide clear, actionable information
+    - Explain your reasoning when relevant
+    - Support his autonomy and override choices
+
+# ============================================
+# PROMPT TEMPLATES
+# ============================================
+
+prompts:
+  
+  mode_entry:
+    template: |
+      Generate a brief (1-2 sentences) natural language explanation for entering {{mode_name}} mode.
+      
+      Context:
+      - Trigger: {{trigger_type}}
+      - Confidence: {{confidence}}
+      - Time: {{current_time}}
+      - Relevant context: {{context_summary}}
+      
+      The explanation should:
+      - Be conversational, not robotic
+      - Mention why this mode was entered
+      - Optionally mention what's being held/triaged
+      
+      Example good outputs:
+      - "Heading to your advisor meeting. I've quieted your notifications—messages from Emma will still come through."
+      - "Looks like focus time. I'll hold everything except emergencies until you're done."
+    
+    cache_key: "mode_entry_{{mode_name}}_{{trigger_type}}"
+    use_model: "fallback"  # Simple generation, use cheaper model
+  
+  mode_exit:
+    template: |
+      Generate a brief transition message as Marcus exits {{from_mode}} mode.
+      
+      Context:
+      - Exiting: {{from_mode}}
+      - Entering: {{to_mode}} (or neutral if none)
+      - Duration in mode: {{duration_minutes}} minutes
+      - Items held: {{held_count}} notifications
+      - Summary of held items: {{held_summary}}
+      
+      The message should:
+      - Acknowledge the transition
+      - Summarize what was held (if anything significant)
+      - Be brief (1-2 sentences)
+    
+    cache_key: "mode_exit_{{from_mode}}_{{to_mode}}"
+    use_model: "fallback"
+  
+  triage_explanation:
+    template: |
+      Explain why this notification was triaged to {{zone}} (center/periphery/silence).
+      
+      Notification:
+      - From: {{sender}}
+      - Type: {{notification_type}}
+      - Content preview: {{preview}}
+      
+      Current context:
+      - Mode: {{current_mode}}
+      - Contact priority tier: {{sender_tier}}
+      - Applicable rules: {{rules_applied}}
+      
+      Generate a one-sentence explanation that Marcus would find helpful if he asks
+      why something was surfaced or held.
+    
+    cache_key: "triage_{{zone}}_{{sender}}_{{current_mode}}"
+    use_model: "fallback"
+  
+  context_preparation:
+    template: |
+      Prepare a brief context summary for Marcus as he {{action}}.
+      
+      Destination/Activity: {{destination_or_activity}}
+      Relevant people: {{people}}
+      Recent interactions: {{recent_context}}
+      Calendar context: {{calendar_context}}
+      
+      Generate a helpful 2-3 sentence briefing that helps Marcus feel prepared.
+      Focus on what's useful, not comprehensive.
+    
+    use_model: "primary"  # More nuanced generation
+  
+  suggestion:
+    template: |
+      Based on Marcus's current context, generate a helpful suggestion.
+      
+      Context:
+      - Current mode: {{mode}}
+      - Time: {{time}}
+      - Energy level: {{energy}}
+      - Recent activity: {{recent_activity}}
+      - Relevant values: {{applicable_values}}
+      
+      Generate a single, actionable suggestion that aligns with Marcus's values
+      and current state. Be specific, not generic.
+    
+    use_model: "primary"
+
+# ============================================
+# CACHING RULES
+# ============================================
+
+caching:
+  
+  # Responses that can be heavily cached
+  high_cache:
+    items:
+      - mode_entry_explanations
+      - mode_exit_explanations  
+      - triage_explanations
+    ttl: 86400  # 24 hours
+    
+  # Responses with moderate caching
+  medium_cache:
+    items:
+      - context_preparations
+      - routine_suggestions
+    ttl: 3600  # 1 hour
+    
+  # Responses that should rarely be cached
+  low_cache:
+    items:
+      - personalized_suggestions
+      - conversational_responses
+    ttl: 300  # 5 minutes
+    
+  # Never cache
+  no_cache:
+    items:
+      - emergency_responses
+      - user_query_responses

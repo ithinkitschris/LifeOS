@@ -1,0 +1,69 @@
+# Device Ecosystem Domain
+# The device architecture of LifeOS
+
+id: devices
+name: "Device Ecosystem"
+description: "The two-tier device model and how devices work together"
+status: locked
+version: "0.1.0"
+
+sections:
+  - id: two-tier-model
+    name: "Two-Tier Model"
+    status: locked
+    description: "Information interfaces orchestrate; peripheral interfaces sense and output"
+
+    information_interfaces:
+      description: "Orchestration & primary interaction"
+      devices:
+        - id: phone-tablet
+          name: "Phone/Tablet"
+          role: "Core orchestrator, real-time state detection, primary interaction"
+
+        - id: desktop
+          name: "Desktop"
+          role: "Computing hub, high-performance tasks, extended sessions"
+
+    peripheral_interfaces:
+      description: "Sensing & ambient output"
+      devices:
+        - id: neural-smartwatch
+          name: "Neural Smartwatch"
+          role: "Biometric sensing, haptic feedback, ambient notifications"
+
+        - id: ar-glasses
+          name: "AR Glasses"
+          role: "Ambient information display, environmental awareness"
+
+        - id: earphones
+          name: "Earphones"
+          role: "Audio output, voice input, contextual audio"
+
+    key_principle: "Peripheral devices sense and output; they never orchestrate."
+
+  - id: orchestration-rules
+    name: "Orchestration Rules"
+    status: locked
+    description: "How orchestration authority flows between devices"
+
+    rules:
+      - "Phone is primary orchestrator in mobile contexts"
+      - "Desktop can assume orchestration for extended sessions"
+      - "Peripheral devices sense and output only - never orchestrate"
+      - "All devices share world model state"
+      - "Handoffs between orchestrators are seamless"
+
+  - id: attention-layer-mapping
+    name: "Attention Layer Mapping"
+    status: locked
+    description: "How attention layers map to peripheral device displays"
+
+    mapping:
+      - layer: "Center"
+        peripheral_display: "Not shown on peripherals (requires primary device)"
+
+      - layer: "Periphery"
+        peripheral_display: "Indicated on watch/glasses (counts, presence)"
+
+      - layer: "Silence"
+        peripheral_display: "No indication on any device"

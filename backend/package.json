@@ -1,0 +1,19 @@
+{
+  "name": "lifeos-backend",
+  "version": "1.0.0",
+  "description": "LifeOS prototype platform backend - knowledge graph and API server",
+  "main": "api/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node api/server.js",
+    "dev": "node --watch api/server.js",
+    "populate": "node ../scripts/populate-knowledge-graph.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^4.18.2",
+    "js-yaml": "^4.1.0"
+  }
+}

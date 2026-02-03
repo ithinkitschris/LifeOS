@@ -1,0 +1,131 @@
+# System Architecture Domain
+# Core architectural patterns of LifeOS
+
+id: architecture
+name: "System Architecture"
+description: "The fundamental architectural decisions that define how LifeOS works"
+status: locked
+version: "0.1.0"
+
+sections:
+  - id: mode-intent-separation
+    name: "Mode-Intent Separation"
+    status: locked
+    description: "The fundamental architectural decision of LifeOS"
+    content: |
+      This separation is the core mechanism for preserving agency. Automation
+      handles context assessment (reducing cognitive load) while humans retain
+      action authority (preserving agency).
+
+    concepts:
+      - id: mode
+        name: "Mode"
+        definition: "Context-aware stance toward the world"
+        controlled_by: "Orchestrator (auto-entry)"
+        characteristic: "Constrains the solution space"
+        status: locked
+
+      - id: intent
+        name: "Intent"
+        definition: "Bounded action within current mode"
+        controlled_by: "User (explicit selection)"
+        characteristic: "User-chosen execution"
+        status: locked
+
+    invariants:
+      - "Modes are never user-selected (though users can always exit)"
+      - "Intents are always user-selected (never auto-executed)"
+      - "Available intents are constrained by current mode"
+      - "Mode = 'what kind of moment this is'; Intent = 'what I want to do in this moment'"
+
+  - id: three-layer-attention
+    name: "Three-Layer Attention Model"
+    status: locked
+    description: "Information exists on an attention spectrum, not binary show/hide"
+    content: |
+      This is calm technology in practice - information available at appropriate
+      attention levels, not demanding attention or completely hidden.
+
+    layers:
+      - id: center
+        name: "Center"
+        definition: "Primary focus of current stance"
+        visibility: "Active display"
+        user_access: "Immediate"
+        status: locked
+
+      - id: periphery
+        name: "Periphery"
+        definition: "Available but de-emphasized"
+        visibility: "Indicated, not displayed"
+        user_access: "Pull to view"
+        status: locked
+
+      - id: silence
+        name: "Silence"
+        definition: "Held until contextually appropriate"
+        visibility: "Hidden"
+        user_access: "Request or wait"
+        status: locked
+
+    rules:
+      - "Every piece of information exists in exactly one layer at any moment"
+      - "Layer assignment is mode-specific (same info might be Center in one mode, Silence in another)"
+      - "Movement between layers follows triage rules informed by constitutional values"
+      - "User can always pull from Periphery or request from Silence"
+
+  - id: provider-orchestrator-flow
+    name: "Provider-Orchestrator-Intent Flow"
+    status: locked
+    description: "How information flows from providers to user experience"
+
+    flow:
+      - stage: "Providers"
+        role: "Supply data, APIs, capabilities, content"
+        notes: "Have business models and agendas. Cannot directly reach user."
+
+      - stage: "Orchestrator"
+        role: "Synthesizes provider information, makes presentation decisions"
+        notes: "Applies constitutional rules. Has final authority over what reaches user."
+
+      - stage: "Constitutional Check"
+        role: "Validates against user values and rules"
+        notes: "Filters for manipulation, dark patterns, misinformation."
+
+      - stage: "Intent Experience"
+        role: "User interaction with bounded scope"
+        notes: "Clear entry, clear exit, completion designed in."
+
+    why_apps_become_obsolete: |
+      When the orchestrator can determine context (mode), surface relevant
+      capabilities (available intents), generate purpose-built interfaces
+      (intent experiences), and filter manipulation (constitutional validation) -
+      the app as intermediary is no longer necessary.
+
+  - id: dashboard
+    name: "Dashboard: The Neutral Clearing"
+    status: locked
+    description: "Timeline visualization for verification and control"
+
+    zones:
+      - id: past
+        name: "Past"
+        content: "Completed modes, actions taken, what was held, triage decisions"
+        purpose: "Verification, audit, trust-building"
+
+      - id: present
+        name: "Present"
+        content: "Current mode, activation reasoning, active holds, periphery contents"
+        purpose: "Awareness, correction surface"
+
+      - id: future
+        name: "Future"
+        content: "Predicted modes, scheduled events, queued intents"
+        purpose: "Preview, adjustment, preparation"
+
+    properties:
+      - "Always accessible (never mode-locked)"
+      - "Neutral ground (no mode applies in dashboard)"
+      - "Visible escape hatch from any mode"
+      - "Retrospective verification builds trust"
+      - "Correction surface for adjusting system behavior"

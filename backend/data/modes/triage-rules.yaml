@@ -1,0 +1,213 @@
+# LifeOS Triage Rules
+# Defines how information flows to center, periphery, or silence
+# Edit this file to adjust notification/information triage behavior
+# Schema version: 1.0
+
+# ============================================
+# GLOBAL TRIAGE RULES
+# Apply across all modes unless overridden
+# ============================================
+
+global_rules:
+  
+  # Things that ALWAYS reach center (true emergencies)
+  always_center:
+    - condition: "message.from == 'emma_zhao' AND message.marked_urgent == true"
+      reason: "Partner emergency"
+      
+    - condition: "notification.type == 'emergency_alert'"
+      reason: "System emergency"
+      
+    - condition: "calendar.event_starting_in <= 5 minutes"
+      reason: "Imminent commitment"
+      
+    - condition: "message.from IN family AND message.contains(['emergency', 'hospital', 'urgent'])"
+      reason: "Family emergency signals"
+  
+  # Things that NEVER interrupt (always silence unless explicitly requested)
+  always_silence:
+    - condition: "notification.type == 'promotional'"
+      reason: "Never urgent"
+      
+    - condition: "notification.source == 'social_media' AND notification.type == 'like'"
+      reason: "Low value, high distraction"
+      
+    - condition: "email.category == 'newsletter' AND NOT user.currently_reading"
+      reason: "Batch for reading time"
+      
+    - condition: "notification.app IN known_time_sinks AND current_mode != 'rest'"
+      reason: "Protect productive time"
+
+# ============================================
+# CONTACT-BASED PRIORITY
+# ============================================
+
+contact_priority:
+  
+  tier_1_always_accessible:
+    contacts: ["emma_zhao"]
+    behavior:
+      during_focus: "periphery with gentle indicator"
+      during_social: "periphery, silent"
+      during_rest: "center"
+      during_navigation: "periphery with haptic"
+    rationale: "Partner has standing permission to reach Marcus"
+    
+  tier_2_high_priority:
+    contacts: ["mei_chen", "james_okonkwo", "priya_sharma"]
+    behavior:
+      during_focus: "silence unless urgent signals"
+      during_social: "silence"
+      during_rest: "periphery"
+      during_navigation: "periphery"
+      during_work: "periphery for priya_sharma, silence for others"
+    rationale: "Important relationships, but can wait for mode-appropriate moment"
+    
+  tier_3_professional:
+    contacts: ["sarah_mitchell", "work_contacts"]
+    behavior:
+      during_focus: "silence"
+      during_social: "silence"
+      during_rest: "silence"
+      during_navigation: "silence"
+      during_work: "periphery"
+    rationale: "Work contacts respected during work time only"
+    
+  tier_4_general:
+    contacts: ["everyone_else"]
+    behavior:
+      default: "silence until batch processing"
+    rationale: "Non-priority contacts batched for efficiency"
+
+# ============================================
+# CONTENT-TYPE TRIAGE
+# ============================================
+
+content_type_rules:
+
+  calendar_events:
+    upcoming_meeting:
+      lead_time_center: 15  # minutes
+      lead_time_periphery: 60  # minutes
+      with_preparation:
+        lead_time_center: 30
+        lead_time_periphery: 90
+        
+  messages:
+    from_known_contact:
+      default_zone: "periphery"
+      upgrade_to_center_if:
+        - "contains_question_needing_response"
+        - "contains_time_sensitive_info"
+        - "marked_urgent_by_sender"
+        
+    from_unknown:
+      default_zone: "silence"
+      upgrade_to_periphery_if:
+        - "appears_professional"
+        - "references_known_context"
+        
+  emails:
+    work_related:
+      during_work: "periphery"
+      outside_work: "silence"
+      
+    personal:
+      default: "batch_for_processing"
+      
+    from_advisor:
+      default: "periphery"
+      before_meeting: "center"
+      
+  notifications:
+    system_alerts:
+      zone: "center"
+      
+    app_notifications:
+      default: "silence"
+      exceptions:
+        - app: "calendar"
+          zone: "center"
+        - app: "reminders"
+          zone: "periphery"
+
+# ============================================
+# TEMPORAL TRIAGE
+# Time-based adjustments
+# ============================================
+
+temporal_rules:
+
+  time_of_day:
+    early_morning:  # before 8am
+      bias: "silence"
+      exceptions: ["calendar_alerts", "emma_zhao"]
+      rationale: "Protect morning routine"
+      
+    work_hours:  # 9am-6pm weekdays
+      bias: "balanced"
+      professional_contacts: "periphery"
+      
+    evening:  # 6pm-10pm
+      bias: "periphery"
+      work_content: "silence"
+      
+    night:  # after 10pm
+      bias: "silence"
+      exceptions: ["genuine_emergency"]
+      rationale: "Protect sleep"
+      
+  day_of_week:
+    friday_evening:
+      special_rule: "protect_date_night"
+      all_non_emergency: "silence"
+      
+    sunday_morning:
+      special_rule: "family_call_time"
+      mei_chen: "center"
+
+# ============================================
+# BEHAVIORAL CONTEXT TRIAGE
+# Adjusts based on detected state
+# ============================================
+
+behavioral_context:
+
+  stress_detected:
+    triage_adjustment: "more_aggressive_silencing"
+    only_surface: ["emma_zhao", "genuine_emergency"]
+    rationale: "Reduce cognitive load during stress"
+    
+  flow_state_detected:
+    triage_adjustment: "maximum_protection"
+    defer_everything: true
+    max_defer_duration: 120  # minutes
+    rationale: "Flow is precious, protect it"
+    
+  social_context_detected:
+    triage_adjustment: "presence_priority"
+    only_surface: ["genuine_emergency"]
+    rationale: "Be present with people"
+    
+  low_energy_detected:
+    triage_adjustment: "gentle_mode"
+    batch_more_aggressively: true
+    suggest_rest: true
+    rationale: "Don't overwhelm when depleted"
+
+# ============================================
+# TRIAGE EXPLANATIONS
+# Templates for explaining triage decisions to user
+# ============================================
+
+explanation_templates:
+  
+  held_during_focus: "I held {count} notifications while you were focused. {summary}"
+  
+  surfaced_despite_mode: "This came through because {reason}."
+  
+  batched_for_later: "I've grouped {count} similar items for when you have a moment."
+  
+  silenced_promotional: "Filtered out {count} promotional messages today."
+  
+  periphery_explanation: "This is in your periphery—available if you want it, not demanding attention."

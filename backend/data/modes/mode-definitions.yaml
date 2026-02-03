@@ -1,0 +1,412 @@
+# LifeOS Mode Definitions
+# Edit this file to modify mode behavior without touching code
+# Schema version: 1.0
+
+modes:
+
+  # ============================================
+  # NAVIGATION MODE
+  # Active transit toward a destination
+  # ============================================
+  navigation:
+    name: "Navigation"
+    description: "Active transit toward a destination"
+    icon: "arrow.triangle.turn.up.right.circle.fill"
+    
+    activation:
+      triggers:
+        - type: calendar_event_approach
+          conditions:
+            time_until_event: "<= 45 minutes"
+            event_has_location: true
+            current_location: "!= event_location"
+            confidence_boost: 0.3
+            
+        - type: explicit_intent
+          conditions:
+            intent_type: "navigate_to"
+            confidence_boost: 0.5
+            
+        - type: location_departure
+          conditions:
+            leaving_known_location: true
+            no_return_expected: true
+            confidence_boost: 0.2
+      
+      confidence_threshold: 0.7
+      hysteresis_minutes: 3
+      
+    deactivation:
+      triggers:
+        - type: arrival
+          conditions:
+            at_destination: true
+            confidence: 0.9
+            
+        - type: explicit_exit
+          conditions:
+            user_requested: true
+            
+        - type: timeout
+          conditions:
+            no_movement_minutes: 10
+            
+      exit_friction: low  # Easy to exit navigation
+    
+    constraints:
+      allowed_intents:
+        - navigate
+        - modify_route
+        - check_arrival_time
+        - preview_destination
+        - quick_message  # Can send quick messages while navigating
+        - exit_mode
+        
+      blocked_intents:
+        - deep_work
+        - long_form_content
+        - complex_decisions
+    
+    triage:
+      center:
+        - navigation_directions
+        - arrival_time
+        - traffic_alerts
+        - destination_context
+        
+      periphery:
+        - messages_from_high_priority
+        - upcoming_calendar_conflicts
+        - weather_at_destination
+        
+      silence:
+        - social_notifications
+        - news
+        - email_non_urgent
+        - promotional
+        
+    context_preparation:
+      on_entry:
+        - fetch_destination_details
+        - check_who_will_be_there
+        - prepare_arrival_context
+      on_exit:
+        - summarize_held_notifications
+        - transition_context_to_next_mode
+
+  # ============================================
+  # FOCUS MODE
+  # Deep work requiring minimal interruption
+  # ============================================
+  focus:
+    name: "Focus"
+    description: "Deep work requiring minimal interruption"
+    icon: "brain.head.profile"
+    
+    activation:
+      triggers:
+        - type: scheduled_focus_block
+          conditions:
+            calendar_event_type: "focus_time"
+            confidence_boost: 0.4
+            
+        - type: explicit_intent
+          conditions:
+            intent_type: "start_focus"
+            confidence_boost: 0.5
+            
+        - type: behavioral_signal
+          conditions:
+            app_in_use: ["figma", "vscode", "notion"]
+            duration_minutes: ">= 15"
+            no_app_switching: true
+            confidence_boost: 0.25
+      
+      confidence_threshold: 0.75
+      hysteresis_minutes: 10  # Don't exit quickly once in focus
+      
+    deactivation:
+      triggers:
+        - type: scheduled_end
+          conditions:
+            focus_block_ended: true
+            
+        - type: explicit_exit
+          conditions:
+            user_requested: true
+            
+        - type: behavioral_signal
+          conditions:
+            distraction_pattern_detected: true
+            duration_minutes: ">= 10"
+            
+      exit_friction: medium  # Confirm before exiting focus
+      exit_friction_message: "You've been focused for {duration}. Ready to wrap up, or continue?"
+    
+    constraints:
+      allowed_intents:
+        - work_task
+        - quick_reference
+        - brief_break
+        - extend_focus
+        - exit_mode
+        
+      blocked_intents:
+        - social_browse
+        - entertainment
+        - shopping
+    
+    triage:
+      center:
+        - current_task_context
+        - relevant_reference_material
+        - timer_progress
+        
+      periphery:
+        - messages_from_emma_only
+        - urgent_calendar_conflicts
+        
+      silence:
+        - all_notifications_except_emergency
+        - email
+        - social
+        - news
+        
+    focus_specific:
+      default_duration_minutes: 90
+      break_reminder: true
+      break_duration_minutes: 15
+      distraction_detection: true
+      distraction_response: "gentle_redirect"
+
+  # ============================================
+  # SOCIAL MODE
+  # Present with others, minimal digital intrusion
+  # ============================================
+  social:
+    name: "Social"
+    description: "Present with others, minimal digital intrusion"
+    icon: "person.2.fill"
+    
+    activation:
+      triggers:
+        - type: calendar_event
+          conditions:
+            event_type: "social"
+            event_started: true
+            confidence_boost: 0.35
+            
+        - type: explicit_intent
+          conditions:
+            intent_type: "social_time"
+            confidence_boost: 0.5
+            
+        - type: location_context
+          conditions:
+            at_social_venue: true
+            with_known_contacts: true
+            confidence_boost: 0.3
+      
+      confidence_threshold: 0.7
+      hysteresis_minutes: 5
+      
+    deactivation:
+      triggers:
+        - type: calendar_event_end
+          conditions:
+            social_event_ended: true
+            
+        - type: explicit_exit
+          conditions:
+            user_requested: true
+            
+        - type: location_departure
+          conditions:
+            left_social_venue: true
+            
+      exit_friction: low
+    
+    constraints:
+      allowed_intents:
+        - share_content  # Show something to friends
+        - capture_moment  # Take photo
+        - quick_lookup   # Settle a debate
+        - exit_mode
+        
+      blocked_intents:
+        - work_tasks
+        - deep_reading
+        - extended_browsing
+    
+    triage:
+      center:
+        - present_moment  # Minimal UI, just time/battery
+        - people_present_context
+        
+      periphery:
+        - nothing  # Everything held during social time
+        
+      silence:
+        - all_except_genuine_emergency
+        
+    social_specific:
+      screen_time_awareness: true
+      phone_pickup_gentle_reminder: true
+      capture_without_disruption: true
+
+  # ============================================
+  # REST MODE  
+  # Downtime and recovery
+  # ============================================
+  rest:
+    name: "Rest"
+    description: "Downtime and recovery"
+    icon: "leaf.fill"
+    
+    activation:
+      triggers:
+        - type: time_based
+          conditions:
+            after_time: "21:00"
+            before_time: "07:00"
+            at_home: true
+            confidence_boost: 0.3
+            
+        - type: explicit_intent
+          conditions:
+            intent_type: "wind_down"
+            confidence_boost: 0.5
+            
+        - type: health_signal
+          conditions:
+            low_energy_detected: true
+            confidence_boost: 0.25
+      
+      confidence_threshold: 0.65
+      hysteresis_minutes: 15
+      
+    deactivation:
+      triggers:
+        - type: morning_routine
+          conditions:
+            wake_time_reached: true
+            movement_detected: true
+            
+        - type: explicit_exit
+          conditions:
+            user_requested: true
+            
+      exit_friction: low
+    
+    constraints:
+      allowed_intents:
+        - casual_browse
+        - entertainment
+        - light_reading
+        - message_emma
+        - exit_mode
+        
+      blocked_intents:
+        - work_tasks
+        - email_processing
+        - complex_planning
+    
+    triage:
+      center:
+        - time
+        - tomorrow_preview
+        - relaxation_suggestions
+        
+      periphery:
+        - messages_from_close_contacts
+        - gentle_reminders
+        
+      silence:
+        - work_email
+        - news
+        - anything_stress_inducing
+        
+    rest_specific:
+      wind_down_features:
+        - reduce_blue_light: true
+        - suggest_bedtime: true
+        - limit_stimulating_content: true
+      morning_features:
+        - gradual_notification_introduction: true
+        - energy_assessment: true
+
+  # ============================================
+  # WORK MODE
+  # Professional tasks and communications
+  # ============================================
+  work:
+    name: "Work"
+    description: "Professional tasks and communications"
+    icon: "briefcase.fill"
+    
+    activation:
+      triggers:
+        - type: scheduled_work
+          conditions:
+            work_calendar_event: true
+            confidence_boost: 0.35
+            
+        - type: location
+          conditions:
+            at_work_location: true
+            during_work_hours: true
+            confidence_boost: 0.3
+            
+        - type: explicit_intent
+          conditions:
+            intent_type: "start_work"
+            confidence_boost: 0.5
+      
+      confidence_threshold: 0.7
+      hysteresis_minutes: 5
+      
+    deactivation:
+      triggers:
+        - type: work_hours_end
+          conditions:
+            after_work_hours: true
+            no_active_tasks: true
+            
+        - type: explicit_exit
+          conditions:
+            user_requested: true
+            
+      exit_friction: low
+    
+    constraints:
+      allowed_intents:
+        - work_task
+        - email_processing
+        - meeting_join
+        - work_communication
+        - brief_break
+        - exit_mode
+        
+      blocked_intents:
+        - entertainment_browse
+        - social_media_scroll
+    
+    triage:
+      center:
+        - current_work_tasks
+        - work_communications
+        - meeting_reminders
+        
+      periphery:
+        - personal_messages_brief
+        - non_urgent_work_items
+        
+      silence:
+        - social_notifications
+        - entertainment
+        - promotional
+        
+    work_specific:
+      meeting_preparation: true
+      end_of_day_summary: true
+      task_batching_suggestions: true

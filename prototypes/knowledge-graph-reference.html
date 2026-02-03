@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knowledge Graph Reference - Marcus Chen</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            border-left: 4px solid #3498db;
+            padding-left: 20px;
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .meta-info {
+            background: #ecf0f1;
+            padding: 10px 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .meta-info strong {
+            color: #2c3e50;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        li {
+            margin: 8px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .key {
+            font-weight: 600;
+            color: #2980b9;
+            display: inline-block;
+            min-width: 150px;
+        }
+
+        .value {
+            color: #27ae60;
+        }
+
+        .value-string {
+            color: #27ae60;
+        }
+
+        .value-number {
+            color: #e74c3c;
+            font-family: 'Monaco', 'Courier New', monospace;
+        }
+
+        .value-boolean {
+            color: #9b59b6;
+            font-family: 'Monaco', 'Courier New', monospace;
+        }
+
+        .value-null {
+            color: #95a5a6;
+            font-style: italic;
+        }
+
+        .nested-object {
+            margin-left: 20px;
+            border-left: 2px solid #bdc3c7;
+            padding-left: 15px;
+            margin-top: 5px;
+        }
+
+        .nested-array {
+            margin-left: 20px;
+            border-left: 2px solid #e74c3c;
+            padding-left: 15px;
+            margin-top: 5px;
+        }
+
+        .array-item {
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .array-item::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .empty {
+            color: #95a5a6;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .section-title {
+                font-size: 1.5em;
+            }
+
+            .key {
+                min-width: 100px;
+                display: block;
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Knowledge Graph Reference</h1>
+        <p class="subtitle">Complete data reference for Marcus Chen's personal knowledge graph</p>
+        <div id="content"></div>
+    </div>
+
+    <script>
+        // Embedded JSON data
+        const identityData = {
+            "meta": {
+                "schema_version": "1.0",
+                "last_updated": "2030-10-14",
+                "data_type": "identity_profile"
+            },
+            "basics": {
+                "name": "Marcus Chen",
+                "age": 28,
+                "birthday": "2002-04-12",
+                "pronouns": "he/him",
+                "occupation": {
+                    "primary": "Design student (Masters, final year)",
+                    "secondary": "Part-time UX contractor"
+                },
+                "location": {
+                    "city": "New York City",
+                    "neighborhood": "West Village",
+                    "country": "United States",
+                    "timezone": "America/New_York",
+                    "university": "School of Visual Arts (SVA)"
+                }
+            },
+            "personality": {
+                "summary": "Thoughtful, creative, occasionally anxious. Values deep connection over breadth. Tends to overthink but produces quality work when given space.",
+                "communication_style": "Direct and warm. Verbose when excited about a topic. Prefers async communication for non-urgent matters.",
+                "decision_making": "Deliberate, research-heavy. Will gather information before committing. Sometimes overthinks simple choices.",
+                "stress_response": "Withdraws socially, increases passive media consumption, sleep disruption, skips exercise.",
+                "recovery_pattern": "Needs genuine downtime (not productive rest). Reconnects with close friends. Returns to exercise routine."
+            },
+            "life_stage": {
+                "current": "final_year_masters",
+                "major_pressures": [
+                    "Thesis deadline approaching",
+                    "Job search in competitive market",
+                    "Maintaining relationships during high-stress period",
+                    "Financial pressure from reduced contract work"
+                ],
+                "aspirations": [
+                    "Meaningful design career with social impact",
+                    "Work-life balance (learned from burnout in undergrad)",
+                    "Creative fulfillment outside of work",
+                    "Building lasting friendships in NYC"
+                ]
+            },
+            "lifeos_relationship": {
+                "adoption_date": "2028-06-01",
+                "trust_level": "high",
+                "automation_preference": 0.75,
+                "agency_preference": 0.25,
+                "override_frequency": "rare",
+                "primary_value": "Cognitive ease and flow state maintenance",
+                "notes": "Marcus adopted LifeOS after experiencing burnout. He values the system's ability to manage complexity so he can focus on what matters. He rarely questions recommendations but occasionally needs to assert agency during high-stakes moments."
+            }
+        };
+
+        const relationshipsData = {
+            "meta": {
+                "schema_version": "1.0",
+                "last_updated": "2030-10-14",
+                "data_type": "relationships"
+            },
+            "inner_circle": [
+                {
+                    "id": "emma_zhao",
+                    "name": "Emma Zhao",
+                    "relationship": "romantic_partner",
+                    "duration_years": 2.5,
+                    "context": "Met at a design conference. Also a designer, works at a sustainability startup in NYC.",
+                    "communication_patterns": {
+                        "frequency": "daily",
+                        "preferred_channels": ["messages", "calls", "in_person"],
+                        "response_expectation": "high_priority",
+                        "typical_topics": ["daily_life", "work_stress", "future_plans", "emotional_support"]
+                    },
+                    "interaction_dynamics": {
+                        "support_style": "Emma is grounding when Marcus spirals. He processes out loud with her.",
+                        "tension_points": "Marcus can withdraw when stressed; Emma prefers direct communication about struggles.",
+                        "shared_activities": ["cooking", "gallery_visits", "morning_walks", "exploring NYC"]
+                    },
+                    "lifeos_notes": {
+                        "priority_level": "highest",
+                        "always_surface": true,
+                        "context_sharing": "full"
+                    }
+                },
+                {
+                    "id": "mei_chen",
+                    "name": "Mom",
+                    "relationship": "mother",
+                    "context": "Supportive and caring. Messages regularly, especially before important events like thesis critiques.",
+                    "communication_patterns": {
+                        "frequency": "weekly",
+                        "preferred_channels": ["messages", "calls"],
+                        "response_expectation": "medium_priority",
+                        "typical_topics": ["health", "career", "encouragement", "family_news"]
+                    },
+                    "interaction_dynamics": {
+                        "support_style": "Expresses care through encouragement and concern. Sends supportive messages before big days.",
+                        "tension_points": "Can be anxious about Marcus's wellbeing. Marcus sometimes delays calls when stressed to avoid worry.",
+                        "shared_activities": ["weekly_calls", "holiday_visits"]
+                    },
+                    "lifeos_notes": {
+                        "priority_level": "high",
+                        "always_surface": false,
+                        "context_sharing": "limited",
+                        "special_rules": "Remind Marcus if he hasn't called in 10+ days. Surface messages on important days."
+                    }
+                },
+                {
+                    "id": "sarah_chen",
+                    "name": "Sarah Chen",
+                    "relationship": "close_friend_peer",
+                    "duration_years": 1.5,
+                    "context": "Design cohort peer at SVA. Working on thesis about AI and creative agency in music production. They support each other through critiques.",
+                    "communication_patterns": {
+                        "frequency": "daily_during_thesis",
+                        "preferred_channels": ["messages", "in_person"],
+                        "response_expectation": "high_priority",
+                        "typical_topics": ["thesis_progress", "critique_prep", "peer_review", "moral_support"]
+                    },
+                    "interaction_dynamics": {
+                        "support_style": "Mutual academic support. They review each other's work and debrief after critiques.",
+                        "tension_points": "Both stressed during crunch times but generally low-conflict.",
+                        "shared_activities": ["thesis_work", "critique_sessions", "coffee_breaks", "decompression_walks"]
+                    },
+                    "lifeos_notes": {
+                        "priority_level": "high",
+                        "always_surface": true,
+                        "context_sharing": "partial",
+                        "special_rules": "Always surface during thesis work and critique days"
+                    }
+                }
+            ],
+            "close_network": [
+                {
+                    "id": "prof_martinez",
+                    "name": "Prof. Martinez",
+                    "relationship": "thesis_advisor",
+                    "context": "Primary thesis advisor at SVA. Specializes in human-computer interaction and design theory. Supportive but demanding. Values theoretical rigor and clear methodology.",
+                    "communication_patterns": {
+                        "frequency": "weekly_meetings",
+                        "preferred_channels": ["email", "scheduled_meetings", "in_person"],
+                        "response_expectation": "professional_priority",
+                        "typical_topics": ["thesis_progress", "research", "career_guidance", "theoretical_frameworks"]
+                    },
+                    "advising_style": {
+                        "values": "Theoretical rigor and clear methodology",
+                        "feedback_pattern": "Direct and constructive. Pushes for sharper arguments.",
+                        "relationship_quality": "Supportive, willing to have conversations beyond just academic (career, life advice)"
+                    },
+                    "lifeos_notes": {
+                        "priority_level": "high_during_work",
+                        "always_surface": false,
+                        "context_sharing": "none",
+                        "special_rules": "Always surface messages before scheduled meetings"
+                    }
+                },
+                {
+                    "id": "prof_chen",
+                    "name": "Prof. Chen",
+                    "relationship": "faculty_committee",
+                    "context": "Interaction design faculty at SVA. Part of Marcus's thesis committee.",
+                    "communication_patterns": {
+                        "frequency": "critiques_only",
+                        "preferred_channels": ["email", "critiques"],
+                        "response_expectation": "professional_priority",
+                        "typical_topics": ["interaction_design", "thesis_feedback"]
+                    },
+                    "lifeos_notes": {
+                        "priority_level": "medium",
+                        "always_surface": false,
+                        "context_sharing": "none"
+                    }
+                },
+                {
+                    "id": "prof_williams",
+                    "name": "Prof. Williams",
+                    "relationship": "faculty_committee",
+                    "context": "Theory specialist at SVA. Part of Marcus's thesis committee.",
+                    "communication_patterns": {
+                        "frequency": "critiques_only",
+                        "preferred_channels": ["email", "critiques"],
+                        "response_expectation": "professional_priority",
+                        "typical_topics": ["design_theory", "thesis_feedback"]
+                    },
+                    "lifeos_notes": {
+                        "priority_level": "medium",
+                        "always_surface": false,
+                        "context_sharing": "none"
+                    }
+                },
+                {
+                    "id": "design_cohort",
+                    "name": "Design Cohort Group",
+                    "relationship": "peer_group",
+                    "context": "Group chat with fellow SVA design students. Coordination for critiques, social events, mutual support.",
+                    "communication_patterns": {
+                        "frequency": "daily",
+                        "preferred_channels": ["group_messages"],
+                        "response_expectation": "casual",
+                        "typical_topics": ["critique_schedules", "social_plans", "studio_logistics", "commiseration"]
+                    },
+                    "lifeos_notes": {
+                        "priority_level": "low",
+                        "always_surface": false,
+                        "context_sharing": "none",
+                        "special_rules": "Batch with other casual communications. Surface coordination messages on critique days."
+                    }
+                }
+            ],
+            "relationship_patterns": {
+                "initiation_tendency": "Marcus is more responsive than initiating. LifeOS prompts relationship maintenance.",
+                "conflict_style": "Avoidant initially, then direct once he's processed. Needs space before difficult conversations.",
+                "support_seeking": "Tends to withdraw rather than seek support. LifeOS monitors for isolation patterns.",
+                "social_energy": "Introverted. Needs recovery time after social events. Prefers depth over breadth."
+            }
+        };
+
+        const behaviorsData = {
+            "meta": {
+                "schema_version": "1.0",
+                "last_updated": "2030-03-15",
+                "data_type": "behavioral_patterns"
+            },
+            "temporal_patterns": {
+                "daily_rhythm": {
+                    "wake_time": "07:00-07:30",
+                    "sleep_time": "23:00-23:30",
+                    "peak_cognitive": ["09:00-12:00", "14:30-17:00"],
+                    "low_energy": ["13:00-14:30", "21:00-23:00"],
+                    "exercise_window": "07:30-08:30"
+                },
+                "weekly_rhythm": {
+                    "high_productivity_days": ["tuesday", "wednesday", "thursday"],
+                    "social_days": ["friday", "saturday"],
+                    "rest_days": ["sunday"],
+                    "variable_days": ["monday"]
+                },
+                "work_patterns": {
+                    "deep_work_sessions": {
+                        "typical_duration": "90-120 minutes",
+                        "preferred_time": "morning",
+                        "interruption_tolerance": "very_low"
+                    },
+                    "meetings_preference": "afternoons, batched if possible",
+                    "admin_tasks": "end of day or Monday morning"
+                }
+            },
+            "communication_patterns": {
+                "response_latency": {
+                    "emma_zhao": "immediate when available",
+                    "inner_circle": "within 30 minutes when available",
+                    "professional": "2-4 hours during work hours",
+                    "acquaintances": "variable, sometimes days"
+                },
+                "message_checking": {
+                    "active_work": "batched every 45-60 minutes",
+                    "casual_time": "more frequent",
+                    "focus_mode": "suppressed entirely"
+                },
+                "communication_debt": {
+                    "tendency": "accumulates during stress",
+                    "recovery": "batch response sessions",
+                    "lifeos_intervention": "gentle reminders before debt becomes awkward"
+                }
+            },
+            "health_patterns": {
+                "exercise": {
+                    "routine": ["monday", "wednesday", "friday"],
+                    "type": "morning_run",
+                    "duration": "30-45 minutes",
+                    "adherence_rate": 0.65,
+                    "skip_triggers": ["poor_sleep", "deadline_pressure", "illness"]
+                },
+                "sleep": {
+                    "target": "7.5 hours",
+                    "actual_average": "6.8 hours",
+                    "quality_factors": ["screen_time_before_bed", "stress_level", "exercise"],
+                    "disruption_triggers": ["thesis_anxiety", "relationship_conflict", "deadline"]
+                },
+                "stress_indicators": {
+                    "early_signs": ["sleep_disruption", "exercise_skip", "increased_social_media"],
+                    "escalation_signs": ["social_withdrawal", "meal_skipping", "work_paralysis"],
+                    "recovery_signals": ["exercise_resumption", "social_reengagement", "normal_sleep"]
+                }
+            },
+            "digital_patterns": {
+                "productive_apps": {
+                    "figma": "design work",
+                    "notion": "thesis notes and planning",
+                    "zotero": "research management",
+                    "vscode": "occasional prototyping"
+                },
+                "consumption_apps": {
+                    "youtube": "learning and procrastination",
+                    "reddit": "design communities and distraction",
+                    "spotify": "constant background"
+                },
+                "problematic_patterns": {
+                    "youtube_rabbit_holes": {
+                        "trigger": "procrastination, stress avoidance",
+                        "typical_duration": "45-90 minutes",
+                        "time_of_day": "late evening",
+                        "lifeos_response": "gentle interrupt after 30 minutes during work hours"
+                    },
+                    "doomscrolling": {
+                        "trigger": "anxiety, inability to start task",
+                        "platforms": ["reddit", "news"],
+                        "lifeos_response": "suggest alternative or surface root cause"
+                    }
+                }
+            },
+            "location_patterns": {
+                "primary_locations": {
+                    "home": {
+                        "address": "247 Brunswick Street, Fitzroy",
+                        "typical_activities": ["rest", "personal_projects", "relationship_time"],
+                        "work_suitability": "moderate - easily distracted"
+                    },
+                    "university_studio": {
+                        "location": "RMIT Design Hub, Building 100",
+                        "typical_activities": ["thesis_work", "peer_collaboration", "advisor_meetings"],
+                        "work_suitability": "high"
+                    },
+                    "cafe_work": {
+                        "preferred": "Industry Beans, Fitzroy",
+                        "typical_activities": ["writing", "reading", "contract_work"],
+                        "work_suitability": "high for certain tasks"
+                    }
+                },
+                "commute_patterns": {
+                    "home_to_university": {
+                        "method": "tram",
+                        "duration": "25 minutes",
+                        "typical_times": ["08:30", "10:00"]
+                    }
+                }
+            },
+            "context_switching_profile": {
+                "tolerance": "low",
+                "recovery_time": "10-15 minutes after interruption",
+                "worst_case": "deep_work interrupted by non-urgent notification",
+                "acceptable_interrupts": ["emma", "genuine_emergencies", "time_critical_commitments"],
+                "lifeos_directive": "minimize switches, batch similar tasks, protect deep work"
+            }
+        };
+
+        const calendarData = {
+            "meta": {
+                "schema_version": "1.0",
+                "last_updated": "2030-10-14",
+                "data_type": "calendar_patterns"
+            },
+            "recurring_commitments": {
+                "academic": [
+                    {
+                        "name": "Thesis Advisor Meeting",
+                        "day": "thursday",
+                        "time": "14:00",
+                        "duration": "60 minutes",
+                        "location": "Prof. Martinez's office, SVA",
+                        "preparation_needed": true,
+                        "preparation_time": "30 minutes"
+                    },
+                    {
+                        "name": "Design Studio Hours",
+                        "days": ["tuesday", "wednesday", "thursday"],
+                        "time": "09:00-17:00",
+                        "location": "SVA Design Studios, W 21st",
+                        "type": "block"
+                    }
+                ],
+                "personal": [
+                    {
+                        "name": "Morning Routine",
+                        "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+                        "time": "08:00-08:45",
+                        "duration": "45 minutes",
+                        "location": "home",
+                        "flexible": true,
+                        "notes": "Wake-up, coffee, messages, light content consumption"
+                    },
+                    {
+                        "name": "Gym Session",
+                        "days": ["monday", "wednesday", "friday"],
+                        "time": "17:00",
+                        "duration": "75 minutes",
+                        "location": "Blink Fitness Chelsea",
+                        "flexible": true,
+                        "notes": "Monday: upper body + cardio"
+                    },
+                    {
+                        "name": "Call with Mom",
+                        "day": "sunday",
+                        "time": "11:00",
+                        "duration": "30-45 minutes",
+                        "flexible": true
+                    }
+                ],
+                "social": [
+                    {
+                        "name": "Date Night",
+                        "day": "friday",
+                        "time": "19:00",
+                        "duration": "evening",
+                        "with": "emma_zhao",
+                        "flexible": false,
+                        "notes": "Protected time. Rarely cancelled."
+                    }
+                ],
+                "work": [
+                    {
+                        "name": "Contract Work Block",
+                        "days": ["monday", "tuesday"],
+                        "time": "varies",
+                        "notes": "Reserved for UX contract work when available"
+                    }
+                ]
+            },
+            "upcoming_milestones": [
+                {
+                    "name": "Thesis Critique - Milestone Review",
+                    "date": "2030-10-14",
+                    "time": "14:00",
+                    "location": "SVA, W 21st",
+                    "stress_level": "high",
+                    "preparation_mode": "intensive_focus",
+                    "duration": "105 minutes",
+                    "participants": ["prof_martinez", "prof_chen", "prof_williams"],
+                    "format": "20-min presentation + 45-min discussion + feedback",
+                    "notes": "High-stakes milestone affecting ability to continue to thesis development phase"
+                },
+                {
+                    "name": "Emma's Birthday",
+                    "date": "2030-11-05",
+                    "type": "personal",
+                    "reminder_advance": "2 weeks for planning"
+                },
+                {
+                    "name": "Thesis Final Draft Deadline",
+                    "date": "2030-12-15",
+                    "stress_level": "high",
+                    "preparation_mode": "intensive_focus"
+                }
+            ],
+            "scheduling_preferences": {
+                "meeting_batching": true,
+                "preferred_meeting_days": ["tuesday", "thursday"],
+                "no_meeting_times": ["before 09:00", "after 19:00", "friday_evening"],
+                "buffer_between_meetings": "15 minutes minimum",
+                "deep_work_protection": ["wednesday_morning", "thursday_morning"]
+            },
+            "calendar_patterns": {
+                "overcommitment_tendency": "moderate",
+                "saying_no": "difficult, improving",
+                "scheduling_lead_time": "prefers 2+ days notice",
+                "spontaneity_tolerance": "low during thesis crunch, higher on weekends"
+            }
+        };
+
+        const locationsData = {
+            "meta": {
+                "schema_version": "1.0",
+                "last_updated": "2030-10-14",
+                "data_type": "locations"
+            },
+            "primary_locations": {
+                "home": {
+                    "id": "home",
+                    "name": "Home",
+                    "address": "West Village, Manhattan, NYC",
+                    "neighborhood": "West Village",
+                    "coordinates": {
+                        "lat": 40.7336,
+                        "lng": -74.0027
+                    },
+                    "type": "residence",
+                    "context": {
+                        "typical_modes": ["restore", "personal", "relationship"],
+                        "work_suitability": 0.5,
+                        "focus_suitability": 0.4,
+                        "notes": "Comfortable but easy to get distracted. Best for rest and personal time."
+                    },
+                    "connected_people": ["emma_zhao"],
+                    "typical_times": {
+                        "weekday_morning": "08:00-08:45",
+                        "weekday_evening": "19:00-23:30",
+                        "weekend": "flexible"
+                    }
+                },
+                "university": {
+                    "id": "sva",
+                    "name": "School of Visual Arts (SVA)",
+                    "address": "W 21st Street, Manhattan, NYC",
+                    "neighborhood": "Chelsea",
+                    "coordinates": {
+                        "lat": 40.7425,
+                        "lng": -73.9930
+                    },
+                    "type": "work_study",
+                    "context": {
+                        "typical_modes": ["focus", "work", "collaboration"],
+                        "work_suitability": 0.9,
+                        "focus_suitability": 0.85,
+                        "notes": "Primary thesis workspace. Critique rooms and studio spaces. Professors Martinez, Chen, and Williams based here."
+                    },
+                    "connected_people": ["prof_martinez", "prof_chen", "prof_williams", "sarah_chen"],
+                    "amenities": ["desk", "monitor", "quiet_zones", "meeting_rooms", "critique_rooms"],
+                    "typical_times": {
+                        "weekdays": "09:00-17:00"
+                    }
+                },
+                "advisor_office": {
+                    "id": "martinez_office",
+                    "name": "Prof. Martinez's Office",
+                    "address": "SVA Building, W 21st Street",
+                    "coordinates": {
+                        "lat": 40.7425,
+                        "lng": -73.9930
+                    },
+                    "type": "meeting",
+                    "context": {
+                        "typical_modes": ["focus", "professional"],
+                        "notes": "Thesis advisor meetings. Arrive 5 minutes early."
+                    },
+                    "connected_people": ["prof_martinez"]
+                },
+                "cafe_workspace": {
+                    "id": "plantshed",
+                    "name": "Plantshed",
+                    "address": "Chelsea, Manhattan, NYC",
+                    "neighborhood": "Chelsea",
+                    "coordinates": {
+                        "lat": 40.7450,
+                        "lng": -73.9970
+                    },
+                    "type": "cafe_work",
+                    "context": {
+                        "typical_modes": ["focus", "casual_work"],
+                        "work_suitability": 0.75,
+                        "focus_suitability": 0.7,
+                        "notes": "Good for thesis prep and reading. Ambient noise helps. Plant-filled atmosphere. Not ideal for calls."
+                    },
+                    "typical_activities": ["thesis_writing", "reading", "contract_work", "critique_prep"],
+                    "typical_times": {
+                        "weekday_morning": "09:00-12:00",
+                        "weekend": "10:00-14:00"
+                    }
+                }
+            },
+            "frequent_destinations": {
+                "emma_apartment": {
+                    "id": "emma_place",
+                    "name": "Emma's Place",
+                    "address": "East Village, Manhattan, NYC",
+                    "neighborhood": "East Village",
+                    "type": "social",
+                    "travel_time_from_home": "15 minutes walk",
+                    "connected_people": ["emma_zhao"],
+                    "typical_modes": ["relationship", "social"]
+                },
+                "gym": {
+                    "id": "blink_chelsea",
+                    "name": "Blink Fitness Chelsea",
+                    "address": "Chelsea, Manhattan, NYC",
+                    "neighborhood": "Chelsea",
+                    "coordinates": {
+                        "lat": 40.7420,
+                        "lng": -73.9950
+                    },
+                    "type": "fitness",
+                    "typical_times": ["17:00-18:30"],
+                    "typical_modes": ["focus"],
+                    "context": {
+                        "notes": "Monday routine: upper body + cardio. 60-75 minute sessions."
+                    }
+                },
+                "union_square_park": {
+                    "id": "union_square",
+                    "name": "Union Square Park",
+                    "address": "Union Square, Manhattan, NYC",
+                    "coordinates": {
+                        "lat": 40.7359,
+                        "lng": -73.9911
+                    },
+                    "type": "public_space",
+                    "typical_modes": ["restore", "navigation"],
+                    "context": {
+                        "notes": "Near SVA. Good for decompression after intense sessions. Bench spots for reflection."
+                    }
+                }
+            },
+            "commute_routes": {
+                "home_to_sva": {
+                    "methods": ["walk", "subway"],
+                    "walk": {
+                        "duration_minutes": 15,
+                        "route": "West Village → Chelsea via 7th Ave"
+                    },
+                    "subway": {
+                        "lines": ["A", "C", "E", "B", "D", "F", "M"],
+                        "station_from": "W 4th St-Washington Sq",
+                        "station_to": "14th St or 23rd St",
+                        "duration_minutes": 10
+                    },
+                    "typical_mode_during_transit": "navigation"
+                },
+                "home_to_emma": {
+                    "method": "walk",
+                    "duration_minutes": 15,
+                    "typical_mode_during_transit": "navigation"
+                },
+                "sva_to_gym": {
+                    "method": "walk",
+                    "duration_minutes": 8,
+                    "route": "W 21st → Chelsea gym",
+                    "typical_mode_during_transit": "navigation"
+                },
+                "gym_to_home": {
+                    "method": "walk",
+                    "duration_minutes": 12,
+                    "route": "Chelsea → West Village",
+                    "typical_mode_during_transit": "navigation"
+                }
+            },
+            "location_behaviors": {
+                "arrival_preparation": "Likes to know what he's walking into. LifeOS prepares context before arrival.",
+                "departure_patterns": "Often runs slightly late. LifeOS factors buffer time.",
+                "new_location_anxiety": "Moderate. Appreciates address confirmation and what to expect.",
+                "weather_sensitivity": "Prefers walking when weather permits (optimal around 15°C/60°F). Will take subway in bad weather."
+            }
+        };
+
+        const healthData = {
+            "meta": {
+                "schema_version": "1.0",
+                "last_updated": "2030-03-15",
+                "data_type": "health_biometrics"
+            },
+            "baseline_metrics": {
+                "resting_heart_rate": {
+                    "average": 62,
+                    "healthy_range": [55, 70],
+                    "elevated_threshold": 75,
+                    "notes": "Elevates with stress and poor sleep"
+                },
+                "hrv": {
+                    "average": 45,
+                    "healthy_range": [40, 60],
+                    "low_threshold": 35,
+                    "notes": "Key stress and recovery indicator"
+                },
+                "sleep": {
+                    "target_hours": 7.5,
+                    "actual_average": 6.8,
+                    "quality_average": 0.72,
+                    "deep_sleep_percent": 0.18,
+                    "rem_percent": 0.22
+                },
+                "activity": {
+                    "daily_step_target": 8000,
+                    "actual_average": 6500,
+                    "exercise_days_per_week": 2.8
+                }
+            },
+            "patterns": {
+                "stress_signature": {
+                    "biometric_indicators": [
+                        "HRV drops below 35",
+                        "Resting HR rises above 70",
+                        "Sleep quality below 0.6",
+                        "Activity drops significantly"
+                    ],
+                    "behavioral_correlation": [
+                        "Increased late-night screen time",
+                        "Skipped exercise",
+                        "Irregular meal times"
+                    ],
+                    "typical_recovery_time": "2-3 days with intervention"
+                },
+                "energy_cycles": {
+                    "morning": {
+                        "typical_energy": 0.7,
+                        "best_for": ["exercise", "creative_work"],
+                        "notes": "Needs 30 minutes to fully wake"
+                    },
+                    "midday": {
+                        "typical_energy": 0.85,
+                        "best_for": ["deep_work", "complex_tasks"],
+                        "notes": "Peak cognitive hours"
+                    },
+                    "afternoon": {
+                        "typical_energy": 0.6,
+                        "best_for": ["meetings", "collaborative_work", "admin"],
+                        "notes": "Post-lunch dip, recovers by 14:30"
+                    },
+                    "evening": {
+                        "typical_energy": 0.5,
+                        "best_for": ["light_tasks", "social", "rest"],
+                        "notes": "Should wind down for sleep"
+                    }
+                },
+                "sleep_factors": {
+                    "positive": [
+                        "Exercise earlier in day",
+                        "Consistent bedtime",
+                        "No screens after 22:00",
+                        "Social connection during day"
+                    ],
+                    "negative": [
+                        "Thesis anxiety",
+                        "Late caffeine",
+                        "Unresolved conflict",
+                        "Screen time before bed"
+                    ]
+                }
+            },
+            "health_goals": {
+                "primary": "Maintain stable energy for thesis completion",
+                "secondary": [
+                    "Improve sleep consistency",
+                    "Maintain exercise routine",
+                    "Reduce stress-driven behaviors"
+                ]
+            },
+            "lifeos_health_directives": {
+                "monitoring": [
+                    "Track stress signature indicators",
+                    "Alert when patterns suggest burnout trajectory",
+                    "Note exercise adherence"
+                ],
+                "interventions": {
+                    "stress_detected": "Suggest break, walk, or reaching out to Emma",
+                    "sleep_deficit": "Earlier wind-down mode, reduced evening notifications",
+                    "exercise_skipped": "Gentle reminder, no guilt, suggest alternative timing"
+                },
+                "boundaries": [
+                    "Never wake Marcus for non-emergencies",
+                    "Protect sleep schedule even for social invitations",
+                    "Don't surface health data in ways that increase anxiety"
+                ]
+            }
+        };
+
+        const communicationsData = {
+            "meta": {
+                "schema_version": "1.0",
+                "last_updated": "2030-03-15",
+                "data_type": "communications"
+            },
+            "channels": {
+                "messages": {
+                    "primary_use": "personal and casual professional",
+                    "check_frequency": {
+                        "during_focus": "batched every 60 minutes",
+                        "during_casual": "reactive",
+                        "during_social": "minimal"
+                    },
+                    "response_expectations": {
+                        "emma_zhao": "immediate when available",
+                        "inner_circle": "within 1 hour",
+                        "others": "same day"
+                    }
+                },
+                "email": {
+                    "primary_use": "professional, academic, contracts",
+                    "check_frequency": {
+                        "during_focus": "batched 2x per day",
+                        "during_casual": "as needed"
+                    },
+                    "response_expectations": {
+                        "advisor": "within 24 hours",
+                        "clients": "within 24 hours",
+                        "others": "2-3 days"
+                    }
+                },
+                "calls": {
+                    "preference": "scheduled, not spontaneous",
+                    "exceptions": ["emma_zhao", "family_emergency"],
+                    "voicemail_check": "end of day"
+                }
+            },
+            "notification_preferences": {
+                "always_immediate": ["emma_zhao", "calendar_reminders_15min", "meeting_starting"],
+                "batched": ["email", "social_media", "news", "non_urgent_messages"],
+                "silenced_during_focus": ["social_notifications", "promotional", "news_alerts"],
+                "never_silence": ["emma_zhao", "calendar_alerts", "genuine_emergencies"]
+            },
+            "communication_debt": {
+                "current_unanswered": {
+                    "messages": 3,
+                    "emails": 7,
+                    "notes": "Normal range. Tends to accumulate during thesis sprints."
+                },
+                "overdue_responses": [
+                    {
+                        "from": "james_okonkwo",
+                        "type": "message",
+                        "days_overdue": 2,
+                        "topic": "Gaming session planning",
+                        "urgency": "low"
+                    },
+                    {
+                        "from": "sarah_mitchell",
+                        "type": "email",
+                        "days_overdue": 1,
+                        "topic": "Project timeline question",
+                        "urgency": "medium"
+                    }
+                ],
+                "lifeos_behavior": "Gentle reminder when debt reaches awkward threshold. Suggest batch response sessions."
+            },
+            "communication_patterns": {
+                "initiation": {
+                    "tendency": "more_reactive_than_initiating",
+                    "lifeos_support": "Prompts relationship maintenance check-ins"
+                },
+                "tone": {
+                    "professional": "Polite, clear, slightly formal",
+                    "personal": "Warm, uses humor, occasional voice messages",
+                    "stressed": "Shorter, more transactional"
+                },
+                "problematic_patterns": {
+                    "avoidance": "Delays difficult conversations",
+                    "over_explaining": "Long messages when anxious",
+                    "radio_silence": "Goes quiet when overwhelmed"
+                }
+            },
+            "triage_rules": {
+                "immediate_surface": [
+                    {
+                        "condition": "from emma_zhao",
+                        "reason": "partner, always accessible"
+                    },
+                    {
+                        "condition": "contains 'urgent' from known contacts",
+                        "reason": "explicit urgency signal"
+                    },
+                    {
+                        "condition": "from priya_sharma within 2 hours of meeting",
+                        "reason": "likely meeting-related"
+                    }
+                ],
+                "batch_for_later": [
+                    {
+                        "condition": "promotional email",
+                        "reason": "never urgent"
+                    },
+                    {
+                        "condition": "social media notification",
+                        "reason": "distraction risk outweighs value"
+                    },
+                    {
+                        "condition": "newsletter",
+                        "reason": "process during dedicated reading time"
+                    }
+                ],
+                "context_dependent": [
+                    {
+                        "condition": "work email during focus mode",
+                        "action": "hold unless from active project stakeholder",
+                        "reason": "protect deep work"
+                    },
+                    {
+                        "condition": "friend message during work hours",
+                        "action": "periphery, not center",
+                        "reason": "available but not interrupting"
+                    }
+                ]
+            }
+        };
+
+        const digitalHistoryData = {
+            "meta": {
+                "schema_version": "1.0",
+                "last_updated": "2030-03-15",
+                "data_type": "digital_history",
+                "coverage": "2010-2030 (ages 3-23)"
+            },
+            "device_evolution": {
+                "childhood_2010_2015": {
+                    "primary_devices": ["family_ipad", "family_computer"],
+                    "usage_patterns": "Supervised, educational apps, early YouTube",
+                    "digital_literacy": "Basic interaction, content consumption"
+                },
+                "adolescence_2015_2020": {
+                    "primary_devices": ["smartphone", "laptop_for_school"],
+                    "usage_patterns": "Social media emergence, gaming, school research",
+                    "digital_literacy": "Growing independence, privacy awareness emerging"
+                },
+                "young_adult_2020_2025": {
+                    "primary_devices": ["iphone", "macbook", "ipad"],
+                    "usage_patterns": "Productivity tools, design software, streaming",
+                    "digital_literacy": "Professional tooling, workflow optimization"
+                },
+                "current_2025_2030": {
+                    "primary_devices": ["iphone_with_lifeos", "macbook", "apple_watch", "airpods"],
+                    "usage_patterns": "LifeOS-mediated, intent-based, reduced direct app interaction",
+                    "digital_literacy": "High trust in AI assistance, sophisticated about trade-offs"
+                }
+            },
+            "social_media_history": {
+                "platforms_used": {
+                    "instagram": {
+                        "active_years": "2016-2028",
+                        "current_status": "minimal, LifeOS-mediated",
+                        "usage_pattern": "Shifted from posting to passive consumption to near-abandonment",
+                        "content_type": "design inspiration, friend updates"
+                    },
+                    "twitter_x": {
+                        "active_years": "2018-2026",
+                        "current_status": "deleted",
+                        "reason_left": "Time sink, anxiety-inducing, low value"
+                    },
+                    "linkedin": {
+                        "active_years": "2022-present",
+                        "current_status": "professional maintenance only",
+                        "usage_pattern": "Job search, industry connections, rarely posts"
+                    },
+                    "reddit": {
+                        "active_years": "2017-present",
+                        "current_status": "active but managed",
+                        "communities": ["r/design", "r/userexperience", "r/melbourne"],
+                        "usage_pattern": "Information seeking, prone to rabbit holes"
+                    }
+                },
+                "overall_trajectory": "Gradual retreat from public sharing toward private consumption and professional-only presence"
+            },
+            "productivity_tool_evolution": {
+                "school_era": ["google_docs", "powerpoint", "basic_photoshop"],
+                "undergrad": ["figma", "sketch", "notion", "google_workspace"],
+                "masters": ["figma", "notion", "zotero", "miro", "vscode"],
+                "current_primary": {
+                    "design": "figma",
+                    "notes_planning": "notion",
+                    "research": "zotero",
+                    "code": "vscode",
+                    "communication": "lifeos_mediated"
+                }
+            },
+            "consumption_patterns": {
+                "video": {
+                    "platforms": ["youtube", "netflix", "stan"],
+                    "genres": ["design_talks", "documentaries", "comedy", "sci_fi"],
+                    "binge_tendency": "moderate, increases with stress",
+                    "lifeos_management": "Suggests stopping points, tracks against goals"
+                },
+                "music": {
+                    "platform": "spotify",
+                    "usage": "constant_background",
+                    "playlists": ["focus_instrumental", "running", "cooking_with_emma"],
+                    "discovery": "algorithmic, rarely seeks new music actively"
+                },
+                "reading": {
+                    "formats": ["kindle", "physical", "pocket_articles"],
+                    "genres": ["design_theory", "sci_fi", "psychology"],
+                    "current_pace": "slow due to thesis demands"
+                },
+                "gaming": {
+                    "platforms": ["playstation", "occasional_pc"],
+                    "genres": ["narrative_games", "co_op_with_james"],
+                    "frequency": "weekends when time permits",
+                    "social_aspect": "primary way of staying connected with James"
+                }
+            },
+            "smart_home_data": {
+                "devices": ["smart_lights", "smart_speaker", "smart_thermostat"],
+                "routines": {
+                    "morning": "Lights gradually brighten at 7:00, news briefing on speaker",
+                    "evening": "Lights dim at 21:30, temperature adjusts for sleep",
+                    "leaving": "Everything off, thermostat adjusts"
+                },
+                "integration_with_lifeos": "Full. LifeOS controls environment based on mode."
+            },
+            "apple_watch_patterns": {
+                "adoption_date": "2026",
+                "primary_uses": ["health_tracking", "notifications", "lifeos_haptics"],
+                "check_frequency": "Low - LifeOS manages what reaches watch",
+                "exercise_tracking": "All workouts logged",
+                "sleep_tracking": "Nightly",
+                "stress_indicators": "HRV and heart rate inform LifeOS health model"
+            },
+            "email_archaeology": {
+                "accounts": {
+                    "personal_gmail": {
+                        "since": "2014",
+                        "current_volume": "10-20 per day",
+                        "inbox_approach": "inbox_zero_aspirational"
+                    },
+                    "university": {
+                        "since": "2025",
+                        "current_volume": "5-10 per day",
+                        "inbox_approach": "functional"
+                    }
+                },
+                "patterns": {
+                    "newsletter_subscriptions": 12,
+                    "promotional_emails": "aggressively filtered",
+                    "response_delay_to_strangers": "often indefinite"
+                }
+            },
+            "behavioral_insights_from_history": {
+                "attention_span_trend": "Shortened during social media heavy years, stabilizing with LifeOS",
+                "privacy_awareness": "Increased significantly after 2024 data concerns",
+                "ai_adoption": "Early LifeOS adopter, comfortable with trade-offs",
+                "digital_wellbeing": "Learned through burnout, now proactively managed"
+            }
+        };
+
+        // Data mapping
+        const dataFiles = [
+            { name: "Identity", data: identityData },
+            { name: "Relationships", data: relationshipsData },
+            { name: "Behaviors", data: behaviorsData },
+            { name: "Calendar", data: calendarData },
+            { name: "Locations", data: locationsData },
+            { name: "Health", data: healthData },
+            { name: "Communications", data: communicationsData },
+            { name: "Digital History", data: digitalHistoryData }
+        ];
+
+        // Recursive function to render data as HTML
+        function renderValue(value, key = null) {
+            if (value === null) {
+                return `<span class="value-null">null</span>`;
+            }
+            
+            if (Array.isArray(value)) {
+                if (value.length === 0) {
+                    return `<span class="empty">(empty array)</span>`;
+                }
+                let html = '<ul class="nested-array">';
+                value.forEach((item, index) => {
+                    html += `<li class="array-item">${renderValue(item)}</li>`;
+                });
+                html += '</ul>';
+                return html;
+            }
+            
+            if (typeof value === 'object') {
+                const keys = Object.keys(value);
+                if (keys.length === 0) {
+                    return `<span class="empty">(empty object)</span>`;
+                }
+                let html = '<ul class="nested-object">';
+                keys.forEach(k => {
+                    html += `<li><span class="key">${k}:</span> ${renderValue(value[k], k)}</li>`;
+                });
+                html += '</ul>';
+                return html;
+            }
+            
+            // Primitive values
+            if (typeof value === 'string') {
+                return `<span class="value-string">"${value}"</span>`;
+            }
+            if (typeof value === 'number') {
+                return `<span class="value-number">${value}</span>`;
+            }
+            if (typeof value === 'boolean') {
+                return `<span class="value-boolean">${value}</span>`;
+            }
+            
+            return `<span class="value">${value}</span>`;
+        }
+
+        // Render a section
+        function renderSection(name, data) {
+            const meta = data.meta || {};
+            const rest = { ...data };
+            delete rest.meta;
+
+            let html = `<div class="section">`;
+            html += `<h2 class="section-title">${name}</h2>`;
+            
+            if (Object.keys(meta).length > 0) {
+                html += `<div class="meta-info">`;
+                html += `<strong>Schema Version:</strong> ${meta.schema_version || 'N/A'} | `;
+                html += `<strong>Last Updated:</strong> ${meta.last_updated || 'N/A'} | `;
+                html += `<strong>Data Type:</strong> ${meta.data_type || 'N/A'}`;
+                if (meta.coverage) {
+                    html += ` | <strong>Coverage:</strong> ${meta.coverage}`;
+                }
+                html += `</div>`;
+            }
+            
+            html += renderValue(rest);
+            html += `</div>`;
+            
+            return html;
+        }
+
+        // Render all sections
+        function renderAll() {
+            const content = document.getElementById('content');
+            let html = '';
+            
+            dataFiles.forEach(file => {
+                html += renderSection(file.name, file.data);
+            });
+            
+            content.innerHTML = html;
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', renderAll);
+    </script>
+</body>
+</html>

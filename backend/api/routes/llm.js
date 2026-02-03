@@ -1,0 +1,576 @@
+/**
+ * LLM Routes
+ * Endpoints for Claude API integration and natural language generation
+ */
+
+import { Router } from 'express';
+import { readFile } from 'fs/promises';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+import yaml from 'js-yaml';
+import Anthropic from '@anthropic-ai/sdk';
+
+const router = Router();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const CONFIG_DIR = join(__dirname, '..', '..', 'config');
+
+// Simple in-memory cache
+const cache = new Map();
+const CACHE_TTL = 3600 * 1000; // 1 hour in milliseconds
+
+// Load LLM config
+async function loadConfig() {
+  const filepath = join(CONFIG_DIR, 'llm-config.yaml');
+  const content = await readFile(filepath, 'utf-8');
+  return yaml.load(content);
+}
+
+// Initialize Anthropic client (lazy)
+let anthropicClient = null;
+function getClient() {
+  if (!anthropicClient) {
+    // Will use ANTHROPIC_API_KEY environment variable
+    anthropicClient = new Anthropic();
+  }
+  return anthropicClient;
+}
+
+// Cache helper
+function getCached(key) {
+  const cached = cache.get(key);
+  if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
+    return cached.value;
+  }
+  cache.delete(key);
+  return null;
+}
+
+function setCache(key, value) {
+  cache.set(key, { value, timestamp: Date.now() });
+}
+
+// POST /api/llm/generate
+// General-purpose text generation
+router.post('/generate', async (req, res) => {
+  try {
+    const {
+      prompt,
+      system_prompt,
+      temperature = 0.5,
+      max_tokens = 1024,
+      cache_key = null
+    } = req.body;
+
+    if (!prompt) {
+      return res.status(400).json({ error: 'Prompt is required' });
+    }
+
+    // Check cache
+    if (cache_key) {
+      const cached = getCached(cache_key);
+      if (cached) {
+        return res.json({
+          text: cached,
+          cached: true,
+          cache_key
+        });
+      }
+    }
+
+    // Check if API key is configured
+    if (!process.env.ANTHROPIC_API_KEY) {
+      return res.json({
+        text: `[LLM generation unavailable - no API key configured]\n\nPrompt received: "${prompt.substring(0, 100)}..."`,
+        stub: true,
+        note: 'Set ANTHROPIC_API_KEY environment variable to enable LLM generation'
+      });
+    }
+
+    const config = await loadConfig();
+    const client = getClient();
+
+    const message = await client.messages.create({
+      model: config.api.model,
+      max_tokens: max_tokens,
+      system: system_prompt || config.generation.system_context,
+      messages: [
+        { role: 'user', content: prompt }
+      ]
+    });
+
+    const text = message.content[0].text;
+
+    // Cache if key provided
+    if (cache_key) {
+      setCache(cache_key, text);
+    }
+
+    res.json({
+      text,
+      cached: false,
+      model: config.api.model,
+      usage: message.usage
+    });
+
+  } catch (err) {
+    console.error('LLM generation error:', err);
+    res.status(500).json({ error: 'Generation failed', message: err.message });
+  }
+});
+
+// POST /api/llm/explain-mode
+// Generate natural language explanation for mode entry/exit
+router.post('/explain-mode', async (req, res) => {
+  try {
+    const {
+      mode_name,
+      action,  // 'entry' or 'exit'
+      trigger_type,
+      confidence,
+      context = {},
+      duration_minutes,  // For exit
+      held_summary  // For exit
+    } = req.body;
+
+    if (!mode_name || !action) {
+      return res.status(400).json({ error: 'mode_name and action are required' });
+    }
+
+    const cache_key = `mode_${action}_${mode_name}_${trigger_type || 'default'}`;
+
+    // Check cache
+    const cached = getCached(cache_key);
+    if (cached) {
+      return res.json({ text: cached, cached: true });
+    }
+
+    // Check if API key is configured
+    if (!process.env.ANTHROPIC_API_KEY) {
+      // Return a reasonable stub response
+      const stubResponses = {
+        entry: {
+          navigation: "Heading to your destination. I'll keep things quiet until you arrive.",
+          focus: "Focus time. I'll hold everything except emergencies.",
+          social: "Social time. Enjoy being present—I'll handle the rest.",
+          rest: "Winding down for the evening. Work can wait until tomorrow.",
+          work: "Work mode. I'll help you stay on track."
+        },
+        exit: {
+          navigation: `You've arrived. ${held_summary || 'Nothing urgent came through while you were traveling.'}`,
+          focus: `Nice focus session${duration_minutes ? ` (${duration_minutes} minutes)` : ''}. ${held_summary || 'A few things came through—nothing urgent.'}`,
+          social: "Back from social time. Here's what you missed.",
+          rest: "Good morning. Here's your day ahead.",
+          work: "Wrapping up work. Time to shift gears."
+        }
+      };
+
+      const text = stubResponses[action]?.[mode_name] ||
+        `${action === 'entry' ? 'Entering' : 'Exiting'} ${mode_name} mode.`;
+
+      return res.json({
+        text,
+        stub: true,
+        note: 'Set ANTHROPIC_API_KEY to enable dynamic generation'
+      });
+    }
+
+    const config = await loadConfig();
+    const client = getClient();
+
+    // Build prompt based on action
+    let prompt;
+    if (action === 'entry') {
+      prompt = config.prompts.mode_entry.template
+        .replace('{{mode_name}}', mode_name)
+        .replace('{{trigger_type}}', trigger_type || 'manual')
+        .replace('{{confidence}}', confidence || 'high')
+        .replace('{{current_time}}', new Date().toLocaleTimeString())
+        .replace('{{context_summary}}', JSON.stringify(context));
+    } else {
+      prompt = config.prompts.mode_exit.template
+        .replace('{{from_mode}}', mode_name)
+        .replace('{{to_mode}}', context.to_mode || 'neutral')
+        .replace('{{duration_minutes}}', duration_minutes || 'unknown')
+        .replace('{{held_count}}', context.held_count || 0)
+        .replace('{{held_summary}}', held_summary || 'nothing significant');
+    }
+
+    const message = await client.messages.create({
+      model: config.api.fallback_model,  // Use cheaper model for simple generations
+      max_tokens: 256,
+      system: config.generation.system_context,
+      messages: [{ role: 'user', content: prompt }]
+    });
+
+    const text = message.content[0].text;
+    setCache(cache_key, text);
+
+    res.json({ text, cached: false });
+
+  } catch (err) {
+    console.error('Mode explanation error:', err);
+    res.status(500).json({ error: 'Generation failed', message: err.message });
+  }
+});
+
+// POST /api/llm/explain-triage
+// Generate explanation for why something was triaged a certain way
+router.post('/explain-triage', async (req, res) => {
+  try {
+    const {
+      zone,  // 'center', 'periphery', 'silence'
+      sender,
+      notification_type,
+      current_mode,
+      rules_applied = []
+    } = req.body;
+
+    if (!zone || !sender) {
+      return res.status(400).json({ error: 'zone and sender are required' });
+    }
+
+    const cache_key = `triage_${zone}_${sender}_${current_mode || 'neutral'}`;
+
+    // Check cache
+    const cached = getCached(cache_key);
+    if (cached) {
+      return res.json({ text: cached, cached: true });
+    }
+
+    // Check if API key is configured
+    if (!process.env.ANTHROPIC_API_KEY) {
+      // Return reasonable stub explanations
+      const stubExplanations = {
+        center: `This came through because ${sender} has high priority access.`,
+        periphery: `Message from ${sender} is available but not interrupting your ${current_mode || 'current'} mode.`,
+        silence: `Held this from ${sender} until a better moment—nothing urgent.`
+      };
+
+      return res.json({
+        text: stubExplanations[zone] || `Triaged to ${zone}.`,
+        stub: true,
+        note: 'Set ANTHROPIC_API_KEY to enable dynamic generation'
+      });
+    }
+
+    const config = await loadConfig();
+    const client = getClient();
+
+    const prompt = config.prompts.triage_explanation.template
+      .replace('{{zone}}', zone)
+      .replace('{{sender}}', sender)
+      .replace('{{notification_type}}', notification_type || 'message')
+      .replace('{{preview}}', '[content preview]')
+      .replace('{{current_mode}}', current_mode || 'neutral')
+      .replace('{{sender_tier}}', 'determined by relationship')
+      .replace('{{rules_applied}}', rules_applied.join(', ') || 'default rules');
+
+    const message = await client.messages.create({
+      model: config.api.fallback_model,
+      max_tokens: 128,
+      system: config.generation.system_context,
+      messages: [{ role: 'user', content: prompt }]
+    });
+
+    const text = message.content[0].text;
+    setCache(cache_key, text);
+
+    res.json({ text, cached: false });
+
+  } catch (err) {
+    console.error('Triage explanation error:', err);
+    res.status(500).json({ error: 'Generation failed', message: err.message });
+  }
+});
+
+// POST /api/llm/context-brief
+// Generate a context briefing for arriving somewhere or starting something
+router.post('/context-brief', async (req, res) => {
+  try {
+    const {
+      action,  // 'arriving', 'starting', 'preparing'
+      destination_or_activity,
+      people = [],
+      recent_context = {},
+      calendar_context = {}
+    } = req.body;
+
+    if (!destination_or_activity) {
+      return res.status(400).json({ error: 'destination_or_activity is required' });
+    }
+
+    // Check if API key is configured
+    if (!process.env.ANTHROPIC_API_KEY) {
+      const peopleStr = people.length > 0 ? ` ${people.join(', ')} will be there.` : '';
+      return res.json({
+        text: `${action === 'arriving' ? 'Arriving at' : 'Starting'} ${destination_or_activity}.${peopleStr}`,
+        stub: true,
+        note: 'Set ANTHROPIC_API_KEY to enable dynamic generation'
+      });
+    }
+
+    const config = await loadConfig();
+    const client = getClient();
+
+    const prompt = config.prompts.context_preparation.template
+      .replace('{{action}}', action || 'preparing for')
+      .replace('{{destination_or_activity}}', destination_or_activity)
+      .replace('{{people}}', people.join(', ') || 'no specific people noted')
+      .replace('{{recent_context}}', JSON.stringify(recent_context))
+      .replace('{{calendar_context}}', JSON.stringify(calendar_context));
+
+    const message = await client.messages.create({
+      model: config.api.model,
+      max_tokens: 256,
+      system: config.generation.system_context,
+      messages: [{ role: 'user', content: prompt }]
+    });
+
+    res.json({ text: message.content[0].text, cached: false });
+
+  } catch (err) {
+    console.error('Context brief error:', err);
+    res.status(500).json({ error: 'Generation failed', message: err.message });
+  }
+});
+
+// POST /api/llm/kg-query
+// Query the knowledge graph with natural language and get LLM-generated response
+const KG_DATA_DIR = join(__dirname, '..', '..', 'data', 'knowledge-graph');
+const WORLD_DATA_DIR = join(__dirname, '..', '..', 'data', 'world');
+const WORLD_MD_PATH = join(__dirname, '..', '..', '..', 'WORLD.md');
+
+async function loadKGData(filename) {
+  const filepath = join(KG_DATA_DIR, filename);
+  const content = await readFile(filepath, 'utf-8');
+  return JSON.parse(content);
+}
+
+router.post('/kg-query', async (req, res) => {
+  try {
+    const {
+      query,
+      domains = ['all']
+    } = req.body;
+
+    if (!query) {
+      return res.status(400).json({ error: 'Query is required' });
+    }
+
+    // Load relevant knowledge graph data
+    const domainMapping = {
+      identity: 'identity.json',
+      relationships: 'relationships.json',
+      behaviors: 'behaviors.json',
+      calendar: 'calendar.json',
+      locations: 'locations.json',
+      health: 'health.json',
+      communications: 'communications.json',
+      digitalHistory: 'digital-history.json'
+    };
+
+    let contextData = {};
+
+    if (domains.includes('all')) {
+      // Load all domains
+      for (const [key, filename] of Object.entries(domainMapping)) {
+        try {
+          contextData[key] = await loadKGData(filename);
+        } catch (e) {
+          console.warn(`Failed to load ${filename}:`, e.message);
+        }
+      }
+    } else {
+      // Load only specified domains
+      for (const domain of domains) {
+        if (domainMapping[domain]) {
+          try {
+            contextData[domain] = await loadKGData(domainMapping[domain]);
+          } catch (e) {
+            console.warn(`Failed to load ${domain}:`, e.message);
+          }
+        }
+      }
+    }
+
+    // Check if API key is configured
+    if (!process.env.ANTHROPIC_API_KEY) {
+      // Return a meaningful stub response based on the query
+      const contextSummary = Object.keys(contextData).join(', ');
+      return res.json({
+        text: `[LLM generation unavailable - no API key configured]\n\nYour query: "${query}"\n\nAvailable context domains: ${contextSummary}\n\nTo enable natural language responses, set the ANTHROPIC_API_KEY environment variable.`,
+        stub: true,
+        domains: Object.keys(contextData)
+      });
+    }
+
+    const config = await loadConfig();
+    const client = getClient();
+
+    // Build system prompt with knowledge graph context
+    const userName = contextData.identity?.basics?.name || 'the user';
+
+    const systemPrompt = `You are LifeOS, an intelligent personal assistant that has deep knowledge of ${userName}'s life through their personal knowledge graph.
+
+You have access to the following context about ${userName}:
+
+${JSON.stringify(contextData, null, 2)}
+
+IMPORTANT INSTRUCTIONS:
+- Speak directly to ${userName} in second person ("You...", "Your...")
+- Be warm, conversational, and personal - like a thoughtful friend who knows them well
+- Draw specific details from the knowledge graph data to make responses feel personal and grounded
+- If asked about something not in the data, acknowledge that honestly
+- Keep responses concise but informative (2-4 paragraphs max)
+- Don't list raw data - synthesize it into natural, flowing language`;
+
+    const message = await client.messages.create({
+      model: config.api.fallback_model,  // Use Haiku 4.5 for kg-chat queries
+      max_tokens: 1024,
+      system: systemPrompt,
+      messages: [{ role: 'user', content: query }]
+    });
+
+    res.json({
+      text: message.content[0].text,
+      cached: false,
+      model: config.api.fallback_model,
+      domains: Object.keys(contextData),
+      usage: message.usage
+    });
+
+  } catch (err) {
+    console.error('KG query error:', err);
+    res.status(500).json({ error: 'Query failed', message: err.message });
+  }
+});
+
+// GET /api/llm/status
+// Check LLM configuration status
+router.get('/status', async (req, res) => {
+  try {
+    const config = await loadConfig();
+    const hasApiKey = !!process.env.ANTHROPIC_API_KEY;
+
+    res.json({
+      configured: hasApiKey,
+      model: config.api.model,
+      fallback_model: config.api.fallback_model,
+      cache_entries: cache.size,
+      note: hasApiKey
+        ? 'LLM generation is available'
+        : 'Set ANTHROPIC_API_KEY environment variable to enable LLM generation. Stub responses will be used until then.'
+    });
+  } catch (err) {
+    res.status(500).json({ error: 'Status check failed', message: err.message });
+  }
+});
+
+// POST /api/llm/scenario
+// Generate speculative scenarios grounded in world canon + PKG context
+// This is the lightweight "context engine" endpoint for scenario exploration
+router.post('/scenario', async (req, res) => {
+  try {
+    const {
+      prompt,
+      temperature = 0.6,
+      max_tokens = 2048,
+      include_world = true,
+      include_pkg = true
+    } = req.body;
+
+    if (!prompt) {
+      return res.status(400).json({ error: 'Prompt is required' });
+    }
+
+    // Load world canon (WORLD.md)
+    let worldContext = '';
+    if (include_world) {
+      try {
+        worldContext = await readFile(WORLD_MD_PATH, 'utf-8');
+      } catch (e) {
+        console.warn('Failed to load WORLD.md:', e.message);
+      }
+    }
+
+    // Load core PKG data
+    let pkgContext = {};
+    if (include_pkg) {
+      const pkgFiles = ['identity.json', 'relationships.json', 'behaviors.json', 'calendar.json'];
+      for (const filename of pkgFiles) {
+        try {
+          pkgContext[filename.replace('.json', '')] = await loadKGData(filename);
+        } catch (e) {
+          console.warn(`Failed to load ${filename}:`, e.message);
+        }
+      }
+    }
+
+    // Check if API key is configured
+    if (!process.env.ANTHROPIC_API_KEY) {
+      return res.json({
+        text: `[Scenario generation unavailable - no API key configured]\n\nYour prompt: "${prompt}"\n\nContext loaded:\n- World canon: ${worldContext ? 'Available (' + worldContext.length + ' chars)' : 'Not loaded'}\n- PKG domains: ${Object.keys(pkgContext).join(', ') || 'None'}\n\nTo enable scenario generation, set the ANTHROPIC_API_KEY environment variable.`,
+        stub: true,
+        context_loaded: {
+          world: !!worldContext,
+          pkg_domains: Object.keys(pkgContext)
+        }
+      });
+    }
+
+    const config = await loadConfig();
+    const client = getClient();
+
+    // Build comprehensive system prompt
+    const systemPrompt = `You are a speculative design assistant helping explore LifeOS, a personal operating system set in 2030.
+
+## YOUR ROLE
+You generate consistent, plausible scenarios based on the LifeOS world canon and Marcus Chen's personal knowledge graph (PKG). When asked about what LifeOS would do, display, or surface, your responses should be grounded in:
+1. The architectural constraints (mode-intent separation, three-layer attention, constitutional framework)
+2. Marcus's personal context (relationships, behaviors, values, schedule)
+3. The 2030 technological and social setting
+
+## WORLD CANON
+${worldContext || '[World canon not loaded]'}
+
+## MARCUS CHEN'S PERSONAL KNOWLEDGE GRAPH
+${JSON.stringify(pkgContext, null, 2)}
+
+## RESPONSE GUIDELINES
+- Be specific and concrete—describe actual UI elements, notifications, intents
+- Respect [LOCKED] constraints from the world canon; they are non-negotiable
+- Explore [OPEN] questions when relevant
+- Ground everything in Marcus's actual relationships, behaviors, and values
+- Describe what LifeOS shows, holds, surfaces, or suggests—not abstract concepts
+- When generating intents or notifications, format them clearly (use bullet points, headers)
+- Stay in 2030—technology is advanced but plausible, not magical`;
+
+    const message = await client.messages.create({
+      model: config.api.model,
+      max_tokens: max_tokens,
+      temperature: temperature,
+      system: systemPrompt,
+      messages: [{ role: 'user', content: prompt }]
+    });
+
+    res.json({
+      text: message.content[0].text,
+      cached: false,
+      model: config.api.model,
+      context_loaded: {
+        world: !!worldContext,
+        world_chars: worldContext.length,
+        pkg_domains: Object.keys(pkgContext)
+      },
+      usage: message.usage
+    });
+
+  } catch (err) {
+    console.error('Scenario generation error:', err);
+    res.status(500).json({ error: 'Scenario generation failed', message: err.message });
+  }
+});
+
+export default router;

@@ -1,0 +1,88 @@
+id: thesis
+name: Thesis Structure
+description: Formal thesis framing and contributions (not part of the 2030 narrative)
+problem_statement: >
+  Digital interaction today demands constant cognitive labor: selecting appropriate applications,
+  managing context across fragmented tools, and navigating rapid transitions between tasks. This
+  produces digital fatigue—not from technology use itself, but from the overhead of operating
+  technology.
+diagnosis: >
+  The app-centric model treats applications as the primary interface primitive. Users must translate
+  goals into app selections, then operate within each app's constraints. Context lives in the user's
+  head. Every task switch requires cognitive reset.
+solution:
+  name: LifeOS
+  summary: >
+    An intent-based operating system that:
+
+    - Adapts to context — System determines current mode based on signals (time, location, calendar,
+    biometrics, activity)
+
+    - Surfaces relevant intents — Within each mode, presents what user might want to accomplish
+    right now
+
+    - Generates UI to serve intents — When user selects intent, system constructs purpose-built
+    interface
+
+
+    The user's job shifts from "choose tool and operate it" to "select intent from
+    contextually-relevant options."
+core_tension:
+  summary: >
+    Mode-intent architecture reduces cognitive load by shifting context management and intent
+    curation to the system. But this same shift raises a fundamental question: where does user
+    agency sit when the system determines context and proposes what you might want?
+  statement: >
+    This tension between automation benefit and user agency is the central design problem for
+    human-AI interaction. Every design decision in a mode-intent system (how modes are determined,
+    which intents surface, how UI is generated) is a negotiation within this tension.
+scope_and_limitations: >
+  Due to the scope of such a problem, this thesis likely won't be able to solve nor pretend to
+  propose a solution to this tension. 
+
+
+  1. The tension is real, persistent, and underexplored — Neither tech-optimist framing (automation
+  is unambiguously good) nor tech-critical framing (automation necessarily erodes agency) provides
+  useful guidance for practitioners
+
+
+  2. Mode-intent provides structural vocabulary for engaging with it — Rather than abstract debates
+  about "AI and autonomy," designers can examine specific questions: How should mode confidence
+  thresholds work? What makes intent surfacing feel helpful vs. manipulative? Where should override
+  friction sit?
+
+
+  3. LifeOS serves as reference architecture, not prescription — A sufficiently specified
+  speculative system that enables concrete debate about design decisions, rather than speculation
+  from scratch
+
+
+  The contribution is a platform for informed engagement with this tension—not a claim to have
+  solved it.
+contributions:
+  - id: mode-intent-architecture
+    name: Mode-intent as interaction architecture
+    description: >
+      A structural framework for context-adaptive, intent-driven systems where:
+
+      - Modes define contextual solution space (system-managed)
+
+      - Intents represent user goals within that space (user-selected from surfaced options)
+
+      - Generative UI constructs purpose-built interfaces to serve selected intents
+
+
+      This architecture proposes that the application layer becomes obsolete when the system can
+      determine context, surface relevant intents, and generate interfaces to serve them.
+  - id: lifeos-artifact
+    name: LifeOS as speculative design artifact
+    description: >
+      A fully-realized reference system that:
+
+      - Demonstrates mode-intent architecture in concrete detail
+
+      - Makes the automation-agency tension visible and debatable at the level of specific design
+      decisions
+
+      - Provides practitioners a platform for exploring human-AI interaction paradigms without
+      starting from zero

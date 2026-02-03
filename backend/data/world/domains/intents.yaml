@@ -1,0 +1,81 @@
+# Intent Framework Domain
+# How intents work and their requirements
+
+id: intents
+name: "Intent Framework"
+description: "The design requirements and mechanics of intents in LifeOS"
+status: locked
+version: "0.1.0"
+
+sections:
+  - id: intent-requirements
+    name: "Intent Requirements"
+    status: locked
+    description: "Every intent must meet these requirements"
+
+    requirements:
+      - id: clear-entry
+        name: "Clear Entry"
+        description: "How user accesses/initiates the intent"
+
+      - id: bounded-scope
+        name: "Bounded Scope"
+        description: "What the intent includes and explicitly excludes"
+
+      - id: completion-condition
+        name: "Completion Condition"
+        description: "How user knows they're done"
+
+      - id: exit-path
+        name: "Exit Path"
+        description: "How to leave before completion"
+
+      - id: mode-constraints
+        name: "Mode Constraints"
+        description: "Which modes this intent is available in"
+
+    rationale: |
+      Bounded experiences, not infinite feeds. Every intent has designed
+      completion, not endless engagement.
+
+  - id: intent-vs-app
+    name: "Intent vs. App Distinction"
+    status: locked
+    description: "How intents differ from traditional apps"
+
+    comparison:
+      - aspect: "Purpose"
+        traditional_app: "General-purpose tool"
+        lifeos_intent: "Specific goal accomplishment"
+
+      - aspect: "Selection"
+        traditional_app: "User selects app, then figures out task"
+        lifeos_intent: "User selects intent based on goal"
+
+      - aspect: "Availability"
+        traditional_app: "Persistent, always available"
+        lifeos_intent: "Available based on context (mode)"
+
+      - aspect: "Alignment"
+        traditional_app: "Business model may conflict with user goals"
+        lifeos_intent: "Orchestrator filters for user goals"
+
+      - aspect: "Engagement"
+        traditional_app: "Infinite engagement possible"
+        lifeos_intent: "Bounded with completion designed in"
+
+  - id: intent-inheritance
+    name: "Intent Inheritance Across Modes"
+    status: open
+    description: "Can intents span mode transitions, or do they terminate on mode exit?"
+
+    open_question: "OQ-2"
+    candidate_approaches:
+      - name: "Hard termination"
+        description: "Intent ends when mode ends"
+
+      - name: "Graceful handoff"
+        description: "Intent pauses, can resume if mode re-entered"
+
+      - name: "Intent completion priority"
+        description: "Mode exit blocked until intent completes, with override"

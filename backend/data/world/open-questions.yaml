@@ -1,0 +1,104 @@
+# Open Questions
+# Unresolved design questions that can be explored through speculative scenarios
+
+questions:
+  - id: OQ-1
+    name: "Mode Collision Handling"
+    status: open
+    domain: modes
+    question: "What happens when two modes have equal or near-equal confidence?"
+    notes: |
+      Need to explore through scenarios. Candidate approaches include
+      recency bias, user tiebreaker, hierarchical priority, or hybrid modes.
+    created: "2025-02-01"
+
+  - id: OQ-2
+    name: "Intent Inheritance"
+    status: open
+    domain: intents
+    question: "Can intents span mode transitions, or do they terminate on mode exit?"
+    notes: |
+      Candidate approaches: hard termination, graceful handoff,
+      or intent completion priority with override.
+    created: "2025-02-01"
+
+  - id: OQ-3
+    name: "Constitutional Conflict"
+    status: open
+    domain: constitution
+    question: "How does the system handle values that contradict in specific scenarios?"
+    notes: |
+      Example: "don't miss important things" vs "work shouldn't bleed into everything"
+      when important work message arrives during family dinner.
+    created: "2025-02-01"
+
+  - id: OQ-4
+    name: "Urgency Determination"
+    status: open
+    domain: modes
+    question: "What pierces Silence? Who decides what's urgent?"
+    notes: |
+      Need to define urgency signals and how they interact with
+      constitutional values. User-defined vs system-inferred urgency.
+    created: "2025-02-01"
+
+  - id: OQ-5
+    name: "Learning from Overrides"
+    status: open
+    domain: constitution
+    question: "How much should the system adapt to override patterns?"
+    notes: |
+      Balance between learning user preferences and maintaining
+      constitutional integrity. When is an override a one-time exception
+      vs a signal to change behavior?
+    created: "2025-02-01"
+
+  - id: OQ-6
+    name: "Multi-User Contexts"
+    status: open
+    domain: modes
+    question: "How does LifeOS handle shared spaces and conflicting modes between users?"
+    notes: |
+      Scenarios: shared devices, co-located users in different modes,
+      family contexts, work meetings.
+    created: "2025-02-01"
+
+  - id: OQ-7
+    name: "Onboarding Flow"
+    status: open
+    domain: constitution
+    question: "How do users initially articulate their constitutional values?"
+    notes: |
+      Balance between comprehensive value capture and onboarding friction.
+      Progressive value discovery vs upfront articulation.
+    created: "2025-02-01"
+
+  - id: OQ-8
+    name: "Trust Calibration"
+    status: open
+    domain: architecture
+    question: "How does the system earn more autonomy over time? What builds trust?"
+    notes: |
+      Metrics for trust, progressive autonomy grants,
+      trust repair after mistakes.
+    created: "2025-02-01"
+
+  - id: OQ-9
+    name: "Provider Resistance"
+    status: open
+    domain: architecture
+    question: "How do providers adapt to losing direct access to users?"
+    notes: |
+      Business model implications, provider incentives,
+      potential adversarial dynamics.
+    created: "2025-02-01"
+
+  - id: OQ-10
+    name: "Edge Cases"
+    status: open
+    domain: architecture
+    question: "What scenarios break the model?"
+    notes: |
+      Systematically explore edge cases through scenario generation.
+      Document model limitations.
+    created: "2025-02-01"

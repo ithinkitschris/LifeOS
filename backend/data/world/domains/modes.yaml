@@ -1,0 +1,176 @@
+# Mode System Domain
+# How modes work and what modes exist
+
+id: modes
+name: "Mode System"
+description: "The mechanics of mode activation, exit, and the defined modes in LifeOS"
+status: locked
+version: "0.1.0"
+
+sections:
+  - id: activation-model
+    name: "Activation Model"
+    status: locked
+    description: "How modes are entered based on confidence signals"
+
+    mechanics:
+      confidence_based_entry: |
+        Multiple context signals contribute to confidence score.
+        Each signal has weight based on reliability and relevance.
+        Confidence must exceed threshold for activation.
+
+      thresholds:
+        - type: "Soft activation"
+          value: "~0.60"
+          behavior: "System suggests mode: 'Looks like you're entering Focus. Confirm?'"
+
+        - type: "Hard activation"
+          value: "~0.85"
+          behavior: "System enters mode automatically, explanation available"
+
+        - type: "Exit threshold"
+          value: "~0.40"
+          behavior: "Hysteresis - must drop below this to exit"
+
+      hysteresis_rationale: |
+        Different thresholds for entry vs. exit prevents oscillation.
+        Once in a mode, stay until clearly no longer appropriate.
+
+  - id: exit-design
+    name: "Exit Design"
+    status: locked
+    description: "How users exit modes - always possible, with informational friction"
+
+    invariant: "Exit is always possible. User is never locked into a mode."
+
+    friction_design:
+      - "Exit has friction, but friction is informational, not obstructive"
+      - "Friction surfaces trade-offs: 'This is what you're leaving; this is what changes'"
+      - "Friction never punishes, shames, or creates dead ends"
+      - "Exit option always visible"
+
+    template: |
+      You're leaving [Mode Name].
+
+      What changes:
+      - [Specific change 1]
+      - [Specific change 2]
+      - [What was held will become active]
+
+      Why you might stay:
+      - [Contextual reason]
+      - [Progress indicator if applicable]
+
+      [Exit anyway]  [Stay in mode]
+
+  - id: mode-collision
+    name: "Mode Collision"
+    status: open
+    description: "What happens when two modes have equal or near-equal confidence"
+
+    open_question: "OQ-1"
+    candidate_approaches:
+      - name: "Recency bias"
+        description: "Stay in current mode unless new mode clearly dominant"
+      - name: "User tiebreaker"
+        description: "Soft prompt for ambiguous cases"
+      - name: "Hierarchical priority"
+        description: "Some modes trump others"
+      - name: "Hybrid mode"
+        description: "Rare - elements of both"
+
+defined_modes:
+  - id: navigation
+    name: "Navigation Mode"
+    status: defined
+    purpose: "Active when user is traveling to a destination. Optimizes for wayfinding while protecting attention."
+
+    activation_triggers:
+      - "Calendar event with different location approaching"
+      - "User initiates travel/directions query"
+      - "GPS movement pattern suggests transit"
+
+    confidence_signals:
+      - "Calendar certainty (confirmed vs. tentative)"
+      - "Location delta (distance to destination)"
+      - "Time pressure (buffer available)"
+      - "Historical patterns (familiar route?)"
+
+    triage:
+      center:
+        - "Route guidance"
+        - "ETA"
+        - "Destination preparation"
+      periphery:
+        - "Message counts (no content)"
+        - "Batched notifications"
+        - "Media controls"
+      silence:
+        - "Social media"
+        - "News"
+        - "Non-urgent email"
+        - "Marketing"
+
+    exit_conditions:
+      - "Arrival at destination (automatic soft exit)"
+      - "Route becomes irrelevant (event cancelled)"
+      - "User explicit exit (with friction)"
+
+  - id: focus
+    name: "Focus Mode"
+    status: defined
+    purpose: "Active during deep work requiring sustained attention. Maximizes protection from interruption."
+
+    activation_triggers:
+      - "User declares focus time"
+      - "Calendar 'focus block' detected"
+      - "Work pattern signals (specific apps, typing patterns)"
+
+    triage:
+      center:
+        - "Current work task"
+        - "Relevant documents"
+      periphery:
+        - "Timer"
+        - "Emergency-only contacts"
+      silence:
+        - "Everything else"
+
+  - id: social
+    name: "Social Mode"
+    status: defined
+    purpose: "Active during interpersonal interaction. Optimizes for presence with people."
+
+    activation_triggers:
+      - "Co-located contacts detected"
+      - "Calendar social event"
+      - "User declares social time"
+
+    triage:
+      center:
+        - "Present moment (minimal digital)"
+      periphery:
+        - "Emergency contacts only"
+      silence:
+        - "All notifications"
+        - "Work content"
+
+  - id: rest
+    name: "Rest Mode"
+    status: scaffolded
+    purpose: "Downtime and recovery periods."
+
+    activation_triggers:
+      - "Time-based (evening hours)"
+      - "User declares rest"
+      - "Health signals (fatigue indicators)"
+
+  - id: work
+    name: "Work Mode"
+    status: scaffolded
+    purpose: "Professional tasks and communications."
+
+    activation_triggers:
+      - "Scheduled work hours"
+      - "Work location detected"
+      - "User declares work time"

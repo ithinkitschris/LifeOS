@@ -1,0 +1,77 @@
+# Research Grounding Domain
+# How research informs LifeOS design
+
+id: research
+name: "Research Grounding"
+description: "The research foundations that inform LifeOS design decisions"
+status: locked
+version: "0.1.0"
+
+sections:
+  - id: ai-safety-concepts
+    name: "AI Safety Concepts Applied"
+    status: locked
+    description: "How AI safety research informs LifeOS"
+
+    concepts:
+      - id: alignment
+        name: "Alignment"
+        application: "Constitutional framework aligns system with user-stated values"
+
+      - id: corrigibility
+        name: "Corrigibility"
+        application: "Always-available exit, override patterns as learning signals"
+
+      - id: transparency
+        name: "Transparency"
+        application: "Plain-language explanations, dashboard audit trail"
+
+      - id: bounded-autonomy
+        name: "Bounded Autonomy"
+        application: "Modes constrain (automated), intents execute (user-chosen)"
+
+  - id: interaction-design-principles
+    name: "Interaction Design Principles Applied"
+    status: locked
+    description: "How interaction design research informs LifeOS"
+
+    principles:
+      - id: calm-technology
+        name: "Calm Technology"
+        application: "Three-layer attention respects attention spectrum"
+
+      - id: friction-as-feature
+        name: "Friction as Feature"
+        application: "Exit friction surfaces trade-offs without obstruction"
+
+      - id: progressive-disclosure
+        name: "Progressive Disclosure"
+        application: "Information available at appropriate attention levels"
+
+      - id: user-control
+        name: "User Control"
+        application: "Agency preserved at action level (intents)"
+
+  - id: design-constraints
+    name: "Research Phase Constraints"
+    status: locked
+    description: "Constraints specific to the current research phase"
+
+    current_stance:
+      description: "LifeOS is single-mode: low agency, high automation"
+      details:
+        - "No configurable agency levels"
+        - "No user-adjustable automation intensity"
+        - "System makes context decisions; users make action decisions"
+
+      rationale: |
+        This constraint exists to surface the risks of fully agentic
+        operating systems through speculative design. The provocative
+        research phase uses this to force users to confront what they're
+        trading for convenience.
+
+    plausibility_constraint: |
+      All elements must feel achievable by 2030:
+      - Technology exists or is clearly emerging
+      - No hand-waving about "AI will figure it out"
+      - Social/adoption dynamics considered

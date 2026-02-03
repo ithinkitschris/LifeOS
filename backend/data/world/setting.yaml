@@ -1,0 +1,79 @@
+id: setting
+name: The World of 2030
+description: The speculative world that serves as the backdrop for all LifeOS scenarios
+context:
+  year: 2030
+  summary: >
+    AI assistance is deeply embedded in daily life. Wearable and ambient computing has matured,
+    making context-aware systems technically feasible.
+  technological_landscape:
+    - id: ai-integration
+      name: AI Integration
+      description: AI assistance is deeply embedded in daily life
+    - id: ambient-computing
+      name: Ambient Computing Maturity
+      description: >-
+        Wearable/ambient computing has matured - neural smartwatches, AR glasses, smart earphones
+        are commonplace
+    - id: app-model-decline
+      name: App Model Showing Limits
+      description: The app-centric model is showing its limitations - users experience fragmentation fatigue
+  design_constraint: |
+    All LifeOS elements should feel plausible for 2030 - ambitious but not
+    fantastical. No magic, no hand-waving. Technology must exist or be
+    clearly emerging today.
+problem_statement:
+  summary: |
+    Contemporary digital interaction demands constant cognitive labor: selecting
+    appropriate applications, managing context across fragmented tools, and
+    navigating rapid transitions between tasks. This produces digital fatigue—not
+    from technology use itself, but from the overhead of operating technology.
+  diagnosis: |
+    The app-centric model treats applications as the primary interface primitive.
+    Users must translate goals into app selections, then operate within each app's
+    constraints. Context lives in the user's head. Every task switch requires
+    cognitive reset.
+  pain_points:
+    - id: goal-to-app-translation
+      name: Goal-to-App Translation
+      description: Users must continuously translate what they want to accomplish into which app to use
+    - id: context-in-head
+      name: Context Lives in User's Head
+      description: The system has no model of what the user is doing; all context management falls to the user
+    - id: cognitive-reset
+      name: Cognitive Reset on Task Switch
+      description: Every transition between tasks requires mental overhead to reorient
+    - id: fragmented-tools
+      name: Fragmented Tool Landscape
+      description: Managing state across dozens of apps, each with its own model of the user
+solution:
+  name: LifeOS
+  summary: >-
+    An operating system that shifts the user's job from "choose tool and operate it" to "select
+    intent from contextually-relevant options"
+  capabilities:
+    - id: adapts-to-context
+      name: Adapts to Context
+      description: >-
+        System determines current mode based on signals (time, location, calendar, biometrics,
+        activity)
+    - id: surfaces-intents
+      name: Surfaces Relevant Intents
+      description: Within each mode, presents what user might want to accomplish right now
+    - id: generates-ui
+      name: Generates UI to Serve Intents
+      description: When user selects intent, system constructs purpose-built interface
+  implication: |
+    The application layer becomes obsolete when the system can determine context,
+    surface relevant intents, and generate interfaces to serve them.
+core_tension:
+  summary: |
+    Mode-intent architecture reduces cognitive load by shifting context management
+    and intent curation to the system. But this same shift raises a fundamental
+    question: where does user agency sit when the system determines context and
+    proposes what you might want?
+  statement: |
+    This tension between automation benefit and user agency is not incidental to
+    the solution—it is the central design problem for human-AI interaction. Every
+    design decision in a mode-intent system (how modes are determined, which intents
+    surface, how UI is generated) is a negotiation within this tension.

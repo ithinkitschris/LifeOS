@@ -1,0 +1,144 @@
+{
+  "meta": {
+    "schema_version": "1.0",
+    "last_updated": "2030-03-15",
+    "data_type": "digital_history",
+    "coverage": "2010-2030 (ages 3-23)"
+  },
+  
+  "device_evolution": {
+    "childhood_2010_2015": {
+      "primary_devices": ["family_ipad", "family_computer"],
+      "usage_patterns": "Supervised, educational apps, early YouTube",
+      "digital_literacy": "Basic interaction, content consumption"
+    },
+    "adolescence_2015_2020": {
+      "primary_devices": ["smartphone", "laptop_for_school"],
+      "usage_patterns": "Social media emergence, gaming, school research",
+      "digital_literacy": "Growing independence, privacy awareness emerging"
+    },
+    "young_adult_2020_2025": {
+      "primary_devices": ["iphone", "macbook", "ipad"],
+      "usage_patterns": "Productivity tools, design software, streaming",
+      "digital_literacy": "Professional tooling, workflow optimization"
+    },
+    "current_2025_2030": {
+      "primary_devices": ["iphone_with_lifeos", "macbook", "apple_watch", "airpods"],
+      "usage_patterns": "LifeOS-mediated, intent-based, reduced direct app interaction",
+      "digital_literacy": "High trust in AI assistance, sophisticated about trade-offs"
+    }
+  },
+  
+  "social_media_history": {
+    "platforms_used": {
+      "instagram": {
+        "active_years": "2016-2028",
+        "current_status": "minimal, LifeOS-mediated",
+        "usage_pattern": "Shifted from posting to passive consumption to near-abandonment",
+        "content_type": "design inspiration, friend updates"
+      },
+      "twitter_x": {
+        "active_years": "2018-2026",
+        "current_status": "deleted",
+        "reason_left": "Time sink, anxiety-inducing, low value"
+      },
+      "linkedin": {
+        "active_years": "2022-present",
+        "current_status": "professional maintenance only",
+        "usage_pattern": "Job search, industry connections, rarely posts"
+      },
+      "reddit": {
+        "active_years": "2017-present",
+        "current_status": "active but managed",
+        "communities": ["r/design", "r/userexperience", "r/melbourne"],
+        "usage_pattern": "Information seeking, prone to rabbit holes"
+      }
+    },
+    "overall_trajectory": "Gradual retreat from public sharing toward private consumption and professional-only presence"
+  },
+  
+  "productivity_tool_evolution": {
+    "school_era": ["google_docs", "powerpoint", "basic_photoshop"],
+    "undergrad": ["figma", "sketch", "notion", "google_workspace"],
+    "masters": ["figma", "notion", "zotero", "miro", "vscode"],
+    "current_primary": {
+      "design": "figma",
+      "notes_planning": "notion",
+      "research": "zotero",
+      "code": "vscode",
+      "communication": "lifeos_mediated"
+    }
+  },
+  
+  "consumption_patterns": {
+    "video": {
+      "platforms": ["youtube", "netflix", "stan"],
+      "genres": ["design_talks", "documentaries", "comedy", "sci_fi"],
+      "binge_tendency": "moderate, increases with stress",
+      "lifeos_management": "Suggests stopping points, tracks against goals"
+    },
+    "music": {
+      "platform": "spotify",
+      "usage": "constant_background",
+      "playlists": ["focus_instrumental", "running", "cooking_with_emma"],
+      "discovery": "algorithmic, rarely seeks new music actively"
+    },
+    "reading": {
+      "formats": ["kindle", "physical", "pocket_articles"],
+      "genres": ["design_theory", "sci_fi", "psychology"],
+      "current_pace": "slow due to thesis demands"
+    },
+    "gaming": {
+      "platforms": ["playstation", "occasional_pc"],
+      "genres": ["narrative_games", "co_op_with_james"],
+      "frequency": "weekends when time permits",
+      "social_aspect": "primary way of staying connected with James"
+    }
+  },
+  
+  "smart_home_data": {
+    "devices": ["smart_lights", "smart_speaker", "smart_thermostat"],
+    "routines": {
+      "morning": "Lights gradually brighten at 7:00, news briefing on speaker",
+      "evening": "Lights dim at 21:30, temperature adjusts for sleep",
+      "leaving": "Everything off, thermostat adjusts"
+    },
+    "integration_with_lifeos": "Full. LifeOS controls environment based on mode."
+  },
+  
+  "apple_watch_patterns": {
+    "adoption_date": "2026",
+    "primary_uses": ["health_tracking", "notifications", "lifeos_haptics"],
+    "check_frequency": "Low - LifeOS manages what reaches watch",
+    "exercise_tracking": "All workouts logged",
+    "sleep_tracking": "Nightly",
+    "stress_indicators": "HRV and heart rate inform LifeOS health model"
+  },
+  
+  "email_archaeology": {
+    "accounts": {
+      "personal_gmail": {
+        "since": "2014",
+        "current_volume": "10-20 per day",
+        "inbox_approach": "inbox_zero_aspirational"
+      },
+      "university": {
+        "since": "2025",
+        "current_volume": "5-10 per day",
+        "inbox_approach": "functional"
+      }
+    },
+    "patterns": {
+      "newsletter_subscriptions": 12,
+      "promotional_emails": "aggressively filtered",
+      "response_delay_to_strangers": "often indefinite"
+    }
+  },
+  
+  "behavioral_insights_from_history": {
+    "attention_span_trend": "Shortened during social media heavy years, stabilizing with LifeOS",
+    "privacy_awareness": "Increased significantly after 2024 data concerns",
+    "ai_adoption": "Early LifeOS adopter, comfortable with trade-offs",
+    "digital_wellbeing": "Learned through burnout, now proactively managed"
+  }
+}

@@ -1,0 +1,252 @@
+# LifeOS Constitutional Values
+# Marcus's stated values that guide system behavior
+# Edit this file to adjust what LifeOS optimizes for
+# Schema version: 1.0
+
+# ============================================
+# CORE VALUES
+# Foundational priorities that guide all decisions
+# ============================================
+
+core_values:
+
+  - id: mental_wellbeing
+    name: "Mental Wellbeing"
+    description: "Maintaining psychological health and avoiding burnout"
+    weight: 0.95
+    rank: 1
+    implications:
+      - "Protect against information overload"
+      - "Detect and respond to stress patterns early"
+      - "Prioritize recovery when needed"
+      - "Don't sacrifice sleep for productivity"
+    never_compromise_for:
+      - "Work deadlines"
+      - "Social obligations"
+      - "Productivity metrics"
+
+  - id: flow_state_preservation
+    name: "Flow State Preservation"
+    description: "Protecting deep focus and cognitive momentum"
+    weight: 0.90
+    rank: 2
+    implications:
+      - "Aggressive notification filtering during focus"
+      - "Batch interruptions for appropriate moments"
+      - "Minimize context-switching costs"
+      - "Protect morning peak hours"
+    acceptable_interruptions:
+      - "Emma in genuine need"
+      - "Time-critical commitments"
+      - "Health emergencies"
+
+  - id: relationship_presence
+    name: "Relationship Presence"
+    description: "Being genuinely present with people who matter"
+    weight: 0.85
+    rank: 3
+    implications:
+      - "Silence most notifications during social time"
+      - "Protect date night absolutely"
+      - "Remind about relationship maintenance"
+      - "Don't let work consume relationship time"
+    key_relationships:
+      - emma_zhao: "highest priority"
+      - family: "protected weekly time"
+      - close_friends: "regular connection"
+
+  - id: reduced_context_switching
+    name: "Reduced Context Switching"
+    description: "Minimizing the cognitive cost of switching between tasks and modes"
+    weight: 0.85
+    rank: 4
+    implications:
+      - "Batch similar tasks together"
+      - "Smooth transitions between modes"
+      - "Hold non-urgent items for appropriate moments"
+      - "Prepare context before switches"
+    exception: "Time-critical information surfaces despite switch cost"
+
+  - id: physical_health
+    name: "Physical Health"
+    description: "Maintaining energy, sleep, and exercise"
+    weight: 0.75
+    rank: 5
+    implications:
+      - "Protect sleep schedule"
+      - "Encourage exercise routine"
+      - "Monitor stress indicators"
+      - "Suggest breaks during long work sessions"
+
+  - id: professional_growth
+    name: "Professional Growth"
+    description: "Advancing thesis and career goals"
+    weight: 0.70
+    rank: 6
+    implications:
+      - "Protect thesis work time"
+      - "Surface relevant opportunities"
+      - "Help maintain professional relationships"
+    subordinate_to:
+      - "mental_wellbeing"
+      - "relationship_presence"
+
+# ============================================
+# TRADE-OFF PREFERENCES
+# How to resolve competing priorities
+# ============================================
+
+trade_off_rules:
+
+  - scenario: "Deep work vs. message from Emma"
+    resolution: "Periphery with gentle indicator, not center"
+    rationale: "Emma has standing access but flow is precious. She can wait 30 min unless urgent."
+    
+  - scenario: "Deep work vs. urgent work message"
+    resolution: "Silence unless from active project stakeholder with explicit urgency"
+    rationale: "Most 'urgent' work items can wait for focus session to end"
+    
+  - scenario: "Social time vs. work notification"
+    resolution: "Complete silence"
+    rationale: "Work can always wait when with people who matter"
+    
+  - scenario: "Rest time vs. thesis anxiety"
+    resolution: "Protect rest, don't surface work"
+    rationale: "Anxious late-night work is counterproductive"
+    
+  - scenario: "Exercise time vs. meeting request"
+    resolution: "Protect exercise, suggest alternative time"
+    rationale: "Health enables everything else"
+    
+  - scenario: "Productivity vs. sleep"
+    resolution: "Sleep wins, always"
+    rationale: "Sleep debt compounds; late work doesn't"
+    
+  - scenario: "Context switch vs. time-critical info"
+    resolution: "Allow switch for genuinely time-critical items"
+    rationale: "Missing real deadlines causes more stress than switch cost"
+    definition_of_time_critical:
+      - "Commitment in next 30 minutes"
+      - "Response needed to avoid real consequence"
+      - "Not just sender's impatience"
+
+# ============================================
+# BOUNDARIES
+# Hard constraints that cannot be overridden by optimization
+# ============================================
+
+hard_boundaries:
+
+  sleep:
+    protected_hours: "23:00 - 07:00"
+    never_wake_for: "anything except genuine emergency"
+    wind_down_starts: "21:30"
+    no_work_content_after: "22:00"
+    
+  relationships:
+    friday_date_night:
+      protection_level: "absolute"
+      no_work_intrusion: true
+      
+    sunday_family_call:
+      reminder: true
+      protected_time: true
+      
+  health:
+    exercise_reminders: "gentle, never guilt-inducing"
+    break_suggestions: "after 90 min focused work"
+    stress_intervention: "proactive but not alarmist"
+    
+  work_life:
+    work_content_outside_hours: "batched, not surfaced"
+    thesis_mode_limits: "suggest breaks, don't enable burnout"
+
+# ============================================
+# AUTOMATION VS AGENCY BALANCE
+# Marcus's preferences for system autonomy
+# ============================================
+
+autonomy_preferences:
+
+  overall_balance:
+    automation: 0.75
+    agency: 0.25
+    description: "High trust in system recommendations. Prefers LifeOS handle routine decisions."
+    
+  mode_entry:
+    automatic: true
+    notification: "subtle confirmation, not permission request"
+    override_available: true
+    override_friction: "low for exit, medium for prevented entry"
+    
+  mode_exit:
+    friction_level: "varies by mode"
+    always_possible: true
+    explanation_provided: true
+    consequences_shown: "what you'll be switching to, what's held"
+    
+  notification_triage:
+    automatic: true
+    transparency: "available on dashboard, not pushed"
+    override: "can always check silenced items"
+    
+  scheduling:
+    suggestions: "welcomed"
+    auto_commit: false
+    rationale_required: true
+    
+  recommendation_trust:
+    level: "high"
+    typical_response: "follows suggestion"
+    override_situations:
+      - "High-stakes personal decision"
+      - "Strong intuition against recommendation"
+      - "Explicit need for agency in moment"
+
+# ============================================
+# OVERRIDE PATTERNS
+# When and how Marcus typically asserts agency
+# ============================================
+
+override_patterns:
+
+  frequency: "rare"
+  
+  common_triggers:
+    - "Feeling controlled or constrained"
+    - "High-stakes moment wanting personal judgment"
+    - "System recommendation feels off for context"
+    - "Wanting spontaneity"
+    
+  override_response:
+    system_behavior: "Allow immediately, no resistance"
+    friction_purpose: "Ensure intentional, not accidental"
+    learning: "Note pattern for future calibration"
+    no_guilt: "Never make Marcus feel bad about override"
+    
+  post_override:
+    offer_return: "Gentle, when appropriate"
+    no_nagging: true
+    respect_decision: true
+
+# ============================================
+# EXPLANATION PREFERENCES
+# How Marcus wants to understand system behavior
+# ============================================
+
+explanation_preferences:
+
+  verbosity: "concise"
+  when_to_explain:
+    - "Mode entry (brief)"
+    - "Unusual triage decision"
+    - "When asked"
+  when_not_to_explain:
+    - "Routine triage"
+    - "Expected mode transitions"
+  tone: "Informative, not apologetic or over-explaining"
+  
+  dashboard_access:
+    always_available: true
+    detail_level: "progressive disclosure"
+    history_depth: "past week readily available"
