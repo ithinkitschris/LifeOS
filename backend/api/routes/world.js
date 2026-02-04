@@ -423,6 +423,31 @@ router.post('/open-questions', (req, res) => {
   }
 });
 
+// DELETE /api/world/open-questions/:id - Delete question
+router.delete('/open-questions/:id', (req, res) => {
+  const { id } = req.params;
+  const questionsPath = path.join(WORLD_PATH, 'open-questions.yaml');
+  const data = loadYaml(questionsPath);
+
+  if (!data || !data.questions) {
+    return res.status(404).json({ error: 'Questions file not found' });
+  }
+
+  const questionIndex = data.questions.findIndex(q => q.id === id);
+  if (questionIndex === -1) {
+    return res.status(404).json({ error: 'Question not found' });
+  }
+
+  data.questions.splice(questionIndex, 1);
+
+  if (saveYaml(questionsPath, data)) {
+    updateLastModified();
+    res.json({ message: 'Question deleted', id });
+  } else {
+    res.status(500).json({ error: 'Failed to save questions file' });
+  }
+});
+
 // ============================================
 // VERSIONING
 // ============================================

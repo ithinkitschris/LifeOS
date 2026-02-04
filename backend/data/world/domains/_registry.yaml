@@ -1,38 +1,9 @@
-# Domain Registry
-# Lists all active domains and their display order
-
 domains:
-  - id: architecture
-    name: "System Architecture"
-    file: architecture.yaml
-    order: 1
-
-  - id: principles
-    name: "Design Principles"
-    file: principles.yaml
-    order: 2
-
   - id: modes
-    name: "Mode System"
+    name: Mode System
     file: modes.yaml
     order: 3
-
   - id: intents
-    name: "Intent Framework"
+    name: Intent Framework
     file: intents.yaml
     order: 4
-
-  - id: devices
-    name: "Device Ecosystem"
-    file: devices.yaml
-    order: 5
-
-  - id: constitution
-    name: "Constitutional Framework"
-    file: constitution.yaml
-    order: 6
-
-  - id: research
-    name: "Research Grounding"
-    file: research.yaml
-    order: 7

@@ -1,344 +1,188 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { fetchSetting, updateSetting } from '@/lib/api';
+import { fetchSetting } from '@/lib/api';
 
-interface Setting {
-  id: string;
-  name: string;
-  description: string;
-  context: {
-    year: number;
-    summary: string;
-    technological_landscape: Array<{ id: string; name: string; description: string }>;
-    design_constraint: string;
-  };
-  problem_statement: {
-    summary: string;
-    diagnosis: string;
-    pain_points: Array<{ id: string; name: string; description: string }>;
-  };
-  solution: {
+interface TechnologyItem {
+    id: string;
     name: string;
-    summary: string;
-    capabilities: Array<{ id: string; name: string; description: string }>;
-    implication: string;
-  };
-  core_tension: {
-    summary: string;
-    statement: string;
-  };
+    description: string;
 }
 
-interface EditableTextProps {
-  field: string;
-  value: string;
-  multiline?: boolean;
-  editing: string | null;
-  editValue: string;
-  setEditValue: (value: string) => void;
-  handleSave: (field: string, value: string) => void;
-  startEditing: (field: string, currentValue: string) => void;
-  cancelEditing: () => void;
+interface PainPoint {
+    id: string;
+    name: string;
+    description: string;
 }
 
-function EditableText({ field, value, multiline = false, editing, editValue, setEditValue, handleSave, startEditing, cancelEditing }: EditableTextProps) {
-  const isEditing = editing === field;
+interface Capability {
+    id: string;
+    name: string;
+    description: string;
+}
 
-  if (isEditing) {
-    return (
-      <div className="mt-2">
-        {multiline ? (
-          <textarea
-            value={editValue}
-            onChange={(e) => setEditValue(e.target.value)}
-            rows={6}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500"
-            autoFocus
-          />
-        ) : (
-          <input
-            type="text"
-            value={editValue}
-            onChange={(e) => setEditValue(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500"
-            autoFocus
-          />
-        )}
-        <div className="flex gap-2 mt-2">
-          <button
-            onClick={() => handleSave(field, editValue)}
-            className="px-3 py-1 text-sm bg-sky-600 text-white rounded hover:bg-sky-700"
-          >
-            Save
-          </button>
-          <button
-            onClick={cancelEditing}
-            className="px-3 py-1 text-sm text-gray-600 hover:text-gray-800"
-          >
-            Cancel
-          </button>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div
-      onClick={() => startEditing(field, value)}
-      className="cursor-pointer hover:bg-gray-50 p-2 -m-2 rounded transition-colors group"
-    >
-      <p className="text-gray-700 whitespace-pre-wrap">{value}</p>
-      <span className="text-xs text-gray-400 opacity-0 group-hover:opacity-100 ml-2">Click to edit</span>
-    </div>
-  );
+interface SettingData {
+    id: string;
+    name: string;
+    description: string;
+    context: {
+        year: number;
+        summary: string;
+        technological_landscape: TechnologyItem[];
+        design_constraint: string;
+    };
+    problem_statement: {
+        summary: string;
+        diagnosis: string;
+        pain_points: PainPoint[];
+    };
+    solution: {
+        name: string;
+        summary: string;
+        capabilities: Capability[];
+        implication: string;
+    };
+    core_tension: {
+        summary: string;
+        statement: string;
+    };
 }
 
 export default function SettingPage() {
-  const [setting, setSetting] = useState<Setting | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [editing, setEditing] = useState<string | null>(null);
-  const [editValue, setEditValue] = useState('');
+    const [setting, setSetting] = useState<SettingData | null>(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    fetchSetting()
-      .then(setSetting)
-      .finally(() => setLoading(false));
-  }, []);
+    useEffect(() => {
+        fetchSetting()
+            .then(setSetting)
+            .catch((e) => setError(e.message))
+            .finally(() => setLoading(false));
+    }, []);
 
-  const handleSave = async (field: string, value: string) => {
-    if (!setting) return;
-
-    const updated = { ...setting };
-    const parts = field.split('.');
-    let current: any = updated;
-
-    for (let i = 0; i < parts.length - 1; i++) {
-      current = current[parts[i]];
+    if (loading) {
+        return (
+            <div className="p-8 max-w-6xl mx-auto">
+                <div className="animate-pulse">
+                    <div className="h-8 bg-gray-100 rounded-2xl w-1/3 mb-4"></div>
+                    <div className="h-4 bg-gray-100 rounded-xl w-2/3 mb-8"></div>
+                    <div className="space-y-4">
+                        {[1, 2, 3].map((i) => (
+                            <div key={i} className="h-32 bg-gray-100 rounded-2xl"></div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        );
     }
-    current[parts[parts.length - 1]] = value;
 
-    try {
-      const result = await updateSetting(updated);
-      setSetting(result);
-      setEditing(null);
-    } catch (e) {
-      alert('Failed to save changes');
+    if (error) {
+        return (
+            <div className="p-8 max-w-6xl mx-auto">
+                <div className="glass-card p-6">
+                    <h3 className="text-red-600 font-medium">Error loading setting data</h3>
+                    <p className="text-red-500 text-sm mt-1">{error}</p>
+                    <p className="text-red-500 text-sm mt-2">
+                        Make sure the backend is running: <code className="bg-red-50 px-2 py-0.5 rounded-lg text-xs">cd backend && npm start</code>
+                    </p>
+                </div>
+            </div>
+        );
     }
-  };
 
-  const startEditing = (field: string, currentValue: string) => {
-    setEditing(field);
-    setEditValue(currentValue);
-  };
+    if (!setting) return null;
 
-  const cancelEditing = () => {
-    setEditing(null);
-    setEditValue('');
-  };
-
-  if (loading) {
     return (
-      <div className="p-8">
-        <div className="animate-pulse">
-          <div className="h-8 bg-gray-200 rounded w-1/3 mb-8"></div>
-          <div className="space-y-6">
-            {[1, 2, 3, 4, 5].map((i) => (
-              <div key={i} className="h-48 bg-gray-200 rounded"></div>
-            ))}
-          </div>
+        <div className="p-8 max-w-6xl mx-auto">
+            {/* Header */}
+            <div className="mb-10">
+                <h1 className="text-3xl font-semibold text-gray-900 tracking-tight">{setting.name}</h1>
+                <p className="text-gray-400 mt-1.5 tracking-tight">{setting.description}</p>
+            </div>
+
+            {/* Year Hero */}
+            <div className="glass-card p-8 mb-8 bg-gradient-to-br from-sky-50 to-indigo-50 border border-sky-200">
+                <div className="text-center">
+                    <div className="text-6xl font-bold text-gray-900 mb-3">{setting.context.year}</div>
+                    <p className="text-gray-700 text-lg leading-relaxed max-w-3xl mx-auto">{setting.context.summary}</p>
+                </div>
+            </div>
+
+            <div className="space-y-8">
+                {/* Technological Landscape */}
+                <section>
+                    <h2 className="text-xl font-semibold text-gray-900 mb-4">Technological Landscape</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                        {setting.context.technological_landscape.map((tech) => (
+                            <div key={tech.id} className="glass-card p-5">
+                                <h3 className="font-semibold text-gray-900 mb-2">{tech.name}</h3>
+                                <p className="text-sm text-gray-700 leading-relaxed">{tech.description}</p>
+                            </div>
+                        ))}
+                    </div>
+                    <div className="glass-card p-5 bg-amber-50 border border-amber-200">
+                        <h3 className="font-medium text-amber-900 text-sm mb-2">Design Constraint</h3>
+                        <p className="text-amber-800 text-sm leading-relaxed whitespace-pre-line">{setting.context.design_constraint}</p>
+                    </div>
+                </section>
+
+                {/* Problem Statement */}
+                <section className="glass-card p-6">
+                    <h2 className="text-xl font-semibold text-gray-900 mb-4">Problem Statement</h2>
+                    <p className="text-gray-700 leading-relaxed mb-6 whitespace-pre-line">{setting.problem_statement.summary}</p>
+
+                    <div className="bg-gray-50 rounded-lg p-5 mb-6">
+                        <h3 className="font-medium text-gray-900 mb-3">Diagnosis</h3>
+                        <p className="text-gray-700 leading-relaxed whitespace-pre-line">{setting.problem_statement.diagnosis}</p>
+                    </div>
+
+                    <div>
+                        <h3 className="font-medium text-gray-900 mb-3">Pain Points</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {setting.problem_statement.pain_points.map((pain) => (
+                                <div key={pain.id} className="bg-red-50 border border-red-200 rounded-lg p-4">
+                                    <h4 className="font-medium text-red-900 mb-1">{pain.name}</h4>
+                                    <p className="text-sm text-red-800">{pain.description}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
+                {/* Solution */}
+                <section className="glass-card p-6 bg-gradient-to-br from-emerald-50 to-green-50 border border-emerald-200">
+                    <h2 className="text-xl font-semibold text-gray-900 mb-4">Solution: {setting.solution.name}</h2>
+                    <p className="text-gray-800 leading-relaxed mb-6 whitespace-pre-line">{setting.solution.summary}</p>
+
+                    <div className="mb-6">
+                        <h3 className="font-medium text-gray-900 mb-3">Core Capabilities</h3>
+                        <div className="space-y-3">
+                            {setting.solution.capabilities.map((capability) => (
+                                <div key={capability.id} className="bg-white/70 rounded-lg p-4">
+                                    <h4 className="font-medium text-emerald-900 mb-1">{capability.name}</h4>
+                                    <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-line">{capability.description}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="border-t border-emerald-300 pt-4">
+                        <h3 className="font-medium text-emerald-900 mb-2">Implication</h3>
+                        <p className="text-gray-800 leading-relaxed whitespace-pre-line italic">{setting.solution.implication}</p>
+                    </div>
+                </section>
+
+                {/* Core Tension */}
+                <section className="glass-card p-6 bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-200">
+                    <h2 className="text-xl font-semibold text-gray-900 mb-4">Core Tension</h2>
+                    <div className="space-y-4">
+                        <p className="text-gray-700 leading-relaxed whitespace-pre-line">{setting.core_tension.summary}</p>
+                        <div className="border-l-4 border-amber-400 pl-4 bg-white/50 p-4 rounded-r-lg">
+                            <p className="text-gray-800 font-medium leading-relaxed whitespace-pre-line">{setting.core_tension.statement}</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
         </div>
-      </div>
     );
-  }
-
-  if (!setting) return null;
-
-  return (
-    <div className="p-8">
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900">{setting.name}</h1>
-        <p className="text-gray-500 mt-1">{setting.description}</p>
-      </div>
-
-      <div className="grid grid-cols-1 2xl:grid-cols-2 gap-6">
-        {/* Left Column */}
-        <div className="space-y-6">
-          {/* World Context */}
-          <div className="bg-white rounded-lg border border-gray-200 p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">World Context</h2>
-
-            <div className="mb-6">
-              <div className="text-5xl font-bold text-sky-600 mb-2">{setting.context.year}</div>
-              <EditableText 
-                field="context.summary" 
-                value={setting.context.summary} 
-                multiline 
-                editing={editing}
-                editValue={editValue}
-                setEditValue={setEditValue}
-                handleSave={handleSave}
-                startEditing={startEditing}
-                cancelEditing={cancelEditing}
-              />
-            </div>
-
-            <div>
-              <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wide mb-3">
-                Technological Landscape
-              </h3>
-              <div className="space-y-3">
-                {setting.context.technological_landscape?.map((item) => (
-                  <div key={item.id} className="bg-gray-50 rounded-lg p-4">
-                    <h4 className="font-medium text-gray-900">{item.name}</h4>
-                    <p className="text-sm text-gray-600 mt-1">{item.description}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="mt-6 pt-6 border-t border-gray-100">
-              <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wide mb-2">
-                Design Constraint
-              </h3>
-              <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
-                <EditableText 
-                  field="context.design_constraint" 
-                  value={setting.context.design_constraint} 
-                  multiline 
-                  editing={editing}
-                  editValue={editValue}
-                  setEditValue={setEditValue}
-                  handleSave={handleSave}
-                  startEditing={startEditing}
-                  cancelEditing={cancelEditing}
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Problem Statement */}
-          <div className="bg-white rounded-lg border border-gray-200 p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Problem Statement</h2>
-
-            <div className="mb-6">
-              <EditableText 
-                field="problem_statement.summary" 
-                value={setting.problem_statement.summary} 
-                multiline 
-                editing={editing}
-                editValue={editValue}
-                setEditValue={setEditValue}
-                handleSave={handleSave}
-                startEditing={startEditing}
-                cancelEditing={cancelEditing}
-              />
-            </div>
-
-            <div className="mb-6">
-              <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wide mb-2">
-                Diagnosis
-              </h3>
-              <div className="bg-gray-50 rounded-lg p-4">
-                <EditableText 
-                  field="problem_statement.diagnosis" 
-                  value={setting.problem_statement.diagnosis} 
-                  multiline 
-                  editing={editing}
-                  editValue={editValue}
-                  setEditValue={setEditValue}
-                  handleSave={handleSave}
-                  startEditing={startEditing}
-                  cancelEditing={cancelEditing}
-                />
-              </div>
-            </div>
-
-            <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wide mb-3">
-              Pain Points
-            </h3>
-            <div className="space-y-3">
-              {setting.problem_statement.pain_points?.map((item) => (
-                <div key={item.id} className="bg-red-50 border border-red-100 rounded-lg p-4">
-                  <h4 className="font-medium text-red-900">{item.name}</h4>
-                  <p className="text-sm text-red-700 mt-1">{item.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Right Column */}
-        <div className="space-y-6">
-          {/* Solution */}
-          <div className="bg-white rounded-lg border border-gray-200 p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-2">Solution: {setting.solution?.name}</h2>
-            <p className="text-gray-600 mb-6">{setting.solution?.summary}</p>
-
-            <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wide mb-3">
-              Capabilities
-            </h3>
-            <div className="space-y-3 mb-6">
-              {setting.solution?.capabilities?.map((item) => (
-                <div key={item.id} className="bg-green-50 border border-green-100 rounded-lg p-4">
-                  <h4 className="font-medium text-green-900">{item.name}</h4>
-                  <p className="text-sm text-green-700 mt-1">{item.description}</p>
-                </div>
-              ))}
-            </div>
-
-            <div className="bg-green-100 border border-green-200 rounded-lg p-4">
-              <h3 className="text-sm font-medium text-green-800 uppercase tracking-wide mb-2">
-                Implication
-              </h3>
-              <EditableText 
-                field="solution.implication" 
-                value={setting.solution?.implication || ''} 
-                multiline 
-                editing={editing}
-                editValue={editValue}
-                setEditValue={setEditValue}
-                handleSave={handleSave}
-                startEditing={startEditing}
-                cancelEditing={cancelEditing}
-              />
-            </div>
-          </div>
-
-          {/* Core Tension */}
-          <div className="bg-gradient-to-br from-orange-50 to-red-50 rounded-lg border border-orange-200 p-6">
-            <h2 className="text-lg font-semibold text-orange-900 mb-4">Core Tension</h2>
-
-            <div className="mb-4">
-              <EditableText 
-                field="core_tension.summary" 
-                value={setting.core_tension?.summary || ''} 
-                multiline 
-                editing={editing}
-                editValue={editValue}
-                setEditValue={setEditValue}
-                handleSave={handleSave}
-                startEditing={startEditing}
-                cancelEditing={cancelEditing}
-              />
-            </div>
-
-            <div className="bg-white/50 rounded-lg p-4 border border-orange-200">
-              <EditableText 
-                field="core_tension.statement" 
-                value={setting.core_tension?.statement || ''} 
-                multiline 
-                editing={editing}
-                editValue={editValue}
-                setEditValue={setEditValue}
-                handleSave={handleSave}
-                startEditing={startEditing}
-                cancelEditing={cancelEditing}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
 }

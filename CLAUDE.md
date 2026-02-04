@@ -1,151 +1,178 @@
-# LifeOS Prototyping Platform
+# LifeOS Speculative Design Workbench
 
-> **This platform serves a master's thesis in interaction design exploring human agency in AI systems.**
+> A thesis platform exploring **human agency in AI-mediated life management** through speculative design.
+
+## The Core Tension
+
+LifeOS 2030 represents a world where AI systems have deep access to personal context — relationships, goals, health, work, memory. The central design question:
+
+**How can interaction design preserve human agency and meaningful oversight while delivering genuine automation benefits?**
+
+This platform argues: **Convenience and control are not zero-sum.** LifeOS demonstrates that automation can enhance rather than erode human agency — if the interaction model is designed thoughtfully.
+
+---
+
+## Design Philosophy
+
+When working on this platform, embody these principles:
+
+### 1. Agency is the core constraint
+Every feature must preserve the human's ability to understand, override, and opt-out. The mode-intent separation is sacred: *modes constrain* (automated), *intents execute* (user-chosen). Never conflate these.
+
+### 2. Speculative ≠ fantasy
+Ground everything in plausible 2030 technology. The goal is to surface real design tensions, not imagine magic. If it requires hand-waving, it doesn't belong.
+
+### 3. The uncomfortable scenarios matter most
+Edge cases, failures, mode collisions, and constitutional conflicts reveal more than happy paths. Seek them out. A scenario that breaks the model is more valuable than one that confirms it.
+
+### 4. Information exists on a spectrum
+Reject binary show/hide thinking. Everything lives in Center, Periphery, or Silence — and layer assignment changes with mode. This is calm technology in practice.
+
+### 5. No punishment, no shame, no dead ends
+The system never locks users out or judges choices. Override patterns are learning signals, not defiance. Every state has an exit path.
+
+---
 
 ## Document Hierarchy
 
 ```
-WORLD.md                    ← Canonical source of truth for LifeOS 2030
-backend/data/world/         ← World canon as structured YAML (editable via dashboard)
-backend/data/knowledge-graph/  ← Marcus Chen's PKG, derived from world rules
-dashboard/                  ← World Dashboard (Next.js) for managing the canon
-CLAUDE.md                   ← Platform instructions (this file)
+WORLD.md                       <- READ THIS FIRST for any design work
+backend/data/world/            <- World canon as structured YAML (editable via dashboard)
+backend/data/knowledge-graph/  <- Marcus Chen's PKG (the synthetic user)
+dashboard/                     <- World Dashboard for managing the canon
+CLAUDE.md                      <- This file (platform instructions)
 ```
 
 **The world is the foundation.** Everything derives from it:
-- World rules → constrain Marcus's PKG
+- World rules (WORLD.md) → constrain Marcus's PKG
 - World + PKG → inform scenario generation
-- Scenarios → specify prototypes
+- Scenarios → test the architecture → specify prototypes
 
 ---
 
-## What This Platform Is
+## The Platform Components
 
-A speculative design workbench for exploring LifeOS through:
-
-1. **World Canon** (`backend/data/world/`) — The static, versioned truth of LifeOS 2030
-2. **World Dashboard** (`dashboard/`) — Visual interface to manage the canon
-3. **Synthetic User** (`backend/data/knowledge-graph/`) — Marcus Chen's PKG
-4. **API Layer** (`backend/api/`) — Endpoints for all data
-5. **Prototypes** (`prototypes/`) — React/Swift interfaces for testing
+| Component | Purpose | Location |
+|-----------|---------|----------|
+| **World Canon** | The locked + open rules of LifeOS 2030 | `WORLD.md` + `backend/data/world/` |
+| **World Dashboard** | Visual interface to edit canon, manage versions | `dashboard/` at localhost:3000 |
+| **Synthetic User** | Marcus Chen — a fully specified PKG for scenarios | `backend/data/knowledge-graph/` |
+| **API Layer** | Endpoints for all data operations | `backend/api/` at localhost:3001 |
+| **Prototypes** | React/Swift interfaces testing specific interactions | `prototypes/` |
 
 ---
 
-## Project Structure
+## Working on This Platform
 
+### Scenario Generation
+
+Scenarios are experiments. Each should test a specific hypothesis about the LifeOS architecture.
+
+**Before generating:**
+1. Read `WORLD.md` — especially locked vs. open sections
+2. Read Marcus's PKG in `backend/data/knowledge-graph/`
+3. Check open questions in `backend/data/world/open-questions.yaml`
+
+**What makes a good scenario:**
+- Tests a specific architectural element (mode collision, constitutional conflict, intent inheritance)
+- Puts Marcus in a situation with competing priorities
+- Surfaces a design decision without an obvious answer
+- Shows both what LifeOS does AND how Marcus perceives/responds
+- Reveals something about the agency-automation tradeoff
+
+**What makes a bad scenario:**
+- Feature demonstration ("Marcus asks LifeOS to schedule a meeting")
+- Happy path with obvious resolution
+- Ignores world rules or Marcus's established character
+- Doesn't create meaningful tension
+
+**After generating:**
+Save the conversation to the dashboard via API so it's browsable at `/scenarios`:
 ```
-lifeos-platform/
-├── WORLD.md                      # Human-readable world canon (reference)
-├── CLAUDE.md                     # This file
-├── dashboard/                    # Next.js World Dashboard
-│   ├── src/app/                  # Pages: overview, setting, domains, questions, versions
-│   └── src/lib/api.ts            # API client
-├── backend/
-│   ├── api/
-│   │   ├── server.js             # Express entry point
-│   │   └── routes/
-│   │       ├── world.js          # World canon CRUD + versioning
-│   │       ├── context.js        # Knowledge graph queries
-│   │       ├── modes.js          # Mode definitions
-│   │       ├── orchestrator.js   # Constitutional values
-│   │       └── llm.js            # Claude API integration
-│   ├── data/
-│   │   ├── world/                # World canon (YAML)
-│   │   │   ├── meta.yaml         # Version info
-│   │   │   ├── setting.yaml      # 2030 context
-│   │   │   ├── domains/          # Architecture, principles, modes, etc.
-│   │   │   ├── open-questions.yaml
-│   │   │   └── versions/         # Snapshots
-│   │   ├── knowledge-graph/      # Marcus Chen's PKG (JSON)
-│   │   ├── modes/                # Mode definitions (YAML)
-│   │   └── constitution/         # Values & rules (YAML)
-│   └── config/
-│       └── llm-config.yaml
-└── prototypes/
-    ├── templates/
-    └── active/
+POST http://localhost:3001/api/conversations/import
+{"messages": [...], "source": "claude-code"}
 ```
 
+### World Iteration
+
+The canon is versioned. When making changes:
+1. Create a snapshot first: `POST /api/world/versions`
+2. Make changes through dashboard or API
+3. Document reasoning in the version description
+
+**Changes should be driven by scenario insights** — not arbitrary additions. If a scenario reveals that a locked rule doesn't work, that's a finding worth documenting.
+
+### Design Exploration
+
+Start from open questions (OQ-1 through OQ-10 in WORLD.md). The workflow:
+1. Pick an open question
+2. Generate scenarios exploring candidate approaches
+3. Identify which approach best preserves agency
+4. Update world canon if a resolution emerges
+5. Mark question resolved or refined
+
 ---
 
-## Quick Start
+## Key Architectural Concepts (Quick Reference)
 
+These are locked in WORLD.md — never contradict them:
+
+| Concept | Definition |
+|---------|------------|
+| **Mode** | Context-aware stance toward the world. Orchestrator-controlled. Constrains available intents. |
+| **Intent** | Bounded action within current mode. User-selected. Never auto-executed. |
+| **Center/Periphery/Silence** | Three-layer attention model. Every piece of info exists in exactly one layer per mode. |
+| **Dashboard** | Neutral clearing — always accessible, no mode applies, retrospective audit trail. |
+| **Constitutional Framework** | User-articulated values translated into operational rules that inform triage. |
+
+---
+
+## Open Questions to Explore
+
+From WORLD.md — these are the research frontier:
+
+| ID | Question |
+|----|----------|
+| OQ-1 | Mode collision — what when two modes have equal confidence? |
+| OQ-2 | Intent inheritance — do intents survive mode transitions? |
+| OQ-3 | Constitutional conflict — how to handle contradicting values? |
+| OQ-4 | Urgency determination — what pierces Silence? Who decides? |
+| OQ-5 | Learning from overrides — how much should the system adapt? |
+| OQ-6 | Multi-user contexts — shared spaces, conflicting modes |
+| OQ-7 | Onboarding flow — how do users articulate initial values? |
+| OQ-8 | Trust calibration — how does the system earn more autonomy? |
+| OQ-9 | Provider resistance — how do providers adapt to losing direct access? |
+| OQ-10 | Edge cases — what scenarios break the model? |
+
+---
+
+## Quick Reference
+
+**Start servers:**
 ```bash
-# 1. Start the backend API
-cd backend && npm start
-# API runs at http://localhost:3001
-
-# 2. Start the World Dashboard
-cd dashboard && npm run dev
-# Dashboard runs at http://localhost:3000
-
-# 3. (Optional) Enable LLM features
-export ANTHROPIC_API_KEY=your-key
+cd backend && npm start      # API at localhost:3001
+cd dashboard && npm run dev  # Dashboard at localhost:3000
 ```
 
----
-
-## World Dashboard
-
-The dashboard at `http://localhost:3000` provides:
-
-| View | Purpose |
-|------|---------|
-| **Overview** | Stats, thesis, domain cards, recent questions |
-| **2030 Setting** | Edit the world context (technological/social landscape, problem, thesis) |
-| **Domains** | Browse and edit domain content (architecture, modes, principles, etc.) |
-| **Open Questions** | Manage unresolved design questions |
-| **Versions** | Create snapshots, view history, restore previous states |
-
----
-
-## API Quick Reference
-
-**World Canon:**
+**Key APIs:**
 - `GET /api/world` — Full world state
-- `GET /api/world/setting` — 2030 context
-- `GET /api/world/domains` — List domains
-- `GET /api/world/domains/:id` — Domain detail
-- `PUT /api/world/domains/:id` — Update domain
-- `POST /api/world/domains` — Create domain
-- `GET /api/world/open-questions` — Open questions
-- `GET /api/world/versions` — Version history
-- `POST /api/world/versions` — Create snapshot
-- `POST /api/world/versions/:version/restore` — Restore
+- `POST /api/conversations/import` — Save scenario conversation
+- `POST /api/world/versions` — Create version snapshot
+- `GET /api/context/knowledge-graph` — Marcus's full PKG
 
-**Context (Marcus's PKG):**
-- `GET /api/context/identity`
-- `GET /api/context/relationships`
-- `GET /api/context/knowledge-graph`
+**Key files:**
+- `WORLD.md` — Human-readable world canon
+- `backend/data/world/` — Structured YAML canon
+- `backend/data/knowledge-graph/` — Marcus Chen's PKG
 
-**Modes:**
-- `GET /api/modes`
-- `GET /api/modes/:id`
-
-**LLM:**
-- `POST /api/llm/generate`
-- `POST /api/llm/scenario` ← **Scenario generation with full world + PKG context**
+For detailed API documentation, read the route files in `backend/api/routes/`.
 
 ---
 
-## Working With Claude
+## For Claude: Working Style
 
-**For scenario generation:**
-1. Claude reads `WORLD.md` + domain YAMLs for constraints
-2. Claude reads Marcus's PKG for user context
-3. Generate structured scenarios testing the architecture
-
-**For world iteration:**
-1. Use the dashboard to edit domains, questions, setting
-2. Create version snapshots before major changes
-3. Restore if needed
-
-**For design exploration:**
-1. Start from open questions in the dashboard
-2. Generate scenarios that explore candidate approaches
-3. Update world canon when decisions are made
-
-**Style:**
-- Execute fully on design visions
-- Think systemically — how does this fit the ecosystem?
-- Always ask: How does this preserve agency while providing automation benefit?
+- **Execute fully on design visions.** Don't hedge or offer watered-down versions.
+- **Think systemically.** Every feature affects the whole ecosystem.
+- **Seek the tension.** The interesting work is in the uncomfortable scenarios.
+- **Respect the canon.** Locked sections are constraints, not suggestions.
+- **Always ask:** Does this preserve agency while providing automation benefit?

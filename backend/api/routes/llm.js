@@ -468,6 +468,49 @@ router.get('/status', async (req, res) => {
   }
 });
 
+// Creativity mode presets for scenario generation
+const CREATIVITY_MODES = {
+  grounded: {
+    temperature: 0.4,
+    description: "Strictly adheres to world canon and PKG. Conservative, consistent.",
+    system_modifier: `## CREATIVITY CONSTRAINTS
+- Stay strictly within established world canon
+- Only surface intents/behaviors explicitly supported by Marcus's PKG
+- Prioritize consistency over novelty
+- When uncertain, default to the most conservative interpretation`
+  },
+  balanced: {
+    temperature: 0.6,
+    description: "Grounded in canon but allows reasonable extrapolation.",
+    system_modifier: `## CREATIVITY CONSTRAINTS
+- Ground responses in world canon but allow reasonable inference
+- Surface intents that are plausible given Marcus's PKG, even if not explicit
+- Balance consistency with interesting exploration
+- Flag speculative elements when they extend beyond established canon`
+  },
+  exploratory: {
+    temperature: 0.8,
+    description: "More speculative. Explores edge cases and novel interactions.",
+    system_modifier: `## CREATIVITY CONSTRAINTS
+- Use world canon as a foundation but feel free to explore its implications
+- Generate novel intents and interactions that feel plausible for 2030
+- Push into interesting edge cases and unexpected scenarios
+- Explore tensions between competing values or modes
+- Suggest intents that might surprise Marcus but still feel authentic to his PKG`
+  },
+  provocative: {
+    temperature: 0.95,
+    description: "Maximum creativity. Challenge assumptions, explore failures and tensions.",
+    system_modifier: `## CREATIVITY CONSTRAINTS
+- Challenge the world canon's assumptions—where might it break down?
+- Explore failure modes, unintended consequences, edge cases
+- Generate scenarios that reveal tensions in the LifeOS architecture
+- Surface intents that create dilemmas or force difficult choices
+- Be bold—this mode is for stress-testing ideas, not polishing them
+- Consider: What would a critic notice? What could go wrong? What's missing?`
+  }
+};
+
 // POST /api/llm/scenario
 // Generate speculative scenarios grounded in world canon + PKG context
 // This is the lightweight "context engine" endpoint for scenario exploration
@@ -475,11 +518,16 @@ router.post('/scenario', async (req, res) => {
   try {
     const {
       prompt,
-      temperature = 0.6,
+      creativity_mode = 'balanced',
+      temperature: customTemp,
       max_tokens = 2048,
       include_world = true,
       include_pkg = true
     } = req.body;
+
+    // Get creativity preset (default to balanced if invalid)
+    const creativityPreset = CREATIVITY_MODES[creativity_mode] || CREATIVITY_MODES.balanced;
+    const temperature = customTemp ?? creativityPreset.temperature;
 
     if (!prompt) {
       return res.status(400).json({ error: 'Prompt is required' });
@@ -545,20 +593,35 @@ ${JSON.stringify(pkgContext, null, 2)}
 - Ground everything in Marcus's actual relationships, behaviors, and values
 - Describe what LifeOS shows, holds, surfaces, or suggests—not abstract concepts
 - When generating intents or notifications, format them clearly (use bullet points, headers)
-- Stay in 2030—technology is advanced but plausible, not magical`;
+- Stay in 2030—technology is advanced but plausible, not magical
 
+${creativityPreset.system_modifier}`;
+
+    // Use Anthropic prompt caching - the system prompt (world + PKG) is cached
+    // server-side for 5 minutes, reducing input tokens by ~90% on subsequent calls
     const message = await client.messages.create({
       model: config.api.model,
       max_tokens: max_tokens,
       temperature: temperature,
-      system: systemPrompt,
+      system: [
+        {
+          type: "text",
+          text: systemPrompt,
+          cache_control: { type: "ephemeral" }
+        }
+      ],
       messages: [{ role: 'user', content: prompt }]
     });
 
+    // Check if cache was used (cache_read_input_tokens > 0 means cache hit)
+    const cacheHit = message.usage?.cache_read_input_tokens > 0;
+
     res.json({
       text: message.content[0].text,
-      cached: false,
+      cached: cacheHit,
       model: config.api.model,
+      creativity_mode: creativity_mode,
+      temperature: temperature,
       context_loaded: {
         world: !!worldContext,
         world_chars: worldContext.length,
@@ -571,6 +634,17 @@ ${JSON.stringify(pkgContext, null, 2)}
     console.error('Scenario generation error:', err);
     res.status(500).json({ error: 'Scenario generation failed', message: err.message });
   }
+});
+
+// GET /api/llm/creativity-modes
+// List available creativity modes for scenario generation
+router.get('/creativity-modes', (req, res) => {
+  const modes = Object.entries(CREATIVITY_MODES).map(([name, config]) => ({
+    name,
+    temperature: config.temperature,
+    description: config.description
+  }));
+  res.json({ modes });
 });
 
 export default router;

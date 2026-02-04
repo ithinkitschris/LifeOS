@@ -1,27 +1,85 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Permanently disable dark mode - override Tailwind's dark variant */
+@custom-variant dark (&:not(*));
+
+/* ============================================
+   THESIS-INSPIRED DESIGN SYSTEM
+   Based on: bargainingwiththefuture.com
+   ============================================ */
+
+/* SF Pro Rounded Font Stack */
+@font-face {
+  font-family: 'SF Pro Rounded';
+  src: local('SF Pro Rounded'), local('.SF Pro Rounded'), local('SF Pro Display');
+  font-weight: 100 900;
+  font-style: normal;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* LifeOS brand colors - updated with thesis gradient palette */
+@theme {
+  --color-lifeos-50: #f0f9ff;
+  --color-lifeos-100: #e0f4ff;
+  --color-lifeos-200: #bae8ff;
+  --color-lifeos-300: #7dd6fc;
+  --color-lifeos-400: #66d6ff;
+  --color-lifeos-500: #38bdf8;
+  --color-lifeos-600: #008cff;
+  --color-lifeos-700: #0369a1;
+  --color-lifeos-800: #075985;
+  --color-lifeos-900: #0c4a6e;
+}
+
+:root {
+  color-scheme: light;
+  --background: #ffffff;
+  --foreground: #171717;
+
+  /* Thesis-inspired design tokens */
+  --radius-pill: 9999px;
+  --radius-card: 22px;
+  --radius-lg: 16px;
+  --radius-md: 12px;
+
+  /* Glassmorphism */
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(0, 0, 0, 0.05);
+  --glass-blur: 16px;
+
+  /* Gradient accent */
+  --gradient-blue: linear-gradient(135deg, #66d6ff 0%, #008cff 100%);
+  --gradient-purple: linear-gradient(135deg, #a78bfa 0%, #7c3aed 100%);
+
+  /* Shadows */
+  --shadow-soft: 0 4px 20px -4px rgba(0, 0, 0, 0.08);
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.04);
+  --shadow-hover: 0 8px 30px -8px rgba(0, 0, 0, 0.12);
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  font-family: 'SF Pro Rounded', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom scrollbar */
+/* Typography with tight tracking */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  letter-spacing: -0.03em;
+  font-weight: 600;
+}
+
+/* Custom scrollbar - minimal */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -29,29 +87,160 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #d1d5db;
-  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #9ca3af;
+  background: rgba(0, 0, 0, 0.25);
 }
 
-/* Status badges */
+/* ============================================
+   GLASSMORPHISM UTILITIES
+   ============================================ */
+
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  box-shadow: var(--shadow-card);
+  border-radius: var(--radius-card);
+}
+
+/* ============================================
+   GRADIENT TEXT
+   ============================================ */
+
+.gradient-text {
+  background: var(--gradient-blue);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-purple {
+  background: var(--gradient-purple);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================
+   STATUS BADGES - Pill style
+   ============================================ */
+
 .badge-locked {
-  background-color: rgb(254 243 199);
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
   color: rgb(146 64 14);
-  border: 1px solid rgb(253 230 138);
+  border: 1px solid rgba(253, 230, 138, 0.6);
+  border-radius: var(--radius-pill);
+  font-weight: 500;
+  letter-spacing: -0.01em;
 }
 
 .badge-open {
-  background-color: rgb(220 252 231);
+  background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
   color: rgb(22 101 52);
-  border: 1px solid rgb(187 247 208);
+  border: 1px solid rgba(187, 247, 208, 0.6);
+  border-radius: var(--radius-pill);
+  font-weight: 500;
+  letter-spacing: -0.01em;
 }
 
 .badge-scaffolded {
-  background-color: rgb(219 234 254);
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
   color: rgb(30 64 175);
-  border: 1px solid rgb(191 219 254);
+  border: 1px solid rgba(191, 219, 254, 0.6);
+  border-radius: var(--radius-pill);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+/* ============================================
+   CARD UTILITIES
+   ============================================ */
+
+.card {
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  transition: all 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-hover);
+  border-color: rgba(0, 140, 255, 0.2);
+}
+
+.card-interactive {
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.card-interactive:hover {
+  transform: scale(0.995);
+}
+
+.card-interactive:active {
+  transform: scale(0.98);
+}
+
+/* ============================================
+   BUTTON UTILITIES
+   ============================================ */
+
+.btn-primary {
+  background: var(--gradient-blue);
+  color: white;
+  border-radius: var(--radius-pill);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  box-shadow: 0 2px 8px rgba(0, 140, 255, 0.25);
+  transition: all 0.15s ease;
+}
+
+.btn-primary:hover {
+  transform: scale(0.98);
+  box-shadow: 0 4px 16px rgba(0, 140, 255, 0.35);
+}
+
+/* ============================================
+   NAVIGATION UTILITIES
+   ============================================ */
+
+.nav-item {
+  letter-spacing: -0.02em;
+  font-weight: 500;
+  transition: all 0.15s ease;
+  border-radius: var(--radius-lg);
+}
+
+.nav-item:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.nav-item-active {
+  background: rgba(0, 140, 255, 0.08);
+  color: #008cff;
+}
+
+/* ============================================
+   INPUT FOCUS STATES
+   ============================================ */
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: rgba(0, 140, 255, 0.4);
+  box-shadow: 0 0 0 3px rgba(0, 140, 255, 0.1);
 }

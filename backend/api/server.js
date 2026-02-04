@@ -17,6 +17,7 @@ import modesRoutes from './routes/modes.js';
 import orchestratorRoutes from './routes/orchestrator.js';
 import llmRoutes from './routes/llm.js';
 import worldRoutes from './routes/world.js';
+import conversationsRoutes from './routes/conversations.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -49,6 +50,7 @@ app.use('/api/modes', modesRoutes);
 app.use('/api/orchestrator', orchestratorRoutes);
 app.use('/api/llm', llmRoutes);
 app.use('/api/world', worldRoutes);
+app.use('/api/conversations', conversationsRoutes);
 
 // API documentation endpoint
 app.get('/api', (req, res) => {
@@ -108,6 +110,13 @@ app.get('/api', (req, res) => {
         'GET /api/world/versions': 'List version snapshots',
         'POST /api/world/versions': 'Create version snapshot',
         'POST /api/world/versions/:version/restore': 'Restore to version'
+      },
+      conversations: {
+        'GET /api/conversations': 'List all conversations',
+        'POST /api/conversations': 'Create new conversation',
+        'GET /api/conversations/:id': 'Get single conversation',
+        'POST /api/conversations/:id/messages': 'Add message and get response',
+        'DELETE /api/conversations/:id': 'Delete conversation'
       }
     }
   });

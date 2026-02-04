@@ -113,6 +113,14 @@ export async function createOpenQuestion(question: { name: string; question: str
   return res.json();
 }
 
+export async function deleteOpenQuestion(id: string) {
+  const res = await fetch(`${API_BASE}/api/world/open-questions/${id}`, {
+    method: 'DELETE',
+  });
+  if (!res.ok) throw new Error('Failed to delete question');
+  return res.json();
+}
+
 export async function fetchVersions() {
   const res = await fetch(`${API_BASE}/api/world/versions`);
   if (!res.ok) throw new Error('Failed to fetch versions');
@@ -134,5 +142,142 @@ export async function restoreVersion(version: string) {
     method: 'POST',
   });
   if (!res.ok) throw new Error('Failed to restore version');
+  return res.json();
+}
+
+// ============================================
+// Conversations API
+// ============================================
+
+export interface ConversationMessage {
+  role: 'user' | 'assistant';
+  content: string;
+  timestamp: string;
+}
+
+export interface ConversationSummary {
+  id: string;
+  title: string;
+  created_at: string;
+  updated_at: string;
+  message_count: number;
+}
+
+export interface Conversation {
+  id: string;
+  title: string;
+  created_at: string;
+  updated_at: string;
+  context: {
+    world_version: string;
+    pkg_domains: string[];
+  };
+  messages: ConversationMessage[];
+}
+
+export async function fetchConversations(): Promise<{ conversations: ConversationSummary[] }> {
+  const res = await fetch(`${API_BASE}/api/conversations`);
+  if (!res.ok) throw new Error('Failed to fetch conversations');
+  return res.json();
+}
+
+export async function createConversation(): Promise<Conversation> {
+  const res = await fetch(`${API_BASE}/api/conversations`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+  });
+  if (!res.ok) throw new Error('Failed to create conversation');
+  return res.json();
+}
+
+export async function fetchConversation(id: string): Promise<Conversation> {
+  const res = await fetch(`${API_BASE}/api/conversations/${id}`);
+  if (!res.ok) throw new Error('Failed to fetch conversation');
+  return res.json();
+}
+
+export async function sendMessage(conversationId: string, content: string): Promise<{
+  userMessage: ConversationMessage;
+  assistantMessage: ConversationMessage;
+  conversation: { id: string; title: string; updated_at: string };
+}> {
+  const res = await fetch(`${API_BASE}/api/conversations/${conversationId}/messages`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ content }),
+  });
+  if (!res.ok) throw new Error('Failed to send message');
+  return res.json();
+}
+
+export async function deleteConversation(id: string): Promise<{ success: boolean; deleted: string }> {
+  const res = await fetch(`${API_BASE}/api/conversations/${id}`, {
+    method: 'DELETE',
+  });
+  if (!res.ok) throw new Error('Failed to delete conversation');
+  return res.json();
+}
+
+// ============================================
+// PKG (Personal Knowledge Graph) API
+// ============================================
+
+export async function fetchPKGIdentity() {
+  const res = await fetch(`${API_BASE}/api/context/identity`);
+  if (!res.ok) throw new Error('Failed to fetch identity');
+  return res.json();
+}
+
+export async function fetchPKGRelationships() {
+  const res = await fetch(`${API_BASE}/api/context/relationships`);
+  if (!res.ok) throw new Error('Failed to fetch relationships');
+  return res.json();
+}
+
+export async function fetchPKGBehaviors() {
+  const res = await fetch(`${API_BASE}/api/context/behaviors`);
+  if (!res.ok) throw new Error('Failed to fetch behaviors');
+  return res.json();
+}
+
+export async function fetchPKGLocations() {
+  const res = await fetch(`${API_BASE}/api/context/locations`);
+  if (!res.ok) throw new Error('Failed to fetch locations');
+  return res.json();
+}
+
+export async function fetchPKGHealth() {
+  const res = await fetch(`${API_BASE}/api/context/health`);
+  if (!res.ok) throw new Error('Failed to fetch health');
+  return res.json();
+}
+
+export async function fetchPKGCommunications() {
+  const res = await fetch(`${API_BASE}/api/context/communications`);
+  if (!res.ok) throw new Error('Failed to fetch communications');
+  return res.json();
+}
+
+export async function fetchPKGCalendar() {
+  const res = await fetch(`${API_BASE}/api/context/calendar`);
+  if (!res.ok) throw new Error('Failed to fetch calendar');
+  return res.json();
+}
+
+export async function fetchPKGTimeline() {
+  const res = await fetch(`${API_BASE}/api/context/timeline`);
+  if (!res.ok) throw new Error('Failed to fetch timeline');
+  return res.json();
+}
+
+export async function fetchPKGDigitalHistory() {
+  const res = await fetch(`${API_BASE}/api/context/digital-history`);
+  if (!res.ok) throw new Error('Failed to fetch digital history');
+  return res.json();
+}
+
+export async function fetchFullKnowledgeGraph() {
+  const res = await fetch(`${API_BASE}/api/context/knowledge-graph`);
+  if (!res.ok) throw new Error('Failed to fetch knowledge graph');
   return res.json();
 }
