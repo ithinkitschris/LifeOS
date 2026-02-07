@@ -33,8 +33,8 @@ export default function Sidebar() {
         <div className="p-6 border-b border-black/5 flex items-center justify-between">
           {!isCollapsed && (
             <div className="flex-1">
-              <h1 className="text-xl font-semibold text-gray-900 tracking-tight">World of LifeOS</h1>
-              <p className="text-sm text-gray-400 mt-0.5 tracking-tight">Canon Dashboard</p>
+              <h1 className="text-2xl font-medium text-gray-900 tracking-tight -ml-0.5">World of LifeOS</h1>
+              <p className="text-sm text-gray-400 mt-0.5 tracking-tight">Bargaining with the Future</p>
             </div>
           )}
           <button
@@ -71,28 +71,11 @@ export default function Sidebar() {
         </div>
 
         <nav className="flex-1 p-3 overflow-y-auto">
-          {/* World Section */}
+          {/* Thesis Section */}
           {!isCollapsed && (
-            <div className="text-[10px] font-medium text-gray-400 uppercase tracking-wider px-3 pt-2 pb-1">World</div>
+            <div className="text-[10px] font-medium text-gray-400 uppercase tracking-wider px-3 pt-2 pb-1">Thesis</div>
           )}
           <ul className="space-y-1">
-            <li>
-              <a
-                href="/"
-                className={`nav-item flex items-center px-3 py-2.5 text-sm text-gray-600 hover:text-gray-900 group ${isCollapsed ? 'justify-center' : ''}`}
-                title={isCollapsed ? 'Overview' : ''}
-              >
-                <svg
-                  className={`w-5 h-5 text-gray-400 group-hover:text-gray-600 flex-shrink-0 ${isCollapsed ? '' : 'mr-3'}`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                </svg>
-                {!isCollapsed && <span>Overview</span>}
-              </a>
-            </li>
             <li>
               <a
                 href="/thesis"
@@ -108,23 +91,6 @@ export default function Sidebar() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
                 {!isCollapsed && <span>Thesis</span>}
-              </a>
-            </li>
-            <li>
-              <a
-                href="/setting"
-                className={`nav-item flex items-center px-3 py-2.5 text-sm text-gray-600 hover:text-gray-900 group ${isCollapsed ? 'justify-center' : ''}`}
-                title={isCollapsed ? '2030 Setting' : ''}
-              >
-                <svg
-                  className={`w-5 h-5 text-gray-400 group-hover:text-gray-600 flex-shrink-0 ${isCollapsed ? '' : 'mr-3'}`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                {!isCollapsed && <span>2030 Setting</span>}
               </a>
             </li>
             <li>
@@ -146,6 +112,48 @@ export default function Sidebar() {
             </li>
           </ul>
 
+          {/* World Section */}
+          {!isCollapsed && (
+            <div className="text-[10px] font-medium text-gray-400 uppercase tracking-wider px-3 pt-4 pb-1">World</div>
+          )}
+          <ul className="space-y-1">
+            {/* Overview hidden for now */}
+            {/* <li>
+              <a
+                href="/"
+                className={`nav-item flex items-center px-3 py-2.5 text-sm text-gray-600 hover:text-gray-900 group ${isCollapsed ? 'justify-center' : ''}`}
+                title={isCollapsed ? 'Overview' : ''}
+              >
+                <svg
+                  className={`w-5 h-5 text-gray-400 group-hover:text-gray-600 flex-shrink-0 ${isCollapsed ? '' : 'mr-3'}`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
+                {!isCollapsed && <span>Overview</span>}
+              </a>
+            </li> */}
+            <li>
+              <a
+                href="/setting"
+                className={`nav-item flex items-center px-3 py-2.5 text-sm text-gray-600 hover:text-gray-900 group ${isCollapsed ? 'justify-center' : ''}`}
+                title={isCollapsed ? '2030 Setting' : ''}
+              >
+                <svg
+                  className={`w-5 h-5 text-gray-400 group-hover:text-gray-600 flex-shrink-0 ${isCollapsed ? '' : 'mr-3'}`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                {!isCollapsed && <span>2030 Setting</span>}
+              </a>
+            </li>
+          </ul>
+
           {/* LifeOS Section */}
           {!isCollapsed && (
             <div className="text-[10px] font-medium text-gray-400 uppercase tracking-wider px-3 pt-4 pb-1">LifeOS</div>
@@ -153,9 +161,77 @@ export default function Sidebar() {
           <ul className="space-y-1">
             <li>
               <a
+                href="/modes"
+                className={`nav-item flex items-center px-3 py-2.5 text-sm text-gray-600 hover:text-gray-900 group ${isCollapsed ? 'justify-center' : ''}`}
+                title={isCollapsed ? 'Modes' : ''}
+              >
+                <svg
+                  className={`w-5 h-5 text-gray-400 group-hover:text-gray-600 flex-shrink-0 ${isCollapsed ? '' : 'mr-3'}`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
+                </svg>
+                {!isCollapsed && <span>Modes</span>}
+              </a>
+            </li>
+            <li>
+              <a
+                href="/intents"
+                className={`nav-item flex items-center px-3 py-2.5 text-sm text-gray-600 hover:text-gray-900 group ${isCollapsed ? 'justify-center' : ''}`}
+                title={isCollapsed ? 'Intents' : ''}
+              >
+                <svg
+                  className={`w-5 h-5 text-gray-400 group-hover:text-gray-600 flex-shrink-0 ${isCollapsed ? '' : 'mr-3'}`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z" />
+                </svg>
+                {!isCollapsed && <span>Intents</span>}
+              </a>
+            </li>
+            <li>
+              <a
+                href="/ecosystem"
+                className={`nav-item flex items-center px-3 py-2.5 text-sm text-gray-600 hover:text-gray-900 group ${isCollapsed ? 'justify-center' : ''}`}
+                title={isCollapsed ? 'Multimodal Ecosystem' : ''}
+              >
+                <svg
+                  className={`w-5 h-5 text-gray-400 group-hover:text-gray-600 flex-shrink-0 ${isCollapsed ? '' : 'mr-3'}`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 002.25-2.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v2.25A2.25 2.25 0 006 10.5zm0 9.75h2.25A2.25 2.25 0 0010.5 18v-2.25a2.25 2.25 0 00-2.25-2.25H6a2.25 2.25 0 00-2.25 2.25V18A2.25 2.25 0 006 20.25zm9.75-9.75H18a2.25 2.25 0 002.25-2.25V6A2.25 2.25 0 0018 3.75h-2.25A2.25 2.25 0 0013.5 6v2.25a2.25 2.25 0 002.25 2.25z" />
+                </svg>
+                {!isCollapsed && <span>Multimodal Ecosystem</span>}
+              </a>
+            </li>
+            <li>
+              <a
+                href="/architecture"
+                className={`nav-item flex items-center px-3 py-2.5 text-sm text-gray-600 hover:text-gray-900 group ${isCollapsed ? 'justify-center' : ''}`}
+                title={isCollapsed ? 'System Architecture' : ''}
+              >
+                <svg
+                  className={`w-5 h-5 text-gray-400 group-hover:text-gray-600 flex-shrink-0 ${isCollapsed ? '' : 'mr-3'}`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5.25 14.25h13.5m-13.5 0a3 3 0 01-3-3m3 3a3 3 0 100 6h13.5a3 3 0 100-6m-16.5-3a3 3 0 013-3h13.5a3 3 0 013 3m-19.5 0a4.5 4.5 0 01.9-2.7L5.737 5.1a3.375 3.375 0 012.7-1.35h7.126c1.062 0 2.062.5 2.7 1.35l2.587 3.45a4.5 4.5 0 01.9 2.7m0 0a3 3 0 01-3 3m0 3h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008zm-3 6h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008z" />
+                </svg>
+                {!isCollapsed && <span>System Architecture</span>}
+              </a>
+            </li>
+            <li>
+              <a
                 href="/domains"
                 className={`nav-item flex items-center px-3 py-2.5 text-sm text-gray-600 hover:text-gray-900 group ${isCollapsed ? 'justify-center' : ''}`}
-                title={isCollapsed ? 'All Domains' : ''}
+                title={isCollapsed ? 'Domains' : ''}
               >
                 <svg
                   className={`w-5 h-5 text-gray-400 group-hover:text-gray-600 flex-shrink-0 ${isCollapsed ? '' : 'mr-3'}`}
@@ -165,7 +241,7 @@ export default function Sidebar() {
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                 </svg>
-                {!isCollapsed && <span>All Domains</span>}
+                {!isCollapsed && <span>Domains</span>}
               </a>
             </li>
           </ul>

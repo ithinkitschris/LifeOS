@@ -1,5 +1,5 @@
 questions:
-  - id: OQ-3
+  - id: OQ-1
     name: Constitutional Conflict
     status: open
     domain: constitution
@@ -8,7 +8,8 @@ questions:
       Example: "don't miss important things" vs "work shouldn't bleed into everything"
       when important work message arrives during family dinner.
     created: '2025-02-01'
-  - id: OQ-4
+    
+  - id: OQ-2
     name: Urgency Determination
     status: open
     domain: modes

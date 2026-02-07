@@ -1,0 +1,90 @@
+meta:
+  schema_version: '1.0'
+  last_updated: '2030-03-15'
+  data_type: health_biometrics
+
+baseline_metrics:
+  resting_heart_rate:
+    average: 62
+    healthy_range: [55, 70]
+    elevated_threshold: 75
+    notes: Elevates with stress and poor sleep
+  hrv:
+    average: 45
+    healthy_range: [40, 60]
+    low_threshold: 35
+    notes: Key stress and recovery indicator
+  sleep:
+    target_hours: 7.5
+    actual_average: 6.8
+    quality_average: 0.72
+    deep_sleep_percent: 0.18
+    rem_percent: 0.22
+  activity:
+    daily_step_target: 8000
+    actual_average: 6500
+    exercise_days_per_week: 2.8
+
+patterns:
+  stress_signature:
+    biometric_indicators:
+      - HRV drops below 35
+      - Resting HR rises above 70
+      - Sleep quality below 0.6
+      - Activity drops significantly
+    behavioral_correlation:
+      - Increased late-night screen time
+      - Skipped exercise
+      - Irregular meal times
+    typical_recovery_time: 2-3 days with intervention
+
+  energy_cycles:
+    morning:
+      typical_energy: 0.7
+      best_for: [exercise, creative_work]
+      notes: Needs 30 minutes to fully wake
+    midday:
+      typical_energy: 0.85
+      best_for: [deep_work, complex_tasks]
+      notes: Peak cognitive hours
+    afternoon:
+      typical_energy: 0.6
+      best_for: [meetings, collaborative_work, admin]
+      notes: Post-lunch dip, recovers by 14:30
+    evening:
+      typical_energy: 0.5
+      best_for: [light_tasks, social, rest]
+      notes: Should wind down for sleep
+
+  sleep_factors:
+    positive:
+      - Exercise earlier in day
+      - Consistent bedtime
+      - No screens after 22:00
+      - Social connection during day
+    negative:
+      - Thesis anxiety
+      - Late caffeine
+      - Unresolved conflict
+      - Screen time before bed
+
+health_goals:
+  primary: Maintain stable energy for thesis completion
+  secondary:
+    - Improve sleep consistency
+    - Maintain exercise routine
+    - Reduce stress-driven behaviors
+
+lifeos_health_directives:
+  monitoring:
+    - Track stress signature indicators
+    - Alert when patterns suggest burnout trajectory
+    - Note exercise adherence
+  interventions:
+    stress_detected: Suggest break, walk, or reaching out to Emma
+    sleep_deficit: Earlier wind-down mode, reduced evening notifications
+    exercise_skipped: Gentle reminder, no guilt, suggest alternative timing
+  boundaries:
+    - Never wake Marcus for non-emergencies
+    - Protect sleep schedule even for social invitations
+    - Don't surface health data in ways that increase anxiety

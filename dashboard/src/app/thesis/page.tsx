@@ -14,15 +14,10 @@ interface ThesisData {
   name: string;
   description: string;
   problem_statement: string;
-  diagnosis: string;
-  solution: {
-    name: string;
-    summary: string;
-  };
-  core_tension: {
-    summary: string;
-    statement: string;
-  };
+  context: string;
+  research_question: string;
+  approach: string;
+  core_tension: string;
   scope_and_limitations: string;
   contributions: Contribution[];
 }
@@ -87,27 +82,28 @@ export default function ThesisPage() {
           <p className="text-gray-700 leading-relaxed whitespace-pre-line">{thesis.problem_statement}</p>
         </section>
 
-        {/* Diagnosis */}
+        {/* Context */}
         <section className="glass-card p-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">Diagnosis</h2>
-          <p className="text-gray-700 leading-relaxed whitespace-pre-line">{thesis.diagnosis}</p>
+          <h2 className="text-xl font-semibold text-gray-900 mb-4">Context</h2>
+          <p className="text-gray-700 leading-relaxed whitespace-pre-line">{thesis.context}</p>
         </section>
 
-        {/* Solution */}
-        <section className="glass-card p-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">Solution: {thesis.solution.name}</h2>
-          <p className="text-gray-700 leading-relaxed whitespace-pre-line">{thesis.solution.summary}</p>
+        {/* Research Question */}
+        <section className="glass-card p-6 bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-200">
+          <h2 className="text-xl font-semibold text-gray-900 mb-4">Research Question</h2>
+          <p className="text-gray-700 leading-relaxed whitespace-pre-line">{thesis.research_question}</p>
+        </section>
+
+        {/* Approach */}
+        <section className="glass-card p-6 bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200">
+          <h2 className="text-xl font-semibold text-gray-900 mb-4">Approach</h2>
+          <p className="text-gray-700 leading-relaxed whitespace-pre-line">{thesis.approach}</p>
         </section>
 
         {/* Core Tension */}
         <section className="glass-card p-6 bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-200">
           <h2 className="text-xl font-semibold text-gray-900 mb-4">Core Tension</h2>
-          <div className="space-y-4">
-            <p className="text-gray-700 leading-relaxed whitespace-pre-line">{thesis.core_tension.summary}</p>
-            <div className="border-l-4 border-amber-400 pl-4">
-              <p className="text-gray-800 font-medium leading-relaxed whitespace-pre-line">{thesis.core_tension.statement}</p>
-            </div>
-          </div>
+          <p className="text-gray-700 leading-relaxed whitespace-pre-line">{thesis.core_tension}</p>
         </section>
 
         {/* Scope & Limitations */}

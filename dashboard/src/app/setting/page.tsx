@@ -31,20 +31,11 @@ interface SettingData {
         technological_landscape: TechnologyItem[];
         design_constraint: string;
     };
-    problem_statement: {
-        summary: string;
-        diagnosis: string;
-        pain_points: PainPoint[];
-    };
     solution: {
         name: string;
         summary: string;
         capabilities: Capability[];
         implication: string;
-    };
-    core_tension: {
-        summary: string;
-        statement: string;
     };
 }
 
@@ -126,29 +117,6 @@ export default function SettingPage() {
                     </div>
                 </section>
 
-                {/* Problem Statement */}
-                <section className="glass-card p-6">
-                    <h2 className="text-xl font-semibold text-gray-900 mb-4">Problem Statement</h2>
-                    <p className="text-gray-700 leading-relaxed mb-6 whitespace-pre-line">{setting.problem_statement.summary}</p>
-
-                    <div className="bg-gray-50 rounded-lg p-5 mb-6">
-                        <h3 className="font-medium text-gray-900 mb-3">Diagnosis</h3>
-                        <p className="text-gray-700 leading-relaxed whitespace-pre-line">{setting.problem_statement.diagnosis}</p>
-                    </div>
-
-                    <div>
-                        <h3 className="font-medium text-gray-900 mb-3">Pain Points</h3>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            {setting.problem_statement.pain_points.map((pain) => (
-                                <div key={pain.id} className="bg-red-50 border border-red-200 rounded-lg p-4">
-                                    <h4 className="font-medium text-red-900 mb-1">{pain.name}</h4>
-                                    <p className="text-sm text-red-800">{pain.description}</p>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </section>
-
                 {/* Solution */}
                 <section className="glass-card p-6 bg-gradient-to-br from-emerald-50 to-green-50 border border-emerald-200">
                     <h2 className="text-xl font-semibold text-gray-900 mb-4">Solution: {setting.solution.name}</h2>
@@ -169,17 +137,6 @@ export default function SettingPage() {
                     <div className="border-t border-emerald-300 pt-4">
                         <h3 className="font-medium text-emerald-900 mb-2">Implication</h3>
                         <p className="text-gray-800 leading-relaxed whitespace-pre-line italic">{setting.solution.implication}</p>
-                    </div>
-                </section>
-
-                {/* Core Tension */}
-                <section className="glass-card p-6 bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-200">
-                    <h2 className="text-xl font-semibold text-gray-900 mb-4">Core Tension</h2>
-                    <div className="space-y-4">
-                        <p className="text-gray-700 leading-relaxed whitespace-pre-line">{setting.core_tension.summary}</p>
-                        <div className="border-l-4 border-amber-400 pl-4 bg-white/50 p-4 rounded-r-lg">
-                            <p className="text-gray-800 font-medium leading-relaxed whitespace-pre-line">{setting.core_tension.statement}</p>
-                        </div>
                     </div>
                 </section>
             </div>

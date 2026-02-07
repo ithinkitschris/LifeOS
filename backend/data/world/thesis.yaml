@@ -1,41 +1,39 @@
-id: thesis
-name: Thesis Structure
-description: Formal thesis framing and contributions (not part of the 2030 narrative)
+id: bargaining-with-the-future
+name: Bargaining with the Future
+description: Automation, Agency, and the Design of Personal AI Systems
 problem_statement: >
-  Digital interaction today demands constant cognitive labor: selecting appropriate applications,
-  managing context across fragmented tools, and navigating rapid transitions between tasks. This
-  produces digital fatigue—not from technology use itself, but from the overhead of operating
-  technology.
-diagnosis: >
-  The app-centric model treats applications as the primary interface primitive. Users must translate
-  goals into app selections, then operate within each app's constraints. Context lives in the user's
-  head. Every task switch requires cognitive reset.
-solution:
-  name: LifeOS
-  summary: >
-    An intent-based operating system that:
-
-    - Adapts to context — System determines current mode based on signals (time, location, calendar,
-    biometrics, activity)
-
-    - Surfaces relevant intents — Within each mode, presents what user might want to accomplish
-    right now
-
-    - Generates UI to serve intents — When user selects intent, system constructs purpose-built
-    interface
+  Digital interaction demands constant cognitive labor: selecting tools, managing fragmented context,
+  navigating rapid transitions. This produces digital fatigue—not from technology use itself, but
+  from the overhead of operating technology.
+context: >
+  The app-centric paradigm forces users to maintain context across fragmented tools. AI assistance
+  promises relief but creates new friction: systems that optimize on users' behalf often feel
+  alien. Users report feeling disconnected from decisions made in their name—a loss of agency that
+  undermines the automation benefit.
+research_question: >
+  What interaction patterns enable AI systems to reduce cognitive overhead while maintaining user
+  agency? Can automation boundaries, override mechanisms, and value alignment be made structural
+  rather than optional?
+approach: >
+  This thesis explores these questions through LifeOS—a speculative mode-intent architecture where:
 
 
-    The user's job shifts from "choose tool and operate it" to "select intent from
-    contextually-relevant options."
-core_tension:
-  summary: >
-    Mode-intent architecture reduces cognitive load by shifting context management and intent
-    curation to the system. But this same shift raises a fundamental question: where does user
-    agency sit when the system determines context and proposes what you might want?
-  statement: >
-    This tension between automation benefit and user agency is the central design problem for
-    human-AI interaction. Every design decision in a mode-intent system (how modes are determined,
-    which intents surface, how UI is generated) is a negotiation within this tension.
+  1. Context determines available actions (modes)
+
+  2. Users select from system-surfaced options (intents)
+
+  3. Decisions align with articulated values (constitutional frameworks)
+
+
+  The architecture makes a specific bet: that explicit automation boundaries and structured override
+  paths can preserve agency while delivering convenience. Future self-continuity research suggests
+  this bet may work—when users feel connected to the "future self" the system optimizes for,
+  proactive assistance feels helpful rather than imposing.
+core_tension: >
+  Every design decision negotiates the same tradeoff: present autonomy vs. future benefit. When
+  should the system act as "future you's advocate"? How much override friction maintains agency
+  without recreating cognitive overhead? These questions have no universal answers—only
+  context-dependent negotiations.
 scope_and_limitations: >
   Due to the scope of such a problem, this thesis likely won't be able to solve nor pretend to
   propose a solution to this tension. 

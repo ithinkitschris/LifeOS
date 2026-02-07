@@ -1,0 +1,905 @@
+meta:
+  schema_version: '1.0'
+  last_updated: '2030-10-14'
+  data_type: day_timeline
+days:
+  '2030-10-14':
+    date: '2030-10-14'
+    day_of_week: monday
+    context:
+      weather:
+        temperature_celsius: 15
+        condition: sunny
+        description: Perfect fall day
+      day_theme: Thesis critique day - high stakes milestone
+      main_event:
+        name: Thesis Critique
+        time: '14:00'
+        importance: high
+        notes: Main event structuring the day. LifeOS has been tracking thesis development, professor communications, and preparation patterns for weeks.
+      user_state:
+        stress_level: elevated
+        stress_duration: past 3 days
+        notes: Biometrics show slightly elevated stress - factors into restoration suggestions throughout day
+    timeline:
+      - id: morning_restore
+        start_time: '08:00'
+        end_time: '08:45'
+        mode: restore
+        mode_status: active
+        title: Morning wake-up routine
+        location_id: home
+        description: Marcus wakes up at home in West Village. This is his typical morning restoration window.
+        activation_reasoning:
+          - Standard wake-up time pattern (8am ±15 min on weekdays)
+          - No immediate commitments requiring urgency
+          - 'Historical pattern: Marcus takes 40-50 minutes for morning routine'
+        intents:
+          active:
+            - id: morning_coffee
+              name: Morning coffee
+              duration_minutes: 15
+              notes: Active first 15 minutes
+          available:
+            - id: catch_up_messages
+              name: Catch up on messages
+              description: 4 overnight messages visible
+              messages:
+                - from: mei_chen
+                  from_name: Mom
+                  time: '23:47'
+                  preview: Hope you're getting rest before your big day tomorrow! Call me this week 💕
+                - from: sarah_chen
+                  from_name: Sarah Chen
+                  time: '07:23'
+                  preview: morning!! going over my notes one more time before today. you ready?
+                - from: design_cohort
+                  from_name: Design cohort group chat
+                  count: 3
+                  time: various
+                  preview: Messages about today's critiques
+            - id: youtube_watch
+              name: 'Watch: Brooklyn Bridge architecture'
+              type: youtube
+              source: Architectural Digest
+              duration_minutes: 18
+              surfacing_reason: Based on Marcus's recent watch history (Brooklyn infrastructure, historical design) and today's relaxed morning window
+            - id: check_day_ahead
+              name: Check day ahead
+              description: Timeline preview available
+        periphery:
+          description: Held but accessible if wanted
+          items:
+            - Instagram notifications (2 new posts from followed designers)
+            - Reddit updates (4 posts in subscribed design subreddits)
+            - Non-urgent email (newsletter from design studio)
+        orchestrator_context:
+          knows:
+            - Today is thesis critique day (high-stakes calendar event)
+            - Marcus typically consumes educational content during morning coffee
+            - Weather is perfect (surfaces outdoor walking options for later)
+            - His stress biometrics have been slightly elevated past 3 days (factors into restoration suggestions throughout day)
+      - id: morning_walk_to_cafe
+        start_time: '08:45'
+        end_time: '09:05'
+        mode: navigation
+        mode_status: predicted
+        title: Walk to Plantshed cafe
+        location_id: plantshed
+        description: Walking to Plantshed cafe for thesis prep work.
+        activation_reasoning:
+          - Calendar shows 'Thesis prep work' starting 9:00am with location tagged
+          - 0.7 mile walk from home
+          - Weather optimal for walking (15°C, sunny)
+          - 'Marcus''s historical preference: walks whenever weather permits'
+          - Departure time calculated to arrive by 9:05am
+        route:
+          from: home
+          to: plantshed
+          method: walk
+          duration_minutes: 20
+          description: West Village → Chelsea via tree-lined streets
+          selection_reason: Orchestrator selects walking over subway given weather and distance
+        intents:
+          available:
+            - id: walking_audio
+              name: Walking audio
+              options:
+                - type: podcast
+                  count: 2
+                  topics:
+                    - design theory
+                    - NYC urbanism
+                - type: music
+                  name: Morning focus playlist
+            - id: cafe_details
+              name: Cafe details
+              data:
+                opening: 8am
+                capacity: moderate
+                table_availability: usual
+            - id: enjoy_walk
+              name: Enjoy the walk
+              description: Minimal interface, ambient weather info, step tracking
+            - id: quick_message
+              name: Quick message
+              description: Respond to Sarah if needed before focus work
+        periphery:
+          held_until: arrival
+          items:
+            - All message notifications silenced during transit
+            - Social media updates queued
+            - Non-urgent communication moved to periphery
+          exception: Sarah's messages available if she replies (critique coordination)
+        orchestrator_context:
+          processing:
+            - VLM identifies walking route through tree-lined streets
+            - World model predicts cafe capacity based on Monday morning patterns
+            - 'Personal knowledge graph: Marcus enjoys this walk, typically uses it for mental transition to work mode'
+      - id: thesis_prep_focus
+        start_time: '09:05'
+        end_time: '12:00'
+        mode: focus
+        mode_status: predicted
+        title: Thesis critique preparation
+        location_id: plantshed
+        description: Deep focus session for thesis critique preparation at Plantshed cafe.
+        activation_reasoning:
+          - 'Calendar event: ''Thesis prep work'' 9:00am-12:00pm'
+          - 'Location: Plantshed cafe (confirmed via arrival)'
+          - High-stakes critique at 2pm today requires preparation
+          - Professor Martinez sent criteria document last week
+          - Marcus's draft reviewed by Sarah last Thursday with comments
+          - Orchestrator has identified gaps in theoretical framework
+        intents:
+          primary:
+            - id: review_criteria
+              name: Review critique criteria synthesis
+              description: Orchestrator has compiled criteria and expectations
+              compiled_from:
+                - 'Prof. Martinez''s email from Oct 7: expectations for this review stage'
+                - 'Assessment rubric (5 criteria: theoretical grounding, design coherence, feasibility, innovation, presentation quality)'
+                - Previous feedback from September critique highlighting need for stronger interaction design theory foundation
+              output: 'Synthesized into actionable checklist: ''3 areas requiring attention before 2pm'''
+            - id: research_recommendations
+              name: Research gap recommendations
+              description: Orchestrator analyzed current draft against critique criteria
+              identified_gaps:
+                - Lack of engagement with recent autonomy-preserving AI interaction frameworks
+                - Missing connection between speculative design methodology and HCI research traditions
+                - Need for stronger precedent analysis in agency-focused interfaces
+              prepared_materials:
+                - type: papers
+                  count: 4
+                  notes: Relevant sections highlighted
+                - type: case_studies
+                  count: 2
+                  topic: Existing agency-preserving systems
+                - type: framework
+                  count: 1
+                  notes: Bridges theoretical gaps
+              preparation_notes: All materials pre-fetched, annotated with 'why this matters for your critique'
+            - id: refine_argument
+              name: Refine core argument
+              description: Writing intent with thesis statement and professor feedback
+              context:
+                current_thesis_statement: displayed
+                professor_note: Your argument needs sharper focus on the trade-off you're investigating
+                suggested_refinements: Based on recent draft revisions
+                integration_points: For new research
+            - id: update_presentation
+              name: Update presentation materials
+              description: Figma file from last week's work session
+              orchestrator_note: Your LifeOS navigation mode scenarios are strong. Consider adding one slide on methodology to address Martinez's last feedback.
+        orchestrator_context:
+          knowledge_graph_synthesis:
+            - 8 weeks of thesis development notes
+            - 12 conversations with Prof. Martinez (email + in-person)
+            - Sarah's feedback from 3 peer review sessions
+            - Marcus's own voice notes and sketches
+            - Related coursework from Interaction Design Studio class
+          contextual_understanding:
+            - This is a milestone critique (affects ability to continue to thesis development phase)
+            - Prof. Martinez values theoretical rigor and clear methodology
+            - 'Marcus''s strength: creative scenarios; weakness: connecting to academic discourse'
+            - 'Sarah is presenting right before Marcus (her topic: AI and creative agency in music production)'
+          proactive_research:
+            - Orchestrator ran overnight search across academic databases
+            - Identified 2024-2025 papers on human-AI interaction and agency
+            - Cross-referenced with Marcus's bibliography to find gaps
+            - Prioritized based on relevance to critique criteria
+        periphery:
+          available:
+            - Messages from Sarah (critique coordination exception)
+          held:
+            - Other messages held until lunch break
+            - Social media completely silenced
+            - Calendar shows next event (lunch) with gentle awareness
+        focus_protections:
+          - No notifications except Sarah (peer support for today's critique)
+          - Phone remains minimal-interface during cafe work session
+          - 'Audio environment: Orchestrator suggests ambient cafe sounds or focus music based on current noise level (VLM monitoring)'
+      - id: lunch_restore
+        start_time: '12:00'
+        end_time: '12:35'
+        mode: restore
+        mode_status: predicted
+        title: Lunch break after 3-hour focus session
+        location_id: plantshed
+        description: Genuine restoration break after intense focus work.
+        activation_reasoning:
+          - Marcus has been in deep focus for 2h 55m
+          - 'Biometric data: cognitive fatigue indicators present'
+          - 'Historical pattern: takes actual lunch breaks (not working lunches)'
+          - Next commitment (critique) requires mental freshness
+          - Still at Plantshed, can order food there
+        intents:
+          suggested:
+            - id: order_lunch
+              name: Order lunch
+              options:
+                location: Plantshed menu available
+                usual_order: grain bowl, sparkling water
+                orchestrator_note: You typically eat light before important presentations
+                order_ahead: Available if wanted
+            - id: catch_up_messages
+              name: Catch up on messages
+              description: Now safe to process held messages
+              messages:
+                - from: sarah_chen
+                  time: '10:34'
+                  preview: just read the paper you mentioned last week - SO relevant to my argument
+                - from: mei_chen
+                  time: '09:15'
+                  preview: thinking of you today! you'll do great 💕
+                - from: design_cohort
+                  time: '11:20'
+                  preview: anyone want to grab drinks after critiques?
+              social_updates:
+                instagram: 3 new posts
+                reddit: 7 updates in r/design, r/nyc
+            - id: light_reading
+              name: Light reading
+              description: Saved articles queue (not thesis-heavy)
+              recent_save: Dezeen article on new NYC public space design
+              alternative: Continue YouTube queue (lighter content than morning)
+            - id: take_walk
+              name: Take a walk
+              description: Weather still perfect
+              suggestion: 10-minute loop around block
+              orchestrator_note: Movement helps reset before afternoon performance
+            - id: review_morning
+              name: Review morning work
+              description: 'Optional: revisit what was accomplished'
+              purpose: Confidence check before critique
+        periphery:
+          now_available:
+            - Full message access
+            - Social media browsing (bounded to lunch window)
+            - Entertainment intents
+            - All communication channels open
+        orchestrator_context:
+          awareness:
+            - Marcus needs genuine break, not more prep
+            - Critique is 1.5 hours away - enough time to decompress and transit
+            - 'Biometric monitoring: if stress remains high, suggests calming intents'
+      - id: transit_to_critique
+        start_time: '12:35'
+        end_time: '13:45'
+        mode: navigation
+        mode_status: predicted
+        title: Walk to subway → Transit to SVA
+        location_id: sva
+        description: Journey from Plantshed to SVA for thesis critique.
+        activation_reasoning:
+          - Critique at 2pm at SVA
+          - Departure time allows comfortable arrival by 1:50pm
+          - Weather permits walking segments
+        route:
+          segments:
+            - type: walk
+              from: Plantshed
+              to: 14th St subway station
+              duration_minutes: 8
+              time_range: 12:35-12:43
+            - type: subway
+              lines:
+                - A
+                - C
+                - E
+                - B
+                - D
+                - F
+                - M
+              from_station: 14th St
+              to_station: W 4th St-Washington Sq
+              duration_minutes: 5
+              time_range: 12:45-12:50
+            - type: walk
+              from: W 4th St
+              to: Union Square area
+              duration_minutes: 12
+              time_range: 12:52-13:04
+              notes: Walk through Washington Square Park if time permits
+            - type: walk
+              from: Union Square
+              to: SVA W 21st building
+              duration_minutes: 10
+              time_range: 13:04-13:45
+              notes: Relaxed pace with buffer time
+          arrival_time: '13:45'
+          buffer_minutes: 15
+          orchestrator_note: Marcus arrives 13:45 - 15 min early (his preference before presentations)
+        intents:
+          available:
+            - id: transit_audio
+              name: Transit audio
+              options:
+                - type: podcast
+                  duration: 25 min
+                  notes: Perfect length
+                - type: music
+                  name: Pre-critique energy playlist
+                - type: silence
+                  purpose: Mental prep
+            - id: review_prep
+              name: Review critique prep
+              description: Quick summary of morning's work available
+              checklist: You've addressed all 5 areas
+              optional: Confidence boost
+            - id: message_sarah
+              name: Message Sarah
+              purpose: Coordinate arrival, last-minute thoughts exchange
+              context: Sarah's presenting at 2pm also (right before or after Marcus)
+            - id: arrive_prepared
+              name: Arrive prepared
+              details:
+                room_number: Available
+                professors_attending:
+                  - Prof. Martinez
+                  - Prof. Chen
+                  - Prof. Williams
+                presentation_materials: Loaded and ready
+        periphery:
+          held:
+            - Social media (no distractions before critique)
+            - Non-urgent messages
+            - Entertainment content
+            - Design cohort group chat (can catch up later)
+          available:
+            - Sarah's messages (peer coordination)
+            - Mom's messages (family support)
+            - Time/arrival information
+            - Transit updates
+        orchestrator_context:
+          navigation_intelligence:
+            - Real-time subway tracking
+            - Alternative routes if delays occur
+            - Arrival time continuously updated
+            - Weather conditions for walking segments
+      - id: pre_critique_buffer
+        start_time: '13:50'
+        end_time: '14:00'
+        mode: focus
+        mode_status: predicted
+        title: Pre-critique arrival buffer
+        location_id: sva
+        description: Final moments before critique begins.
+        activation_reasoning:
+          - Arrived at SVA building
+          - 10 minutes before critique starts
+          - 'Marcus''s pattern: arrives early for important meetings'
+          - Transition window from navigation to performance mode
+        intents:
+          suggested:
+            - id: final_review
+              name: Final review
+              actions:
+                - Quick scan of key points
+                - Presentation materials ready in Figma
+                - Criteria checklist visible
+            - id: settle_in
+              name: Settle in
+              actions:
+                - Find room, set up
+                - Test screen sharing if needed
+                - Get water
+            - id: breathe
+              name: Breathe
+              duration: 2 minutes
+              type: centering exercise
+              orchestrator_message: You've prepared well. Trust your work.
+            - id: quick_coordination
+              name: Quick coordination
+              actions:
+                - Message Sarah about order/timing
+                - Check if professors are running on time
+        periphery:
+          silenced: Everything except critique-related communication
+          device_state: Minimal during actual critique
+      - id: thesis_critique
+        start_time: '14:00'
+        end_time: '15:45'
+        mode: focus
+        mode_status: active_to_completed
+        title: Thesis critique with Prof. Martinez and faculty
+        location_id: sva
+        description: High-stakes thesis milestone review presentation.
+        activation_reasoning:
+          - 'Calendar event: ''Thesis Critique - Milestone Review'''
+          - 'Location: SVA, W 21st building'
+          - High-stakes presentation requiring full attention
+          - Device automatically enters minimal-interference state
+        critique_structure:
+          participants:
+            - id: prof_martinez
+              role: Primary advisor
+            - id: prof_chen
+              role: Interaction design faculty
+            - id: prof_williams
+              role: Theory specialist
+          format:
+            - phase: Presentation
+              duration_minutes: 20
+            - phase: Discussion
+              duration_minutes: 45
+            - phase: Feedback
+              duration_minutes: 40
+          context: Sarah presenting in adjacent time slot
+        mode_behavior:
+          phone_state: Essentially silent and inactive
+          notifications: Only emergency contacts (family) can break through
+          capabilities_available:
+            - Recording/notes if needed
+            - Screen sharing for presentation materials
+        periphery:
+          completely_silenced:
+            - All notifications
+            - All messages except emergency
+            - All social media
+            - All entertainment
+          note: System respects this as high-stakes performance window
+        orchestrator_context:
+          background_processing:
+            - Captures any notes Marcus takes
+            - Timestamps key feedback moments if he uses voice recording
+            - Prepares summary structure for post-critique reflection
+      - id: post_critique_restore
+        start_time: '15:45'
+        end_time: '17:00'
+        mode: restore
+        mode_status: predicted
+        title: Post-critique decompression
+        location_id: union_square
+        description: Processing time after intense 2-hour critique session.
+        activation_reasoning:
+          - 'Marcus''s pattern: needs processing time after intense presentations'
+          - 'Biometric data: elevated stress from 2-hour critique session'
+          - Weather still beautiful (15°C, sunny late afternoon)
+          - Union Square Park is nearby (5 min walk from critique location)
+          - No immediate commitments
+        intents:
+          suggested:
+            - id: walk_to_park
+              name: Walk to park
+              description: Union Square Park nearby
+              actions:
+                - Find bench
+                - Decompress
+              orchestrator_note: You've been performing for 2 hours. Time to let thoughts settle.
+            - id: process_critique
+              name: Process critique
+              options:
+                - Voice notes
+                - Capture immediate reactions while fresh
+              note: No pressure to organize yet
+            - id: message_sarah
+              name: Message Sarah
+              purpose: Debrief on how critiques went
+              context: Mutual support. Sarah likely also decompressing.
+            - id: catch_up
+              name: Catch up on held items
+              items:
+                - Messages from during critique (Mom, classmate group, design cohort)
+                - Social updates if wanted
+              note: No urgency - just availability
+            - id: just_sit
+              name: Just sit
+              type: Literal nothing intent
+              actions:
+                - Watch park activity
+                - Let mind wander
+        plot_event:
+          description: Prof. Martinez follows Marcus out - impromptu conversation about thesis direction and life after graduation.
+          extends_mode: true
+          new_end_time: '17:00'
+          topics_discussed:
+            - Thesis trajectory and refinement
+            - Post-graduation career paths (academic vs. industry)
+            - Prof. Martinez's insights on Marcus's strengths
+            - Life advice, not just academic
+          value: Becomes valuable personal knowledge graph data
+        orchestrator_adaptation:
+          detected: Marcus is in conversation (audio context awareness)
+          actions:
+            - Extends Restore mode automatically
+            - Holds all notifications - this is meaningful interaction
+            - Prof. Martinez in contacts as important person - system recognizes conversation value
+            - Updates subsequent timeline predictions (gym time will shift)
+      - id: walk_to_gym
+        start_time: '17:00'
+        end_time: '17:20'
+        mode: navigation
+        mode_status: adjusted
+        title: Walk to gym (Blink Fitness, Chelsea)
+        location_id: blink_chelsea
+        description: Walking to gym after extended park conversation.
+        activation_reasoning:
+          - 'Marcus''s Monday pattern: gym after school commitments'
+          - Conversation with professor just ended
+          - 'Gym location: 0.5 mi from Union Square'
+          - Weather still perfect for walking
+          - Orchestrator adjusted gym time based on extended park conversation
+        route:
+          from: Union Square
+          to: Blink Fitness Chelsea
+          method: walk
+          duration_minutes: 20
+          description: Walk up to Chelsea
+        intents:
+          available:
+            - id: walking_reflection
+              name: Walking reflection
+              options:
+                - Process professor conversation
+                - Voice notes
+                - Just walk and think
+            - id: audio
+              name: Audio for walking
+              options:
+                - type: music
+                  name: Post-critique energy playlist
+                - type: podcast
+                  description: Lighter content
+                - type: silence
+            - id: update_sarah
+              name: Update Sarah
+              description: Text about professor conversation, coordinate post-gym plans
+            - id: gym_prep
+              name: Gym prep
+              info:
+                - Workout plan ready
+                - Locker/facilities info
+                - Current gym capacity (moderate)
+        periphery:
+          now_available:
+            - Messages from critique period
+            - from: mei_chen
+              preview: How did it go?? Call when you can!
+            - from: design_cohort
+              preview: Drinks at 7pm, who's in?
+            - from: sarah_chen
+              preview: omg how did yours go? mine was intense
+          lightly_held:
+            - Social media (can wait until post-gym)
+            - Non-urgent browsing
+            - Entertainment content
+      - id: gym_session
+        start_time: '17:20'
+        end_time: '18:35'
+        mode: focus
+        mode_status: predicted
+        title: Gym workout session
+        location_id: blink_chelsea
+        description: Upper body + cardio workout after mentally intense day.
+        activation_reasoning:
+          - Arrived at Blink Fitness
+          - 'Marcus''s typical workout: 60-75 minutes'
+          - Physical activity after mentally intense day
+          - 'Monday routine: upper body + cardio'
+        mode_behavior:
+          phone_interaction: Minimal
+          audio: Available (music/podcast)
+          tracking: Workout tracking active (biometric monitoring)
+          messages: Held unless urgent
+        intents:
+          available:
+            - id: workout_audio
+              name: Workout audio
+              options:
+                - High-energy playlist
+                - Podcast for cardio portion
+                - Gym ambient
+            - id: track_workout
+              name: Track workout
+              features:
+                - Automatic logging
+                - Form monitoring via smartwatch
+                - Progress tracking
+            - id: quick_breaks
+              name: Quick breaks
+              description: Water/rest between sets. Can check messages briefly if wanted.
+        periphery:
+          held:
+            - Most notifications
+            - Social media
+            - Entertainment browsing
+            - Non-urgent communication
+          available:
+            - Time/workout progress
+            - Critical messages (family)
+            - Water/music controls
+        orchestrator_context:
+          monitoring:
+            - 'Biometric data: stress levels decreasing through physical activity'
+            - Energy expenditure tracking
+            - Recovery monitoring for evening planning
+      - id: commute_home
+        start_time: '18:35'
+        end_time: '19:10'
+        mode: navigation
+        mode_status: predicted
+        title: Walk home to West Village
+        location_id: home
+        description: Return home after gym session.
+        activation_reasoning:
+          - Gym session complete
+          - Return home for dinner
+          - Evening commute timing
+          - Weather still nice for walking
+        route:
+          from: Blink Fitness Chelsea
+          to: Home (West Village)
+          method: walk
+          duration_minutes: 35
+          segments:
+            - description: Chelsea → West Village via 7th Ave
+        intents:
+          available:
+            - id: transit_audio
+              name: Transit audio
+              options:
+                - type: podcast
+                  description: Something light post-workout
+                - type: music
+                  name: Wind-down playlist
+                - type: youtube
+                  description: Catch up on subscriptions
+            - id: catch_up_messages
+              name: Catch up on messages
+              pending:
+                - from: mei_chen
+                  note: Wants to hear about critique
+                - from: sarah_chen
+                  note: Detailed debrief
+                - from: design_cohort
+                  note: Drinks invitation (7pm - Marcus will miss it)
+            - id: social_check
+              name: Social check
+              options:
+                - Instagram updates from today
+                - 'Reddit: check design/nyc subreddits'
+              note: Bounded to commute time
+            - id: plan_dinner
+              name: Plan dinner
+              considerations:
+                - What's at home for cooking
+                - Recipe ideas
+                - Timing for dinner prep
+        periphery:
+          now_accessible:
+            - Full message backlog
+            - Social media updates from entire day
+            - Design cohort discussion about critiques
+            - Sarah's full critique debrief
+        orchestrator_context:
+          awareness:
+            - Marcus has had intense day (critique + professor conversation + gym)
+            - Energy levels moderate post-workout
+            - 'Home arrival time: 19:10'
+            - Dinner preparation will take 30-40 minutes
+      - id: dinner_open
+        start_time: '19:10'
+        end_time: '19:50'
+        mode: open
+        mode_status: predicted
+        title: Dinner preparation and eating
+        location_id: home
+        description: Evening dinner routine at home.
+        activation_reasoning:
+          - Arrived home
+          - Evening dinner routine
+          - No structured commitments
+          - Transition from active day to evening relaxation
+        intents:
+          available:
+            - id: cook_dinner
+              name: Cook dinner
+              features:
+                - Recipe suggestions based on available ingredients
+                - Cooking timer/instructions
+                - Music for cooking
+            - id: call_mom
+              name: Call Mom
+              context: She wanted to hear about critique
+              timing: Evening good for longer call
+              note: Can talk while cooking
+            - id: continue_messaging
+              name: Continue messaging
+              with:
+                - 'Sarah: full critique debrief'
+                - 'Design cohort: catch up on conversation'
+                - Other classmates
+            - id: audio_entertainment
+              name: Audio/entertainment
+              options:
+                - Music while cooking
+                - YouTube video while eating
+                - Podcast
+            - id: light_browsing
+              name: Light browsing
+              options:
+                - Social media check
+                - Catch up on day's updates
+              note: No pressure
+        periphery:
+          fully_available:
+            - All communication channels
+            - All social media
+            - All entertainment
+            - Full intent library
+        orchestrator_suggestions:
+          - Call Mom while cooking? She messaged twice today.
+          - Sarah sent detailed critique notes - might want to review
+          - 'Music playlist: ''Evening cooking'' (Marcus''s usual)'
+      - id: evening_engage
+        start_time: '19:50'
+        end_time: '22:30'
+        mode: engage
+        mode_status: predicted
+        title: Evening entertainment and social browsing
+        location_id: home
+        description: Intentional leisure time after intense day.
+        activation_reasoning:
+          - Dinner complete
+          - 'Marcus''s pattern: evening downtime involves content consumption'
+          - No work commitments remaining
+          - Decompression from intense day
+          - This is leisure time, not restoration (different from morning)
+        intents:
+          prioritized:
+            - id: youtube_session
+              name: YouTube session (bounded)
+              topic_affinity:
+                - Architectural content
+                - Design channels
+                - NYC/urbanism
+              duration_suggestion: 45-60 minutes
+              features:
+                - Natural break points
+                - New uploads from followed creators
+            - id: instagram_browse
+              name: Instagram browse (bounded)
+              feed: Following feed only
+              content:
+                - Designer updates
+                - Brand launches
+                - Stories from design community
+              duration_suggestion: 20 minutes
+              note: Following feed only, no Explore algorithmic content
+            - id: reddit_exploration
+              name: Reddit exploration (bounded)
+              subreddits:
+                - r/design
+                - r/nyc
+                - r/DesignPorn
+                - r/AskNYC
+              mode: Thoughtful engagement (read + comment, not just scroll)
+              duration_suggestion: 30 minutes
+            - id: conversations
+              name: Continue conversations
+              with:
+                - 'Sarah: extended thesis debrief'
+                - 'Design cohort: how did everyone''s critiques go'
+                - 'Classmates: coordination for upcoming week'
+            - id: light_content
+              name: Light content consumption
+              options:
+                - Saved articles from week
+                - Design newsletters
+                - Industry updates
+        mode_characteristics:
+          - Intentional leisure, not mindless scrolling
+          - Bounded sessions with clear exit points
+          - Content curated to Marcus's actual interests (design, NYC, culture, brands)
+          - Mix of passive consumption and active engagement
+          - Orchestrator helps prevent infinite scroll while respecting desire to browse
+        constitutional_filtering:
+          instagram: Following feed only, no Explore/Reels algorithmic rabbit holes
+          reddit: Subscribed subreddits, filtered for quality discussions
+          youtube: Subscriptions + recommendations based on interests, not engagement maximization
+          sessions: Time-bounded with gentle exit prompts
+        orchestrator_provides:
+          - 'YouTube session: 8 new uploads from channels you follow'
+          - 'Instagram: 15 new posts from designers and studios (past 12 hours)'
+          - 'Reddit: 23 new posts in your design subreddits, 7 high-engagement discussions'
+          - Session timers visible but not aggressive
+          - Natural break points suggested between intents
+        periphery:
+          available:
+            - Full social media access (bounded)
+            - All messaging
+            - Entertainment content
+            - Creative intents if inspiration strikes
+            - Unlimited browsing within bounded sessions
+      - id: wind_down
+        start_time: '22:30'
+        end_time: '23:00'
+        mode: Wind Down
+        mode_status: predicted
+        title: Evening transition to sleep
+        location_id: home
+        description: Preparing for sleep after intense day.
+        activation_reasoning:
+          - 'Marcus''s typical sleep time: 11pm'
+          - 30-minute wind-down buffer
+          - Post-entertainment transition
+          - 'Biometric data: preparing for sleep cycle'
+          - Intense day requires good rest
+        intents:
+          suggested:
+            - id: final_messages
+              name: Final messages
+              actions:
+                - Wrap up conversations
+                - Goodnight to Sarah/friends
+                - Any urgent items for tomorrow
+            - id: evening_routine
+              name: Evening routine
+              actions:
+                - Bathroom/hygiene routine
+                - Set up for tomorrow
+                - Prepare clothes/materials
+            - id: light_reading
+              name: Light reading
+              options:
+                - Articles (not thesis-heavy)
+                - Fiction if Marcus reads before bed
+                - Calming content
+            - id: review_tomorrow
+              name: Review tomorrow
+              features:
+                - Tuesday preview available
+                - Upcoming commitments
+                - What to expect
+            - id: breathwork
+              name: Breathwork/meditation
+              options:
+                - Sleep prep exercise
+                - Calm breathing
+                - Optional 10-minute session
+            - id: nothing
+              name: Nothing
+              description: Lights down, ambient mode, phone goes quiet
+        de_emphasized:
+          - Social media (no late-night scrolling)
+          - Stimulating content
+          - Work-related items
+          - Bright/engaging media
+        periphery:
+          available_quiet:
+            - Essential communication
+            - Sleep tracking preparation
+            - Alarm for tomorrow
+            - Ambient information
+        orchestrator_behavior:
+          - Screen warmth adjusted (blue light reduction)
+          - Notifications silenced except emergency
+          - Gentle wind-down suggestions
+          - Sleep cycle preparation
+        transition_to_sleep:
+          time: '23:00'
+          device_state: Sleep mode
+          alerts: Only emergency active
+          biometrics: Sleep tracking begins
+          next_day: System prepares for Tuesday timeline

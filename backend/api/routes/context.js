@@ -7,6 +7,7 @@ import { Router } from 'express';
 import { readFile } from 'fs/promises';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
+import yaml from 'js-yaml';
 
 const router = Router();
 const __filename = fileURLToPath(import.meta.url);
@@ -14,17 +15,17 @@ const __dirname = dirname(__filename);
 
 const DATA_DIR = join(__dirname, '..', '..', 'data', 'knowledge-graph');
 
-// Helper to load JSON files
+// Helper to load YAML files
 async function loadData(filename) {
   const filepath = join(DATA_DIR, filename);
   const content = await readFile(filepath, 'utf-8');
-  return JSON.parse(content);
+  return yaml.load(content);
 }
 
 // GET /api/context/identity
 router.get('/identity', async (req, res) => {
   try {
-    const data = await loadData('identity.json');
+    const data = await loadData('identity.yaml');
     res.json(data);
   } catch (err) {
     res.status(500).json({ error: 'Failed to load identity data', message: err.message });
@@ -34,7 +35,7 @@ router.get('/identity', async (req, res) => {
 // GET /api/context/relationships
 router.get('/relationships', async (req, res) => {
   try {
-    const data = await loadData('relationships.json');
+    const data = await loadData('relationships.yaml');
     res.json(data);
   } catch (err) {
     res.status(500).json({ error: 'Failed to load relationships data', message: err.message });
@@ -44,7 +45,7 @@ router.get('/relationships', async (req, res) => {
 // GET /api/context/relationships/:id
 router.get('/relationships/:id', async (req, res) => {
   try {
-    const data = await loadData('relationships.json');
+    const data = await loadData('relationships.yaml');
     const allPeople = [...(data.inner_circle || []), ...(data.close_network || [])];
     const person = allPeople.find(p => p.id === req.params.id);
 
@@ -61,7 +62,7 @@ router.get('/relationships/:id', async (req, res) => {
 // GET /api/context/behaviors
 router.get('/behaviors', async (req, res) => {
   try {
-    const data = await loadData('behaviors.json');
+    const data = await loadData('behaviors.yaml');
     res.json(data);
   } catch (err) {
     res.status(500).json({ error: 'Failed to load behaviors data', message: err.message });
@@ -71,7 +72,7 @@ router.get('/behaviors', async (req, res) => {
 // GET /api/context/calendar
 router.get('/calendar', async (req, res) => {
   try {
-    const data = await loadData('calendar.json');
+    const data = await loadData('calendar.yaml');
     res.json(data);
   } catch (err) {
     res.status(500).json({ error: 'Failed to load calendar data', message: err.message });
@@ -81,7 +82,7 @@ router.get('/calendar', async (req, res) => {
 // GET /api/context/locations
 router.get('/locations', async (req, res) => {
   try {
-    const data = await loadData('locations.json');
+    const data = await loadData('locations.yaml');
     res.json(data);
   } catch (err) {
     res.status(500).json({ error: 'Failed to load locations data', message: err.message });
@@ -91,7 +92,7 @@ router.get('/locations', async (req, res) => {
 // GET /api/context/locations/:id
 router.get('/locations/:id', async (req, res) => {
   try {
-    const data = await loadData('locations.json');
+    const data = await loadData('locations.yaml');
     const allLocations = {
       ...data.primary_locations,
       ...data.frequent_destinations
@@ -111,7 +112,7 @@ router.get('/locations/:id', async (req, res) => {
 // GET /api/context/health
 router.get('/health', async (req, res) => {
   try {
-    const data = await loadData('health.json');
+    const data = await loadData('health.yaml');
     res.json(data);
   } catch (err) {
     res.status(500).json({ error: 'Failed to load health data', message: err.message });
@@ -121,7 +122,7 @@ router.get('/health', async (req, res) => {
 // GET /api/context/communications
 router.get('/communications', async (req, res) => {
   try {
-    const data = await loadData('communications.json');
+    const data = await loadData('communications.yaml');
     res.json(data);
   } catch (err) {
     res.status(500).json({ error: 'Failed to load communications data', message: err.message });
@@ -132,7 +133,7 @@ router.get('/communications', async (req, res) => {
 // GET /api/context/digital-history
 router.get('/digital-history', async (req, res) => {
   try {
-    const data = await loadData('digital-history.json');
+    const data = await loadData('digital-history.yaml');
     res.json(data);
   } catch (err) {
     res.status(500).json({ error: 'Failed to load digital history data', message: err.message });
@@ -144,14 +145,14 @@ router.get('/digital-history', async (req, res) => {
 router.get('/knowledge-graph', async (req, res) => {
   try {
     const [identity, relationships, behaviors, health, locations, calendar, communications, digitalHistory] = await Promise.all([
-      loadData('identity.json'),
-      loadData('relationships.json'),
-      loadData('behaviors.json'),
-      loadData('health.json'),
-      loadData('locations.json'),
-      loadData('calendar.json'),
-      loadData('communications.json'),
-      loadData('digital-history.json')
+      loadData('identity.yaml'),
+      loadData('relationships.yaml'),
+      loadData('behaviors.yaml'),
+      loadData('health.yaml'),
+      loadData('locations.yaml'),
+      loadData('calendar.yaml'),
+      loadData('communications.yaml'),
+      loadData('digital-history.yaml')
     ]);
 
     res.json({
@@ -174,7 +175,7 @@ router.get('/knowledge-graph', async (req, res) => {
 // Get all timeline data
 router.get('/timeline', async (req, res) => {
   try {
-    const data = await loadData('timeline.json');
+    const data = await loadData('timeline.yaml');
     res.json(data);
   } catch (err) {
     res.status(500).json({ error: 'Failed to load timeline data', message: err.message });
@@ -185,7 +186,7 @@ router.get('/timeline', async (req, res) => {
 // Get current timeline entry based on simulated time
 router.get('/timeline/current', async (req, res) => {
   try {
-    const data = await loadData('timeline.json');
+    const data = await loadData('timeline.yaml');
     // Default to the example day
     const date = req.query.date || '2030-10-14';
     const time = req.query.time || '09:00';
@@ -222,7 +223,7 @@ router.get('/timeline/current', async (req, res) => {
 // Get timeline for a specific date
 router.get('/timeline/:date', async (req, res) => {
   try {
-    const data = await loadData('timeline.json');
+    const data = await loadData('timeline.yaml');
     const day = data.days[req.params.date];
 
     if (!day) {
@@ -257,14 +258,14 @@ router.post('/query', async (req, res) => {
 
     // Load all relevant data
     const dataSources = {
-      identity: await loadData('identity.json'),
-      relationships: await loadData('relationships.json'),
-      behaviors: await loadData('behaviors.json'),
-      calendar: await loadData('calendar.json'),
-      locations: await loadData('locations.json'),
-      health: await loadData('health.json'),
-      communications: await loadData('communications.json'),
-      digitalHistory: await loadData('digital-history.json')
+      identity: await loadData('identity.yaml'),
+      relationships: await loadData('relationships.yaml'),
+      behaviors: await loadData('behaviors.yaml'),
+      calendar: await loadData('calendar.yaml'),
+      locations: await loadData('locations.yaml'),
+      health: await loadData('health.yaml'),
+      communications: await loadData('communications.yaml'),
+      digitalHistory: await loadData('digital-history.yaml')
     };
 
     // Simple keyword-based retrieval (could be enhanced with embeddings)
@@ -326,12 +327,12 @@ router.post('/assemble', async (req, res) => {
     }
 
     // Load base data
-    const identity = await loadData('identity.json');
-    const relationships = await loadData('relationships.json');
-    const behaviors = await loadData('behaviors.json');
-    const calendar = await loadData('calendar.json');
-    const locations = await loadData('locations.json');
-    const communications = await loadData('communications.json');
+    const identity = await loadData('identity.yaml');
+    const relationships = await loadData('relationships.yaml');
+    const behaviors = await loadData('behaviors.yaml');
+    const calendar = await loadData('calendar.yaml');
+    const locations = await loadData('locations.yaml');
+    const communications = await loadData('communications.yaml');
 
     // Assemble context based on scenario
     let context = {

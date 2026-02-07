@@ -1,0 +1,149 @@
+meta:
+  schema_version: '1.0'
+  last_updated: '2030-10-14'
+  data_type: locations
+
+primary_locations:
+  home:
+    id: home
+    name: Home
+    address: West Village, Manhattan, NYC
+    neighborhood: West Village
+    coordinates:
+      lat: 40.7336
+      lng: -74.0027
+    type: residence
+    context:
+      typical_modes: [restore, personal, relationship]
+      work_suitability: 0.5
+      focus_suitability: 0.4
+      notes: Comfortable but easy to get distracted. Best for rest and personal time.
+    connected_people: [emma_zhao]
+    typical_times:
+      weekday_morning: 08:00-08:45
+      weekday_evening: 19:00-23:30
+      weekend: flexible
+
+  university:
+    id: sva
+    name: School of Visual Arts (SVA)
+    address: W 21st Street, Manhattan, NYC
+    neighborhood: Chelsea
+    coordinates:
+      lat: 40.7425
+      lng: -73.9930
+    type: work_study
+    context:
+      typical_modes: [focus, work, collaboration]
+      work_suitability: 0.9
+      focus_suitability: 0.85
+      notes: Primary thesis workspace. Critique rooms and studio spaces. Professors Martinez, Chen, and Williams based here.
+    connected_people: [prof_martinez, prof_chen, prof_williams, sarah_chen]
+    amenities: [desk, monitor, quiet_zones, meeting_rooms, critique_rooms]
+    typical_times:
+      weekdays: 09:00-17:00
+
+  advisor_office:
+    id: martinez_office
+    name: Prof. Martinez's Office
+    address: SVA Building, W 21st Street
+    coordinates:
+      lat: 40.7425
+      lng: -73.9930
+    type: meeting
+    context:
+      typical_modes: [focus, professional]
+      notes: Thesis advisor meetings. Arrive 5 minutes early.
+    connected_people: [prof_martinez]
+
+  cafe_workspace:
+    id: plantshed
+    name: Plantshed
+    address: Chelsea, Manhattan, NYC
+    neighborhood: Chelsea
+    coordinates:
+      lat: 40.7450
+      lng: -73.9970
+    type: cafe_work
+    context:
+      typical_modes: [focus, casual_work]
+      work_suitability: 0.75
+      focus_suitability: 0.7
+      notes: Good for thesis prep and reading. Ambient noise helps. Plant-filled atmosphere. Not ideal for calls.
+    typical_activities: [thesis_writing, reading, contract_work, critique_prep]
+    typical_times:
+      weekday_morning: 09:00-12:00
+      weekend: 10:00-14:00
+
+frequent_destinations:
+  emma_apartment:
+    id: emma_place
+    name: Emma's Place
+    address: East Village, Manhattan, NYC
+    neighborhood: East Village
+    type: social
+    travel_time_from_home: 15 minutes walk
+    connected_people: [emma_zhao]
+    typical_modes: [relationship, social]
+
+  gym:
+    id: blink_chelsea
+    name: Blink Fitness Chelsea
+    address: Chelsea, Manhattan, NYC
+    neighborhood: Chelsea
+    coordinates:
+      lat: 40.7420
+      lng: -73.9950
+    type: fitness
+    typical_times: ['17:00-18:30']
+    typical_modes: [focus]
+    context:
+      notes: 'Monday routine: upper body + cardio. 60-75 minute sessions.'
+
+  union_square_park:
+    id: union_square
+    name: Union Square Park
+    address: Union Square, Manhattan, NYC
+    coordinates:
+      lat: 40.7359
+      lng: -73.9911
+    type: public_space
+    typical_modes: [restore, navigation]
+    context:
+      notes: Near SVA. Good for decompression after intense sessions. Bench spots for reflection.
+
+commute_routes:
+  home_to_sva:
+    methods: [walk, subway]
+    walk:
+      duration_minutes: 15
+      route: West Village → Chelsea via 7th Ave
+    subway:
+      lines: [A, C, E, B, D, F, M]
+      station_from: W 4th St-Washington Sq
+      station_to: 14th St or 23rd St
+      duration_minutes: 10
+    typical_mode_during_transit: navigation
+
+  home_to_emma:
+    method: walk
+    duration_minutes: 15
+    typical_mode_during_transit: navigation
+
+  sva_to_gym:
+    method: walk
+    duration_minutes: 8
+    route: W 21st → Chelsea gym
+    typical_mode_during_transit: navigation
+
+  gym_to_home:
+    method: walk
+    duration_minutes: 12
+    route: Chelsea → West Village
+    typical_mode_during_transit: navigation
+
+location_behaviors:
+  arrival_preparation: Likes to know what he's walking into. LifeOS prepares context before arrival.
+  departure_patterns: Often runs slightly late. LifeOS factors buffer time.
+  new_location_anxiety: Moderate. Appreciates address confirmation and what to expect.
+  weather_sensitivity: Prefers walking when weather permits (optimal around 15°C/60°F). Will take subway in bad weather.

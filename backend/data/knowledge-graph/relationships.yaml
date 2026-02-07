@@ -1,0 +1,132 @@
+meta:
+  schema_version: '1.0'
+  last_updated: '2030-10-14'
+  data_type: relationships
+
+inner_circle:
+  - id: emma_zhao
+    name: Emma Zhao
+    relationship: romantic_partner
+    duration_years: 2.5
+    context: Met at a design conference. Also a designer, works at a sustainability startup in NYC.
+    communication_patterns:
+      frequency: daily
+      preferred_channels: [messages, calls, in_person]
+      response_expectation: high_priority
+      typical_topics: [daily_life, work_stress, future_plans, emotional_support]
+    interaction_dynamics:
+      support_style: Emma is grounding when Marcus spirals. He processes out loud with her.
+      tension_points: Marcus can withdraw when stressed; Emma prefers direct communication about struggles.
+      shared_activities: [cooking, gallery_visits, morning_walks, exploring NYC]
+    lifeos_notes:
+      priority_level: highest
+      always_surface: true
+      context_sharing: full
+
+  - id: mei_chen
+    name: Mom
+    relationship: mother
+    context: Supportive and caring. Messages regularly, especially before important events like thesis critiques.
+    communication_patterns:
+      frequency: weekly
+      preferred_channels: [messages, calls]
+      response_expectation: medium_priority
+      typical_topics: [health, career, encouragement, family_news]
+    interaction_dynamics:
+      support_style: Expresses care through encouragement and concern. Sends supportive messages before big days.
+      tension_points: Can be anxious about Marcus's wellbeing. Marcus sometimes delays calls when stressed to avoid worry.
+      shared_activities: [weekly_calls, holiday_visits]
+    lifeos_notes:
+      priority_level: high
+      always_surface: false
+      context_sharing: limited
+      special_rules: Remind Marcus if he hasn't called in 10+ days. Surface messages on important days.
+
+  - id: sarah_chen
+    name: Sarah Chen
+    relationship: close_friend_peer
+    duration_years: 1.5
+    context: Design cohort peer at SVA. Working on thesis about AI and creative agency in music production. They support each other through critiques.
+    communication_patterns:
+      frequency: daily_during_thesis
+      preferred_channels: [messages, in_person]
+      response_expectation: high_priority
+      typical_topics: [thesis_progress, critique_prep, peer_review, moral_support]
+    interaction_dynamics:
+      support_style: Mutual academic support. They review each other's work and debrief after critiques.
+      tension_points: Both stressed during crunch times but generally low-conflict.
+      shared_activities: [thesis_work, critique_sessions, coffee_breaks, decompression_walks]
+    lifeos_notes:
+      priority_level: high
+      always_surface: true
+      context_sharing: partial
+      special_rules: Always surface during thesis work and critique days
+
+close_network:
+  - id: prof_martinez
+    name: Prof. Martinez
+    relationship: thesis_advisor
+    context: Primary thesis advisor at SVA. Specializes in human-computer interaction and design theory. Supportive but demanding. Values theoretical rigor and clear methodology.
+    communication_patterns:
+      frequency: weekly_meetings
+      preferred_channels: [email, scheduled_meetings, in_person]
+      response_expectation: professional_priority
+      typical_topics: [thesis_progress, research, career_guidance, theoretical_frameworks]
+    advising_style:
+      values: Theoretical rigor and clear methodology
+      feedback_pattern: Direct and constructive. Pushes for sharper arguments.
+      relationship_quality: Supportive, willing to have conversations beyond just academic (career, life advice)
+    lifeos_notes:
+      priority_level: high_during_work
+      always_surface: false
+      context_sharing: none
+      special_rules: Always surface messages before scheduled meetings
+
+  - id: prof_chen
+    name: Prof. Chen
+    relationship: faculty_committee
+    context: Interaction design faculty at SVA. Part of Marcus's thesis committee.
+    communication_patterns:
+      frequency: critiques_only
+      preferred_channels: [email, critiques]
+      response_expectation: professional_priority
+      typical_topics: [interaction_design, thesis_feedback]
+    lifeos_notes:
+      priority_level: medium
+      always_surface: false
+      context_sharing: none
+
+  - id: prof_williams
+    name: Prof. Williams
+    relationship: faculty_committee
+    context: Theory specialist at SVA. Part of Marcus's thesis committee.
+    communication_patterns:
+      frequency: critiques_only
+      preferred_channels: [email, critiques]
+      response_expectation: professional_priority
+      typical_topics: [design_theory, thesis_feedback]
+    lifeos_notes:
+      priority_level: medium
+      always_surface: false
+      context_sharing: none
+
+  - id: design_cohort
+    name: Design Cohort Group
+    relationship: peer_group
+    context: Group chat with fellow SVA design students. Coordination for critiques, social events, mutual support.
+    communication_patterns:
+      frequency: daily
+      preferred_channels: [group_messages]
+      response_expectation: casual
+      typical_topics: [critique_schedules, social_plans, studio_logistics, commiseration]
+    lifeos_notes:
+      priority_level: low
+      always_surface: false
+      context_sharing: none
+      special_rules: Batch with other casual communications. Surface coordination messages on critique days.
+
+relationship_patterns:
+  initiation_tendency: Marcus is more responsive than initiating. LifeOS prompts relationship maintenance.
+  conflict_style: Avoidant initially, then direct once he's processed. Needs space before difficult conversations.
+  support_seeking: Tends to withdraw rather than seek support. LifeOS monitors for isolation patterns.
+  social_energy: Introverted. Needs recovery time after social events. Prefers depth over breadth.
