@@ -19,6 +19,7 @@ import llmRoutes from './routes/llm.js';
 import worldRoutes from './routes/world.js';
 import conversationsRoutes from './routes/conversations.js';
 import scenariosRoutes from './routes/scenarios.js';
+import prototypesRoutes from './routes/prototypes.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -53,6 +54,10 @@ app.use('/api/llm', llmRoutes);
 app.use('/api/world', worldRoutes);
 app.use('/api/conversations', conversationsRoutes);
 app.use('/api/scenarios', scenariosRoutes);
+app.use('/api/prototypes', prototypesRoutes);
+
+// Serve prototype screenshots as static files
+app.use('/prototype-images', express.static(join(__dirname, '../data/prototypes/images')));
 
 // API documentation endpoint
 app.get('/api', (req, res) => {

@@ -364,3 +364,44 @@ export async function deleteScenario(id: string): Promise<{ message: string; id:
   if (!res.ok) throw new Error('Failed to delete scenario');
   return res.json();
 }
+
+// ============================================
+// Prototypes API
+// ============================================
+
+export async function fetchPrototypes() {
+  const res = await fetch(`${API_BASE}/api/prototypes`);
+  if (!res.ok) throw new Error('Failed to fetch prototypes');
+  return res.json();
+}
+
+export async function addPrototypeDay(prototypeId: string, date: string) {
+  const res = await fetch(`${API_BASE}/api/prototypes/${prototypeId}/days`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ date }),
+  });
+  if (!res.ok) throw new Error('Failed to add day');
+  return res.json();
+}
+
+export async function deletePrototypeDay(prototypeId: string, date: string) {
+  const res = await fetch(`${API_BASE}/api/prototypes/${prototypeId}/days/${date}`, {
+    method: 'DELETE',
+  });
+  if (!res.ok) throw new Error('Failed to delete day');
+  return res.json();
+}
+
+export async function uploadScreenshots(prototypeId: string, date: string, files: FileList | File[]) {
+  const formData = new FormData();
+  for (const file of files) {
+    formData.append('files', file);
+  }
+  const res = await fetch(`${API_BASE}/api/prototypes/${prototypeId}/days/${date}/screenshots`, {
+    method: 'POST',
+    body: formData,
+  });
+  if (!res.ok) throw new Error('Failed to upload screenshots');
+  return res.json();
+}

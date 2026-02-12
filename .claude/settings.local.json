@@ -18,7 +18,10 @@
       "Bash(lsof:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(git pull:*)"
+      "Bash(git pull:*)",
+      "Bash(pgrep:*)",
+      "Bash(xargs kill:*)",
+      "Bash(unset:*)"
     ]
   }
 }
