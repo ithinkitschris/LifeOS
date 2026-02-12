@@ -32,6 +32,8 @@ let anthropicClient = null;
 function getClient() {
   if (!anthropicClient) {
     // Will use ANTHROPIC_API_KEY environment variable
+    const apiKey = process.env.ANTHROPIC_API_KEY;
+    console.log('[DEBUG] ANTHROPIC_API_KEY loaded:', apiKey ? `${apiKey.substring(0, 20)}...` : 'NOT SET');
     anthropicClient = new Anthropic();
   }
   return anthropicClient;
@@ -345,7 +347,7 @@ const WORLD_MD_PATH = join(__dirname, '..', '..', '..', 'WORLD.md');
 async function loadKGData(filename) {
   const filepath = join(KG_DATA_DIR, filename);
   const content = await readFile(filepath, 'utf-8');
-  return JSON.parse(content);
+  return yaml.load(content);
 }
 
 router.post('/kg-query', async (req, res) => {
@@ -361,14 +363,14 @@ router.post('/kg-query', async (req, res) => {
 
     // Load relevant knowledge graph data
     const domainMapping = {
-      identity: 'identity.json',
-      relationships: 'relationships.json',
-      behaviors: 'behaviors.json',
-      calendar: 'calendar.json',
-      locations: 'locations.json',
-      health: 'health.json',
-      communications: 'communications.json',
-      digitalHistory: 'digital-history.json'
+      identity: 'identity.yaml',
+      relationships: 'relationships.yaml',
+      behaviors: 'behaviors.yaml',
+      calendar: 'calendar.yaml',
+      locations: 'locations.yaml',
+      health: 'health.yaml',
+      communications: 'communications.yaml',
+      digitalHistory: 'digital-history.yaml'
     };
 
     let contextData = {};
@@ -546,10 +548,10 @@ router.post('/scenario', async (req, res) => {
     // Load core PKG data
     let pkgContext = {};
     if (include_pkg) {
-      const pkgFiles = ['identity.json', 'relationships.json', 'behaviors.json', 'calendar.json'];
+      const pkgFiles = ['identity.yaml', 'relationships.yaml', 'behaviors.yaml', 'calendar.yaml'];
       for (const filename of pkgFiles) {
         try {
-          pkgContext[filename.replace('.json', '')] = await loadKGData(filename);
+          pkgContext[filename.replace('.yaml', '')] = await loadKGData(filename);
         } catch (e) {
           console.warn(`Failed to load ${filename}:`, e.message);
         }
