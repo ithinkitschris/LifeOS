@@ -1,3 +1,4 @@
+// Vercel deployment configuration
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   async rewrites() {
