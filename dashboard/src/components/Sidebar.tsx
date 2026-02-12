@@ -161,9 +161,26 @@ export default function Sidebar() {
           <ul className="space-y-1">
             <li>
               <a
-                href="/modes"
+                href="/domains"
                 className={`nav-item flex items-center px-3 py-2.5 text-sm text-gray-600 hover:text-gray-900 group ${isCollapsed ? 'justify-center' : ''}`}
-                title={isCollapsed ? 'Modes' : ''}
+                title={isCollapsed ? 'Life Domains' : ''}
+              >
+                <svg
+                  className={`w-5 h-5 text-gray-400 group-hover:text-gray-600 flex-shrink-0 ${isCollapsed ? '' : 'mr-3'}`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                </svg>
+                {!isCollapsed && <span>Life Domains</span>}
+              </a>
+            </li>
+            <li>
+              <a
+                href="/mode-intent-framework"
+                className={`nav-item flex items-center px-3 py-2.5 text-sm text-gray-600 hover:text-gray-900 group ${isCollapsed ? 'justify-center' : ''}`}
+                title={isCollapsed ? 'Mode–Intent Framework' : ''}
               >
                 <svg
                   className={`w-5 h-5 text-gray-400 group-hover:text-gray-600 flex-shrink-0 ${isCollapsed ? '' : 'mr-3'}`}
@@ -173,24 +190,7 @@ export default function Sidebar() {
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
                 </svg>
-                {!isCollapsed && <span>Modes</span>}
-              </a>
-            </li>
-            <li>
-              <a
-                href="/intents"
-                className={`nav-item flex items-center px-3 py-2.5 text-sm text-gray-600 hover:text-gray-900 group ${isCollapsed ? 'justify-center' : ''}`}
-                title={isCollapsed ? 'Intents' : ''}
-              >
-                <svg
-                  className={`w-5 h-5 text-gray-400 group-hover:text-gray-600 flex-shrink-0 ${isCollapsed ? '' : 'mr-3'}`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z" />
-                </svg>
-                {!isCollapsed && <span>Intents</span>}
+                {!isCollapsed && <span>Mode–Intent Framework</span>}
               </a>
             </li>
             <li>
@@ -229,9 +229,9 @@ export default function Sidebar() {
             </li>
             <li>
               <a
-                href="/domains"
+                href="/provider-integration"
                 className={`nav-item flex items-center px-3 py-2.5 text-sm text-gray-600 hover:text-gray-900 group ${isCollapsed ? 'justify-center' : ''}`}
-                title={isCollapsed ? 'Domains' : ''}
+                title={isCollapsed ? 'Provider Integration' : ''}
               >
                 <svg
                   className={`w-5 h-5 text-gray-400 group-hover:text-gray-600 flex-shrink-0 ${isCollapsed ? '' : 'mr-3'}`}
@@ -239,9 +239,9 @@ export default function Sidebar() {
                   stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
                 </svg>
-                {!isCollapsed && <span>Domains</span>}
+                {!isCollapsed && <span>Provider Integration</span>}
               </a>
             </li>
           </ul>
@@ -268,13 +268,47 @@ export default function Sidebar() {
                 {!isCollapsed && <span>Marcus Chen</span>}
               </a>
             </li>
+            <li>
+              <a
+                href="/timeline"
+                className={`nav-item flex items-center px-3 py-2.5 text-sm text-gray-600 hover:text-gray-900 group ${isCollapsed ? 'justify-center' : ''}`}
+                title={isCollapsed ? 'Timeline' : ''}
+              >
+                <svg
+                  className={`w-5 h-5 text-gray-400 group-hover:text-gray-600 flex-shrink-0 ${isCollapsed ? '' : 'mr-3'}`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                {!isCollapsed && <span>Timeline</span>}
+              </a>
+            </li>
           </ul>
 
-          {/* Scenarios Section */}
+          {/* Generation Section */}
           {!isCollapsed && (
-            <div className="text-[10px] font-medium text-gray-400 uppercase tracking-wider px-3 pt-4 pb-1">Testing</div>
+            <div className="text-[10px] font-medium text-gray-400 uppercase tracking-wider px-3 pt-4 pb-1">Generation</div>
           )}
           <ul className="space-y-1">
+            <li>
+              <a
+                href="/claude-history"
+                className={`nav-item flex items-center px-3 py-2.5 text-sm text-gray-600 hover:text-gray-900 group ${isCollapsed ? 'justify-center' : ''}`}
+                title={isCollapsed ? 'History' : ''}
+              >
+                <svg
+                  className={`w-5 h-5 text-gray-400 group-hover:text-gray-600 flex-shrink-0 ${isCollapsed ? '' : 'mr-3'}`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                </svg>
+                {!isCollapsed && <span>History</span>}
+              </a>
+            </li>
             <li>
               <a
                 href="/scenarios"
@@ -287,7 +321,7 @@ export default function Sidebar() {
                   stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
                 {!isCollapsed && <span>Scenarios</span>}
               </a>

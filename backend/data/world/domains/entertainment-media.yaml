@@ -1,0 +1,33 @@
+id: entertainment-media
+name: Entertainment & Media
+description: Content consumption, news, games, entertainment, staying informed, cultural participation
+status: open
+version: 1.0.0
+
+sections:
+  - title: Core Activities
+    content: |
+      - Consuming media content (video, audio, text)
+      - Playing games and interactive entertainment
+      - Following news and current events
+      - Exploring cultural content
+      - Discovering new content
+      - Social media engagement
+
+  - title: Key Interactions
+    content: |
+      - Browsing and discovering content
+      - Active consumption (watching, reading, listening)
+      - Engagement with content (commenting, sharing)
+      - Managing subscriptions and feeds
+      - Balancing information diet
+
+  - title: Design Considerations
+    content: |
+      - Infinite feeds designed for maximum engagement
+      - Boundary between intentional consumption and passive scrolling
+      - News anxiety and information overload
+      - Algorithmic recommendations vs. user-directed exploration
+      - Completion conditions often absent by design
+      - Time easily lost to auto-play and endless content
+      - Need for intentional stopping points

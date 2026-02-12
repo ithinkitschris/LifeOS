@@ -67,6 +67,7 @@ router.get('/', (req, res) => {
   const thesis = loadYaml(path.join(WORLD_PATH, 'thesis.yaml'));
   const devices = loadYaml(path.join(WORLD_PATH, 'devices.yaml'));
   const systemArchitecture = loadYaml(path.join(WORLD_PATH, 'system-architecture.yaml'));
+  const providerIntegration = loadYaml(path.join(WORLD_PATH, 'provider-integration.yaml'));
   const registry = loadYaml(path.join(DOMAINS_PATH, '_registry.yaml'));
   const openQuestions = loadYaml(path.join(WORLD_PATH, 'open-questions.yaml'));
 
@@ -87,6 +88,7 @@ router.get('/', (req, res) => {
     thesis,
     devices,
     systemArchitecture,
+    providerIntegration,
     domains,
     openQuestions: openQuestions?.questions || []
   });
@@ -230,6 +232,32 @@ router.put('/system-architecture', (req, res) => {
     res.json(architecture);
   } else {
     res.status(500).json({ error: 'Failed to save system-architecture.yaml' });
+  }
+});
+
+// ============================================
+// PROVIDER INTEGRATION
+// ============================================
+
+// GET /api/world/provider-integration - Provider integration model
+router.get('/provider-integration', (req, res) => {
+  const providerIntegration = loadYaml(path.join(WORLD_PATH, 'provider-integration.yaml'));
+  if (!providerIntegration) {
+    return res.status(500).json({ error: 'Failed to load provider-integration.yaml' });
+  }
+  res.json(providerIntegration);
+});
+
+// PUT /api/world/provider-integration - Update provider integration model
+router.put('/provider-integration', (req, res) => {
+  const providerPath = path.join(WORLD_PATH, 'provider-integration.yaml');
+  const providerIntegration = req.body;
+
+  if (saveYaml(providerPath, providerIntegration)) {
+    updateLastModified();
+    res.json(providerIntegration);
+  } else {
+    res.status(500).json({ error: 'Failed to save provider-integration.yaml' });
   }
 });
 
@@ -547,6 +575,9 @@ router.post('/versions', (req, res) => {
 
   // Copy system-architecture.yaml
   snapshot.files['system-architecture.yaml'] = loadYaml(path.join(WORLD_PATH, 'system-architecture.yaml'));
+
+  // Copy provider-integration.yaml
+  snapshot.files['provider-integration.yaml'] = loadYaml(path.join(WORLD_PATH, 'provider-integration.yaml'));
 
   // Copy open-questions.yaml
   snapshot.files['open-questions.yaml'] = loadYaml(path.join(WORLD_PATH, 'open-questions.yaml'));

@@ -1,0 +1,36 @@
+id: health-wellness
+name: Health & Wellness
+description: Physical health, mental wellbeing, rest, recovery, body awareness
+status: open
+version: 1.0.0
+
+sections:
+  - title: Core Activities
+    content: |
+      - Physical exercise and movement
+      - Sleep and rest
+      - Nutrition and eating
+      - Mental health and stress management
+      - Medical care and health monitoring
+      - Recovery and downtime
+      - Body awareness and physiological state
+
+  - title: Key Interactions
+    content: |
+      - Monitoring health metrics
+      - Planning and executing exercise
+      - Managing sleep schedules
+      - Stress awareness and intervention
+      - Medical appointments and care
+      - Mindfulness and relaxation practices
+
+  - title: Design Considerations
+    content: |
+      - Health data is highly personal and sensitive
+      - Physiological state affects all other domains
+      - Recovery time is productive time
+      - Stress response can be detected but requires nuanced interpretation
+      - Gamification can be motivating or anxiety-inducing
+      - Rest is active wellbeing, not absence of productivity
+      - Mental health is as important as physical health
+      - Body awareness provides context for all other activities

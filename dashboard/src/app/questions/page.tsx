@@ -130,8 +130,7 @@ export default function QuestionsPage() {
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-lifeos-500"
                 >
                   <option value="architecture">Architecture</option>
-                  <option value="modes">Modes</option>
-                  <option value="intents">Intents</option>
+                  <option value="mode-intent">Mode–Intent</option>
                   <option value="constitution">Constitution</option>
                   <option value="devices">Devices</option>
                 </select>

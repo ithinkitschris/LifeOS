@@ -1,0 +1,502 @@
+id: provider-integration
+name: Provider Integration Model
+description: The core mechanism that replaces the application paradigm with provider-orchestrator-user flow
+locked: true
+
+overview:
+  summary: |
+    The Provider Integration Model is the fundamental architectural innovation that makes
+    the application layer obsolete. Instead of apps as interfaces, brands and services
+    become data providers that feed into the Information Integrity Stack, which the
+    Orchestrator then synthesizes and presents through contextually appropriate intents.
+
+  paradigm_shift: |
+    Traditional computing: User → App Selection → App Interface → Service
+    LifeOS computing: Provider → Information Integrity → Orchestrator → Intent → User
+
+    The critical difference: In LifeOS, providers cannot directly reach users. All
+    information flows through integrity verification and constitutional filtering before
+    the Orchestrator decides what reaches the user and how.
+
+# =============================================================================
+# THE THREE-STAGE FLOW
+# =============================================================================
+
+three_stage_flow:
+  description: |
+    Every piece of external information follows this path from provider to user.
+    No shortcuts, no direct access, no bypassing the integrity layer.
+
+  stage_1_providers:
+    name: External Providers Supply Raw Data
+    description: |
+      Brands and services (Spotify, NYT, WhatsApp, Maps, etc.) provide data, APIs,
+      and capabilities. They have business models and agendas, but cannot directly
+      reach the user.
+
+    characteristics:
+      - Providers supply raw, unfiltered data
+      - Business models may conflict with user goals
+      - No direct user interface access
+      - Must integrate via provider API specification
+
+    provider_categories:
+      - id: social-media
+        name: Social Media
+        examples: [Instagram, TikTok, LinkedIn, Facebook, Twitter/X]
+        data_types: [posts, stories, messages, connections, engagement_metrics]
+
+      - id: messaging
+        name: Messaging Platforms
+        examples: [WhatsApp, Telegram, Signal, iMessage, Slack]
+        data_types: [messages, media, group_chats, presence_status]
+
+      - id: news
+        name: News Outlets
+        examples: [New York Times, Wall Street Journal, Reuters, AP, BBC]
+        data_types: [articles, headlines, multimedia, opinion_pieces]
+
+      - id: navigation
+        name: Navigation Services
+        examples: [Google Maps, Apple Maps, Waze, Transit apps]
+        data_types: [routes, traffic, ETA, location_data, place_information]
+
+      - id: commerce
+        name: Commerce & Services
+        examples: [Amazon, Booking.com, OpenTable, Uber, DoorDash]
+        data_types: [products, prices, availability, bookings, orders]
+
+      - id: entertainment
+        name: Entertainment
+        examples: [Spotify, Apple Music, Netflix, YouTube, Audible]
+        data_types: [media_content, playlists, recommendations, playback_state]
+
+      - id: productivity
+        name: Productivity Services
+        examples: [Google Calendar, Notion, Todoist, GitHub, Figma]
+        data_types: [events, tasks, documents, projects, collaboration_state]
+
+      - id: health
+        name: Health & Fitness
+        examples: [Strava, MyFitnessPal, Headspace, Apple Health, Oura]
+        data_types: [activity, biometrics, nutrition, sleep, mindfulness]
+
+  stage_2_information_integrity:
+    name: Information Integrity Stack Filters & Verifies
+    description: |
+      Before external data reaches the user, it passes through verification and
+      constitutional filtering. This is the trust mechanism that protects users
+      from manipulation, misinformation, and engagement optimization.
+
+    components:
+      - id: verification-provenance
+        name: Verification & Provenance
+        function: The Filter
+        responsibilities:
+          - name: Deepfake Detection
+            description: Identifies AI-generated or manipulated media
+            confidence: Probabilistic, not perfect (ongoing arms race)
+
+          - name: Source Authentication
+            description: Verifies origin and authority of information sources
+            methods: [digital_signatures, domain_verification, reputation_systems]
+
+          - name: Fact Verification
+            description: Cross-references claims against trusted knowledge bases
+            scope: Factual claims only, not opinions or subjective content
+
+          - name: Provenance Tracking
+            description: Maintains chain of custody from source to user
+            purpose: Enables trust, auditability, retraction of unreliable sources
+
+      - id: constitutional-filtering
+        name: Constitutional Filtering
+        function: The Alignment Check
+        description: |
+          Filters verified data based on user's Personal Constitution. This is not
+          censorship—it's alignment with explicitly articulated user values.
+
+        examples:
+          - constitution_rule: "Prioritize factual reporting over opinion pieces"
+            filter_behavior: De-prioritize editorial content, surface news analysis
+
+          - constitution_rule: "No clickbait or engagement-optimized headlines"
+            filter_behavior: Remove headlines with emotional manipulation patterns
+
+          - constitution_rule: "Prefer local businesses over chains"
+            filter_behavior: Boost local options in commerce/dining recommendations
+
+          - constitution_rule: "Limit social media during work hours"
+            filter_behavior: Hold social content in Silence during Work mode
+
+        principles:
+          - User controls the rules (not the system, not providers)
+          - Rules are explicit and auditable (not hidden algorithmic preferences)
+          - Filtering respects urgency (emergency content pierces filters)
+          - User can always request held content (transparency, not paternalism)
+
+      - id: information-augmentation
+        name: Information Augmentation (RAG)
+        function: The Synthesis
+        description: |
+          Retrieval-Augmented Generation matches current query with verified external
+          data and augments it with personal context from the PKG.
+
+        process:
+          - User query or system-detected need
+          - Retrieve relevant verified external data
+          - Augment with personal context (preferences, history, relationships)
+          - Generate contextualized, personalized response
+          - Deliver to Orchestrator for presentation
+
+  stage_3_orchestrator:
+    name: Orchestrator Generates Contextual UI & Intents
+    description: |
+      The Orchestrator has final authority over what reaches users and how. It
+      synthesizes verified information, applies constitutional rules, and generates
+      purpose-built interfaces based on current mode and available intents.
+
+    responsibilities:
+      - name: Mode Determination
+        description: Assesses current context to activate appropriate mode
+        inputs: [perception_signals, calendar, location, biometrics, usage_patterns]
+
+      - name: Intent Surfacing
+        description: Presents relevant actions available in current mode
+        constraint: User selects intents—never auto-executed
+
+      - name: Attention Triage
+        description: Routes information to Center, Periphery, or Silence
+        criteria: [mode_relevance, constitutional_rules, urgency, user_patterns]
+
+      - name: UI Generation
+        description: Constructs purpose-built interface to serve selected intent
+        characteristics: [bounded_scope, clear_completion, contextually_appropriate]
+
+      - name: Multi-Provider Synthesis
+        description: Combines data from multiple providers in single intent
+        example: |
+          Navigation intent may synthesize: Maps (route), Calendar (destination),
+          Weather (conditions), Contacts (meeting attendees), Messaging (ETA sharing)
+
+# =============================================================================
+# WHY APPS BECOME OBSOLETE
+# =============================================================================
+
+app_obsolescence:
+  description: |
+    When the orchestrator can determine context, surface relevant capabilities,
+    generate purpose-built interfaces, and filter manipulation—the app as
+    intermediary is no longer necessary.
+
+  traditional_app_model:
+    characteristics:
+      - name: User selects app, then figures out task
+        problem: Goal-to-app translation is cognitive overhead
+
+      - name: General-purpose tool
+        problem: One interface tries to serve many use cases
+
+      - name: Business model may conflict with user goals
+        problem: Engagement optimization vs. user wellbeing
+
+      - name: Persistent, always demanding attention
+        problem: Notification overload, attention manipulation
+
+      - name: Infinite engagement possible
+        problem: No designed completion, endless scroll
+
+      - name: Context lives in user's head
+        problem: User must maintain mental model across fragmented tools
+
+  lifeos_provider_model:
+    characteristics:
+      - name: User selects intent based on goal
+        benefit: Direct goal accomplishment, no app selection overhead
+
+      - name: Specific goal accomplishment
+        benefit: Purpose-built interface for this moment's task
+
+      - name: Orchestrator filters for user goals
+        benefit: Constitutional alignment blocks manipulation
+
+      - name: Available based on context (mode)
+        benefit: Attention-aware presentation, not persistent noise
+
+      - name: Bounded with completion designed in
+        benefit: Clear exit, no infinite engagement traps
+
+      - name: Context maintained by system
+        benefit: No mental overhead, seamless transitions
+
+# =============================================================================
+# CONCRETE PROVIDER EXAMPLES
+# =============================================================================
+
+provider_examples:
+  - id: spotify
+    name: Spotify
+    category: Music Streaming
+    traditional_flow: |
+      1. User decides they want music
+      2. Opens Spotify app
+      3. Browses playlists or searches
+      4. Selects music and plays
+      5. App persists, can distract with recommendations
+
+    lifeos_flow: |
+      1. Music intent surfaces in Rest mode (system detected context)
+      2. Orchestrator queries Spotify provider for user's library
+      3. Constitutional filter applies listening preferences
+      4. Playback UI generated with relevant playlists
+      5. Intent completes when user starts playback or exits
+
+    key_difference: |
+      Spotify becomes a music library provider, not an interface. The Orchestrator
+      presents music options when contextually appropriate, filtered by user's
+      listening values.
+
+  - id: new-york-times
+    name: New York Times
+    category: News
+    traditional_flow: |
+      1. User opens NYT app (or checks notifications)
+      2. Scrolls through feed
+      3. Engagement-optimized algorithm surfaces content
+      4. No alignment check with user's information diet values
+      5. Potential for doomscrolling, outrage engagement
+
+    lifeos_flow: |
+      1. News surfaces in Periphery during morning routine
+      2. Verification layer validates sources and checks for manipulation
+      3. Constitutional filter removes clickbait, applies reading preferences
+      4. Orchestrator generates summary matching user's information diet
+      5. Bounded reading experience with clear completion
+
+    key_difference: |
+      NYT provides articles, but cannot control presentation or force engagement
+      patterns. Orchestrator filters for quality journalism aligned with user's
+      constitutional values.
+
+  - id: google-maps
+    name: Google Maps
+    category: Navigation
+    traditional_flow: |
+      1. User realizes they need to navigate somewhere
+      2. Opens Maps app
+      3. Enters destination manually
+      4. Reviews route options
+      5. Starts navigation
+
+    lifeos_flow: |
+      1. Navigation mode auto-activates when calendar event approaches
+      2. Maps provider supplies route data to event location
+      3. Orchestrator synthesizes: route, traffic, weather, meeting context
+      4. Navigation intent presented in Center (highest attention)
+      5. Automatic transition to next mode upon arrival
+
+    key_difference: |
+      Maps becomes a route data provider. The system knows where you're going
+      (from calendar) and surfaces navigation proactively, not reactively.
+
+  - id: whatsapp
+    name: WhatsApp
+    category: Messaging
+    traditional_flow: |
+      1. Notification arrives (app decides when to interrupt)
+      2. User context-switches to check message
+      3. Responds in app
+      4. Returns to previous task (with cognitive reset overhead)
+
+    lifeos_flow: |
+      1. Message arrives from WhatsApp provider
+      2. Constitutional triage determines appropriate layer:
+         - Center: Emergency contacts, awaited replies
+         - Periphery: Friend messages during work
+         - Silence: Group chats during Focus mode
+      3. Message surfaces in current mode context when appropriate
+      4. Response intent available without full context switch
+
+    key_difference: |
+      WhatsApp provides messages but cannot demand attention. Orchestrator
+      applies constitutional rules to determine when and how messages surface.
+
+# =============================================================================
+# USER BENEFITS
+# =============================================================================
+
+user_benefits:
+  - id: no-context-switching
+    name: No Context Switching
+    description: |
+      System maintains context across all data sources. User doesn't mentally switch
+      between apps—they select intents within coherent modes. The cognitive overhead
+      of app selection and context management is eliminated.
+
+  - id: protected-from-manipulation
+    name: Protected from Manipulation
+    description: |
+      Information Integrity layer blocks dark patterns, engagement optimization, and
+      algorithmic manipulation before it reaches users. Constitutional filtering ensures
+      provider business models don't override user wellbeing.
+
+  - id: constitutional-alignment
+    name: Constitutional Alignment
+    description: |
+      Every piece of information filtered through Personal Constitution. System behavior
+      aligns with explicitly articulated user values, not provider incentives or default
+      engagement metrics.
+
+  - id: attention-aware-triage
+    name: Attention-Aware Triage
+    description: |
+      Information routed to Center, Periphery, or Silence based on current mode and
+      constitutional rules—not notification counts or engagement optimization. User's
+      attention is treated as valuable, not extractable.
+
+  - id: purpose-built-interfaces
+    name: Purpose-Built Interfaces
+    description: |
+      UI generated to serve specific intent in current mode, not general-purpose app.
+      Bounded experiences with clear completion conditions, not infinite feeds designed
+      for maximum time-on-platform.
+
+  - id: multi-provider-synthesis
+    name: Multi-Provider Synthesis
+    description: |
+      Orchestrator can combine data from multiple providers in a single intent—no manual
+      app switching required. Navigation can include calendar, weather, traffic, contacts,
+      and messaging in one coherent experience.
+
+# =============================================================================
+# PROVIDER INTEGRATION REQUIREMENTS
+# =============================================================================
+
+provider_integration_requirements:
+  description: |
+    For a service to integrate as a provider in LifeOS, it must meet these requirements.
+    This ensures quality, security, and alignment with LifeOS principles.
+
+  technical_requirements:
+    - id: api-specification
+      name: Provider API Specification
+      description: Well-documented API for data access and action execution
+      mandatory_endpoints: [data_query, action_execution, webhook_registration]
+
+    - id: authentication
+      name: Secure Authentication
+      description: OAuth 2.0 or equivalent secure auth mechanism
+      requirements: [user_consent, token_expiry, revocation_support]
+
+    - id: rate-limiting
+      name: Rate Limiting & Quotas
+      description: Documented API limits to prevent abuse
+      purpose: Protects both provider infrastructure and user experience
+
+    - id: data-schema
+      name: Structured Data Schema
+      description: Clear schema for all data types returned
+      formats: [JSON, Protocol Buffers, GraphQL]
+      requirement: Machine-readable, versioned
+
+  integrity_requirements:
+    - id: provenance
+      name: Provenance Metadata
+      description: Every piece of data carries source information
+      required_fields: [source_url, timestamp, author, verification_status]
+
+    - id: content-authenticity
+      name: Content Authenticity Indicators
+      description: Signals for AI-generated or manipulated content
+      examples: [C2PA metadata, cryptographic signatures, content credentials]
+
+    - id: update-mechanism
+      name: Real-time Update Mechanism
+      description: Webhooks or push notifications for timely data
+      purpose: Enables proactive assistance without polling
+
+  governance_requirements:
+    - id: data-minimization
+      name: Data Minimization
+      description: Providers should only request necessary data
+      principle: Collect minimum viable data for service provision
+
+    - id: user-consent
+      name: Explicit User Consent
+      description: Users approve each provider integration explicitly
+      requirements: [clear_purpose_statement, scope_limitation, revocable_consent]
+
+    - id: audit-trail
+      name: Audit Trail
+      description: All provider actions logged for retrospective review
+      purpose: Trust-building, accountability, debugging
+
+# =============================================================================
+# ARCHITECTURAL IMPLICATIONS
+# =============================================================================
+
+architectural_implications:
+  provider_neutrality:
+    description: |
+      The Orchestrator must remain neutral toward providers. No preferential
+      treatment, no pay-to-surface. Provider data competes on constitutional
+      alignment and relevance, not business relationships.
+
+  graceful-degradation:
+    description: |
+      When a provider is unavailable (API down, rate limited, user revoked access),
+      the system must gracefully degrade. Other providers may compensate, or the
+      Orchestrator may surface alternative intents.
+
+  provider_competition:
+    description: |
+      Multiple providers can serve the same category (e.g., multiple music streaming
+      services). The Orchestrator selects based on user preferences, availability,
+      and constitutional alignment—not exclusivity deals.
+
+  intent_portability:
+    description: |
+      Intents are provider-agnostic where possible. "Play music" shouldn't be
+      Spotify-specific—it should work with any music provider the user has connected.
+
+# =============================================================================
+# OPEN QUESTIONS
+# =============================================================================
+
+open_questions:
+  - id: provider-business-model
+    question: How do providers sustain business models without direct user attention?
+    notes: |
+      Traditional apps monetize attention (ads, engagement). In LifeOS, providers
+      supply data but don't control presentation. Possible models: subscription
+      (Spotify), transaction fees (Uber), data licensing to Orchestrator. This is
+      an unresolved economic question.
+
+  - id: provider-incentives
+    question: What incentivizes providers to integrate if they lose interface control?
+    notes: |
+      Providers lose ability to manipulate attention but gain: reduced app maintenance,
+      access to contextual presentation, integration with other services. The value
+      proposition needs validation.
+
+  - id: verification-reliability
+    question: How reliable can verification/deepfake detection be by 2030?
+    notes: |
+      Verification is an ongoing arms race. The system should be transparent about
+      confidence levels rather than presenting certainty. "This source is verified"
+      vs. "This source claims to be X but verification failed."
+
+plausibility_notes:
+  year: 2030
+  assumptions:
+    - Providers willing to adapt to platform model (like apps adapted to iOS/Android)
+    - API standards mature enough for consistent integration
+    - Verification technology viable but imperfect (probabilistic confidence)
+    - Users value constitutional filtering over direct app control
+    - Economic models emerge that sustain providers without direct attention monetization
+
+  constraints:
+    - No perfect deepfake detection (arms race continues)
+    - Provider cooperation required (cannot force integration)
+    - Some services may resist giving up interface control
+    - Network effects favor incumbent apps initially

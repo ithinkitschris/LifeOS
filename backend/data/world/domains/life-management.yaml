@@ -1,0 +1,35 @@
+id: life-management
+name: Life Management
+description: Life logistics, household tasks, finances, scheduling, admin work, keeping things running
+status: open
+version: 1.0.0
+
+sections:
+  - title: Core Activities
+    content: |
+      - Calendar and schedule management
+      - Financial tracking and bill payment
+      - Household task coordination
+      - Administrative paperwork
+      - Errand planning and execution
+      - Maintenance and upkeep
+      - Life logistics coordination
+
+  - title: Key Interactions
+    content: |
+      - Adding and reviewing calendar events
+      - Managing to-do lists and tasks
+      - Tracking expenses and budgets
+      - Coordinating household responsibilities
+      - Processing administrative tasks
+      - Planning and executing errands
+
+  - title: Design Considerations
+    content: |
+      - High cognitive overhead from fragmented systems
+      - Many small decisions throughout the day
+      - Interruptions break task flow
+      - Planning requires focus, execution can be automated
+      - Cognitive load from remembering vs. being reminded
+      - Coordination across multiple people and systems
+      - Balance between control and delegation

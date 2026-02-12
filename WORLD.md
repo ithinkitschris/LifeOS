@@ -112,22 +112,31 @@ User: "Plan a dinner for my anniversary"
 7. Output        → Confirmation displayed on phone
 ```
 
-### 2.2 Mode-Intent Separation [LOCKED]
+### 2.2 Domain–Mode–Intent Framework [LOCKED]
 
-This is the fundamental interaction-level architectural decision of LifeOS.
+This is the fundamental interaction-level architectural decision of LifeOS. The framework follows a four-stage flow:
+
+```
+Life Domain → Mode → Intent → UI
+     ↓          ↓        ↓       ↓
+  Category   Stance   Action  Interface
+```
 
 | Concept | Definition | Who Controls | Key Characteristic |
 |---------|------------|--------------|-------------------|
-| **Mode** | Context-aware stance toward the world | Orchestrator (auto-entry) | Constrains the solution space |
+| **Life Domain** | Category of human activity | User-defined | Foundation for mode generation |
+| **Mode** | Fluid, contextual stance within a domain | Orchestrator (auto-entry) | Constrains available intents |
 | **Intent** | Bounded action within current mode | User (explicit selection) | User-chosen execution |
+| **UI** | Dynamically generated interface | Orchestrator | Purpose-built for intent |
 
-**Invariants:**
-- Modes are never user-selected (though users can always exit)
-- Intents are always user-selected (never auto-executed)
-- Available intents are constrained by current mode
-- Mode = "what kind of moment this is"; Intent = "what I want to do in this moment"
+**Key Principles:**
+- **Modes are fluid** — They emerge from the intersection of domain and situation, not from a fixed list
+- **Modes are never user-selected** (though users can always exit)
+- **Intents are always user-selected** (never auto-executed)
+- **Available intents are constrained by current mode**
+- **Mode = "contextual stance within a domain"; Intent = "what I want to do in this moment"**
 
-**Why this matters:** This separation is the core mechanism for preserving agency. Automation handles context assessment (reducing cognitive load) while humans retain action authority (preserving agency).
+**Why this matters:** This separation is the core mechanism for preserving agency. Life Domains provide stable organization, Modes handle context assessment (reducing cognitive load), while humans retain action authority through Intent selection (preserving agency). The UI is generated per-intent, not as a generic app.
 
 ### 2.3 Three-Layer Attention Model [LOCKED]
 
@@ -284,9 +293,105 @@ Every intent must have:
 
 ---
 
-## 5. Constitutional Framework
+## 5. Provider Integration Model
 
-### 5.1 How It Works [LOCKED]
+> **Full specification:** `backend/data/world/provider-integration.yaml`
+
+### 5.1 The Paradigm Shift [LOCKED]
+
+**Traditional computing:** User → App Selection → App Interface → Service
+
+**LifeOS computing:** Provider → Information Integrity → Orchestrator → Intent → User
+
+The critical difference: **Providers cannot directly reach users.** All information flows through integrity verification and constitutional filtering before the Orchestrator decides what reaches the user and how.
+
+### 5.2 The Three-Stage Flow [LOCKED]
+
+Every piece of external information follows this path. No shortcuts, no direct access, no bypassing the integrity layer.
+
+#### Stage 1: External Providers Supply Raw Data
+
+Brands and services (Spotify, NYT, WhatsApp, Maps, etc.) provide data, APIs, and capabilities. They have business models and agendas, but **cannot directly reach the user**.
+
+**Provider Categories:**
+- Social Media (Instagram, TikTok, LinkedIn)
+- Messaging (WhatsApp, Telegram, Signal)
+- News (NYT, WSJ, Reuters)
+- Navigation (Google Maps, Waze)
+- Commerce (Amazon, Uber, DoorDash)
+- Entertainment (Spotify, Netflix, YouTube)
+- Productivity (Google Calendar, Notion, GitHub)
+- Health & Fitness (Strava, Oura, Headspace)
+
+#### Stage 2: Information Integrity Stack Filters & Verifies
+
+Before external data reaches you, it passes through verification and constitutional filtering. **This is the trust mechanism** that protects users from manipulation.
+
+| Component | Function | Purpose |
+|-----------|----------|---------|
+| **Verification & Provenance** | Deepfake detection, source authentication, fact checking | Validates information reliability |
+| **Constitutional Filtering** | Aligns verified data with Personal Constitution | Ensures provider data matches user values |
+| **Information Augmentation (RAG)** | Matches query with verified data + personal context | Synthesizes personalized, trustworthy responses |
+
+#### Stage 3: Orchestrator Generates Contextual UI & Intents
+
+The Orchestrator has **final authority** over what reaches users and how. It:
+
+- Determines current mode (context-aware stance)
+- Surfaces relevant intents (available actions for this moment)
+- Triages information into Center/Periphery/Silence
+- Generates UI that serves the selected intent
+- Synthesizes data from multiple providers in one experience
+
+### 5.3 Why Apps Become Obsolete [LOCKED]
+
+When the orchestrator can determine context (mode), surface relevant capabilities (available intents), generate purpose-built interfaces (intent experiences), and filter manipulation (constitutional validation)—**the app as intermediary is no longer necessary**.
+
+| Traditional App | LifeOS Provider |
+|-----------------|-----------------|
+| User selects app, then figures out task | User selects intent based on goal |
+| General-purpose tool | Specific goal accomplishment |
+| Business model may conflict with user goals | Orchestrator filters for user goals, blocks manipulation |
+| Persistent, always demanding attention | Available based on context (mode), not persistent |
+| Infinite engagement possible | Bounded with completion designed in |
+| Context lives in user's head | Context maintained by system |
+
+### 5.4 Provider Integration Requirements
+
+For a service to integrate as a provider:
+
+**Technical Requirements:**
+- Provider API specification (data query, action execution)
+- Secure authentication (OAuth 2.0)
+- Rate limiting and quotas
+- Structured data schema (JSON/GraphQL)
+
+**Integrity Requirements:**
+- Provenance metadata (source, timestamp, author)
+- Content authenticity indicators (C2PA, cryptographic signatures)
+- Real-time update mechanism (webhooks)
+
+**Governance Requirements:**
+- Data minimization (collect minimum viable data)
+- Explicit user consent (clear purpose, revocable)
+- Audit trail (all actions logged)
+
+### 5.5 User Benefits
+
+| Benefit | Description |
+|---------|-------------|
+| **No Context Switching** | System maintains context—no mental overhead of app selection |
+| **Protected from Manipulation** | Information Integrity blocks dark patterns and engagement optimization |
+| **Constitutional Alignment** | Information filtered through Personal Constitution, not provider incentives |
+| **Attention-Aware Triage** | Center/Periphery/Silence based on mode and values, not notification counts |
+| **Purpose-Built Interfaces** | UI generated for specific intent, with clear completion |
+| **Multi-Provider Synthesis** | Combine data from multiple providers in single coherent experience |
+
+---
+
+## 6. Constitutional Framework
+
+### 6.1 How It Works [LOCKED]
 
 1. Users articulate values through natural conversation and structured prompts
 2. System probes with scenarios to clarify value boundaries
@@ -295,7 +400,7 @@ Every intent must have:
 5. Conflicts between values surfaced for user resolution
 6. Values refined through real-world testing and feedback
 
-### 5.2 Value-to-Rule Translation
+### 6.2 Value-to-Rule Translation
 
 **Example value:** "I want to be present with people when I'm with them"
 
@@ -305,7 +410,7 @@ Every intent must have:
 - Social mode available when social signals strong
 - Work content during social time → Silence unless emergency
 
-### 5.3 Constitutional Conflict [OPEN]
+### 6.3 Constitutional Conflict [OPEN]
 
 **Unresolved:** How does the system handle values that contradict in specific scenarios?
 
@@ -318,15 +423,15 @@ Every intent must have:
 
 ---
 
-## 6. Device Ecosystem
+## 7. Device Ecosystem
 
-### 6.1 Two-Tier Model [LOCKED]
+### 7.1 Two-Tier Model [LOCKED]
 
 **Architecture:** LifeOS operates through a two-tier device ecosystem. Information Interfaces handle orchestration and primary interaction; Peripheral Interfaces provide sensing and ambient output. Each device occupies a specific role in the attention spectrum.
 
 **Key principle:** Peripheral devices sense and output; they never orchestrate.
 
-### 6.2 Information Interface
+### 7.2 Information Interface
 
 **Foldable Tablet** — Core Information Interface
 
@@ -340,7 +445,7 @@ Every intent must have:
 
 The foldable tablet is the canonical information interface—it runs the orchestrator, synthesizes mode confidence signals, and provides the immersive surface for Center-layer content.
 
-### 6.3 Peripheral Interfaces
+### 7.3 Peripheral Interfaces
 
 **Neural Smartwatch** — Core Contextual Interface
 
@@ -382,7 +487,7 @@ Glass provides ambient information augmentation without demanding attention. Ove
 
 "Ultra-loose" coupling means earphones operate semi-independently for audio playback while respecting mode-based attention triage for notifications.
 
-### 6.4 Device Interaction Principles [LOCKED]
+### 7.4 Device Interaction Principles [LOCKED]
 
 1. **No Peripheral Orchestration**
    - Peripheral devices never make mode decisions or orchestrate system state
@@ -400,7 +505,7 @@ Glass provides ambient information augmentation without demanding attention. Ove
    - System functions with any subset of devices
    - Reduced sensing → higher confirmation thresholds for mode activation
 
-### 6.5 Attention Layer Mapping [LOCKED]
+### 7.5 Attention Layer Mapping [LOCKED]
 
 | Attention Layer | Peripheral Display | Rationale |
 |-----------------|-------------------|-----------|
@@ -410,7 +515,7 @@ Glass provides ambient information augmentation without demanding attention. Ove
 
 ---
 
-## 7. Core Design Principles [LOCKED]
+## 8. Core Design Principles [LOCKED]
 
 1. **Modes Constrain, Intents Execute**
    - Modes define stance and solution space
@@ -451,9 +556,74 @@ Glass provides ambient information augmentation without demanding attention. Ove
 
 ---
 
-## 8. Defined Modes
+## 9. Life Domains
 
-### 8.1 Navigation Mode
+### 9.1 Domain Overview [LOCKED]
+
+LifeOS organizes human experience across **seven fundamental life domains**. These domains represent the major categories of human activity and attention. The system uses domain awareness to inform mode activation, triage decisions, and attention management.
+
+> **Full domain specifications:** `backend/data/world/domains/`
+
+### 9.2 The Seven Domains
+
+| Domain | Description | Key Characteristics |
+|--------|-------------|-------------------|
+| **Navigation & Mobility** | Getting from place to place, spatial awareness, movement through physical world | Safety-critical, time-sensitive, attention must remain on environment |
+| **Communication & Connection** | Personal relationships, staying in touch, social coordination, meaningful connection | Quality over quantity, presence matters, relationship-specific norms |
+| **Entertainment & Media** | Content consumption, news, games, entertainment, staying informed, cultural participation | Infinite feeds, engagement optimization, boundary-setting critical |
+| **Life Management** | Life logistics, household tasks, finances, scheduling, admin work, keeping things running | High cognitive overhead, many small decisions, coordination complexity |
+| **Work & Career** | Professional responsibilities, collaboration, career development, workplace dynamics | Deep work requires focus, work-life boundaries, urgency vs. importance |
+| **Health & Wellness** | Physical health, mental wellbeing, rest, recovery, body awareness | Physiological state affects everything, rest is productive, highly personal |
+| **Personal Fulfillment** | Creative expression, hobbies, interests, learning for curiosity, personal projects, skill development, self-reflection, personal growth, meaning-making | Easily deprioritized, requires protected time, intrinsic value, critical for wellbeing |
+
+### 9.3 Domain-Mode Relationship [LOCKED]
+
+**Domains are the foundation; Modes are fluid stances that emerge from them.**
+
+| Concept | Definition | Example |
+|---------|------------|---------|
+| **Domain** | Stable category of human activity | "Work & Career" is a domain |
+| **Mode** | Fluid, contextual stance within a domain | "Thesis Discussion", "Focus Work", "Creative Session"—all emerge from domains |
+
+**Critical understanding: Modes are NOT fixed categories.**
+
+Traditional systems treat modes like fixed states: "Focus Mode", "Do Not Disturb", etc. In LifeOS, mode names **emerge naturally** from the intersection of a Life Domain and the user's current situation:
+
+| Domain | Example Fluid Modes |
+|--------|--------------------|
+| Communication & Connection | Thesis Discussion, Critique, Catch-up, Messaging, Deep Conversation, Quick Check-in |
+| Work & Career | Focus Work, Meeting, Planning, Creative Session, Review, Brainstorming |
+| Health & Wellness | Workout, Meditation, Recovery, Sleep Prep, Active Recovery, Health Check |
+| Navigation & Mobility | Commute, Exploration, Errand Run, Travel, Walking Meeting, Transit |
+| Entertainment & Media | Movie Night, Gaming, Reading, Music Discovery, Podcast, Browsing |
+| Life Management | Weekly Review, Financial Check, Home Maintenance, Planning, Admin Tasks, Organizing |
+| Personal Fulfillment | Learning, Creative Project, Skill Practice, Reflection, Journaling, Side Project |
+
+**Key architectural points:**
+- Each domain can spawn **countless contextual modes** based on the user's specific situation
+- A single mode can span multiple domains (Focus Mode applies to both Work and Personal Fulfillment)
+- Mode names are descriptive and contextual, not generic labels
+- The Orchestrator determines mode based on context signals, not a fixed list selection
+
+**Example:** When Marcus is having a deep conversation with a colleague about his thesis:
+- Active domain: Communication & Connection
+- Current mode: "Thesis Discussion" (emerged from context, not selected from a list)
+- Triage rule: Work/academic communications → Center; other domains → Periphery or Silence
+
+### 9.4 Constitutional Mapping
+
+Users articulate values that map to domains. The constitutional framework uses domain awareness to apply values correctly.
+
+**Example value mapping:**
+- User value: "I want to be present with people when I'm with them"
+- Domain: Communication & Connection
+- Derived rule: When Social Mode active + Communication domain → suppress all non-emergency notifications from other domains
+
+---
+
+## 10. Defined Modes
+
+### 10.1 Navigation Mode
 
 **Purpose:** Active when user is traveling to a destination. Optimizes for wayfinding while protecting attention.
 
@@ -481,7 +651,7 @@ Glass provides ambient information augmentation without demanding attention. Ove
 - Route becomes irrelevant (event cancelled)
 - User explicit exit (with friction)
 
-### 8.2 Focus Mode
+### 10.2 Focus Mode
 
 **Purpose:** Active during deep work requiring sustained attention. Maximizes protection from interruption.
 
@@ -498,7 +668,7 @@ Glass provides ambient information augmentation without demanding attention. Ove
 | Periphery | Timer, emergency-only contacts |
 | Silence | Everything else |
 
-### 8.3 Social Mode
+### 10.3 Social Mode
 
 **Purpose:** Active during interpersonal interaction. Optimizes for presence with people.
 
@@ -515,7 +685,7 @@ Glass provides ambient information augmentation without demanding attention. Ove
 | Periphery | Emergency contacts only |
 | Silence | All notifications, work content |
 
-### 8.4 Rest Mode
+### 10.4 Rest Mode
 
 **Purpose:** Downtime and recovery periods.
 
@@ -524,7 +694,7 @@ Glass provides ambient information augmentation without demanding attention. Ove
 - User declares rest
 - Health signals (fatigue indicators)
 
-### 8.5 Work Mode
+### 10.5 Work Mode
 
 **Purpose:** Professional tasks and communications.
 
@@ -535,7 +705,7 @@ Glass provides ambient information augmentation without demanding attention. Ove
 
 ---
 
-## 9. Open Questions
+## 11. Open Questions
 
 These are unresolved design questions that can be explored through speculative scenarios:
 
@@ -554,7 +724,7 @@ These are unresolved design questions that can be explored through speculative s
 
 ---
 
-## 10. Research Grounding
+## 12. Research Grounding
 
 ### AI Safety Concepts Applied
 
@@ -576,7 +746,7 @@ These are unresolved design questions that can be explored through speculative s
 
 ---
 
-## 11. Design Constraints
+## 13. Design Constraints
 
 ### Current Stance [LOCKED FOR RESEARCH PHASE]
 
@@ -597,7 +767,7 @@ All elements must feel achievable by 2030:
 
 ---
 
-## 12. Changelog
+## 14. Changelog
 
 | Date | Change |
 |------|--------|

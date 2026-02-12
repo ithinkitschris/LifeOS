@@ -1,0 +1,53 @@
+{
+  "id": "conv_1770499889786",
+  "title": "Thesis Discussion — Tokenized Stocks Scenario Generation",
+  "created_at": "2026-02-07T21:31:29.786Z",
+  "updated_at": "2026-02-07T21:31:29.786Z",
+  "context": {
+    "world_version": "0.1.0",
+    "pkg_domains": [
+      "identity",
+      "relationships",
+      "behaviors",
+      "calendar"
+    ],
+    "source": "claude-code"
+  },
+  "messages": [
+    {
+      "role": "user",
+      "content": "I would like to generate a new scenario. Marcus is currently in a thesis discussion with 3 of his classmates. Naomi is currently sharing on her thesis regarding cross-border trading and is now sharing on the concept of tokenized stocks. Marcus has never heard of this term before and is novel to him. What mode is LifeOS in right now and what are the intents that are surfaced? Give 2 passive intents and 4 active intents. One of the active intents will be \"What are Tokenized Stocks?\", basically an intent that generates a whole rundown of the term that the Orchestrator has pulled from provider sources and aggregated for him in an interactive generated experience be it in text, animated diagrams, videos and such.",
+      "timestamp": "2026-02-07T21:31:29.788Z"
+    },
+    {
+      "role": "assistant",
+      "content": "Now I have full context loaded. Let me design this scenario with Marcus encountering \"tokenized stocks\" during a thesis discussion with his classmates.\n\n## Scenario: Marcus Encounters \"Tokenized Stocks\" During Thesis Discussion\n\n### Current Mode: **\"Thesis Discussion\"**\n\n**Domain:** Communication & Connection (spanning Work & Career)\n\n**Mode Activation Reasoning:**\n- Context signals: Calendar event with Sarah, Naomi, Jordan at SVA Design Hub\n- Location: SVA Design Hub, Studio 4  \n- Co-located contacts: Sarah Chen (inner circle), cohort peers\n- Audio pattern: Multiple voices, academic vocabulary, turn-taking\n- Confidence score: 0.82 (hard activation)\n\n**Mode Characteristics:**\n- Prioritizes presence and active listening\n- Supports knowledge capture without interrupting flow\n- Surfaces learning-oriented intents\n- Triages non-academic notifications to Silence\n\n### Passive Intents (Orchestrator-initiated)\n\n1. **Session Recording & Transcription** - Auto-records with speaker ID, key concepts extraction\n2. **Unfamiliar Term Detection** - Detects Marcus has never encountered \"tokenized stocks\", auto-bookmarks with context\n\n### Active Intents (User-selected)\n\n1. **\"What are Tokenized Stocks?\"** - Comprehensive educational experience with text, diagrams, videos, multi-source synthesis\n2. **\"Quick Context\"** - 10-second glanceable definition\n3. **\"Connection to My Thesis\"** - Analyze relevance to LifeOS work\n4. **\"Surface My Knowledge\"** - Find relevant concepts from PKG to contribute to discussion",
+      "timestamp": "2026-02-07T21:31:29.789Z"
+    },
+    {
+      "role": "user",
+      "content": "passive intents are meant to be actions that the orchestrator proactively acts for Marcus based on the context. In this instance an example of a passive intent would be recording the session and generating a transcript for later review. Give me 3 more passive intents.",
+      "timestamp": "2026-02-07T21:31:29.790Z"
+    },
+    {
+      "role": "assistant",
+      "content": "Ah, thank you for the clarification! Passive intents are **proactive actions the Orchestrator automatically executes** based on mode context, without Marcus needing to select them.\n\n### Additional Passive Intents (Orchestrator-initiated)\n\n1. **\"Unfamiliar Term Detection & Capture\"**\n   - Cross-references discussion audio against Marcus's PKG\n   - Detects \"tokenized stocks\" has never appeared in Marcus's knowledge graph\n   - Automatically creates bookmark: term, speaker (Naomi), context, timestamp, 30-sec audio clip\n   - Surfaced in post-discussion review queue\n\n2. **\"Communication Triage & Batch Hold\"**\n   - Holds all incoming communications except emergency-tier\n   - Emma's messages: count in Periphery, content held\n   - Contract client: completely suppressed (Silence)\n   - Triages into batches: \"Respond today\", \"This week\", \"When relevant\"\n   - Protects presence without manual notification management\n\n3. **\"Reference & Resource Aggregation\"**\n   - Listens for mentions of papers, articles, books, frameworks\n   - Captures: \"SEC tokenization framework\", \"MIT blockchain governance paper\"\n   - Looks up full citations, adds links, speaker attribution\n   - Compiles into \"Thesis Discussion - Feb 7\" collection with relevance tags\n\n**Key Distinction:**\n- **Passive** = Orchestrator acts automatically\n- **Active** = Marcus explicitly selects",
+      "timestamp": "2026-02-07T21:31:29.791Z"
+    },
+    {
+      "role": "user",
+      "content": "Marcus selects the \"What are Tokenized Stocks\" intent now. What shows up on his tablet screen?",
+      "timestamp": "2026-02-07T21:31:29.792Z"
+    },
+    {
+      "role": "assistant",
+      "content": "Marcus selects \"What are Tokenized Stocks?\" His foldable tablet sends a haptic pulse. He unfolds it to tablet scale.\n\n## Marcus's Tablet Screen: Generated Educational Intent\n\n### Header (Fixed)\n← Exit to Discussion | What are Tokenized Stocks?\nFrom: Thesis Discussion • Naomi's presentation\nProgress: ━━━━━━━━━━ 5 min read\n\n### Content Sections (Scrollable)\n\n**1. Essential Answer**\n- Quick definition: Digital blockchain tokens representing fractional stock ownership\n- Key insight: Same rights, different tech layer—24/7 trading, fractional shares, cross-border access\n- Sources: SEC Investor Education, Investopedia\n\n**2. Visual Breakdown** [▶ Animate]\n- Side-by-side: Traditional Stock → Tokenized Stock\n- Shows: Exchange vs Blockchain, Broker vs Wallet, $150 full share vs $15 fractional token\n- Trading hours: 9:30-4pm vs 24/7\n\n**3. Real Example**\n- Apple Stock on FTX (2021-2022)\n- Buy $10 of Apple as tokens (0.067 shares)\n- Regulatory note: SEC crackdown after FTX collapse\n\n**4. Key Concepts** (Expandable)\n- ▼ Fractional Ownership\n- ▶ Blockchain & Smart Contracts [Expand]\n- ▶ Securities Regulation [Expand]\n\n**5. Video** (Optional)\n- Binance Academy 3:24 explainer\n- ✓ Verified source, Constitutional filter passed\n\n**6. Why This Matters**\n- Orchestrator-generated: Connects to Naomi's cross-border trading thesis\n- Democratization vs regulation tension\n\n### Footer\nSources: SEC, Investopedia, Binance Academy, Financial Times\n\n[Save to Thesis Notes] [Connection to My Work] [Mark Complete ✓]\n\n## What Makes This Different From Google\n- System knows context (from Naomi in thesis discussion)\n- Verified sources, no ads/SEO spam\n- Bounded experience with clear completion\n- Auto-saved to PKG with provenance",
+      "timestamp": "2026-02-07T21:31:29.793Z"
+    },
+    {
+      "role": "user",
+      "content": "Save this conversation to the dashboard and create a new persistent scenario to be saved to the scenarios page.",
+      "timestamp": "2026-02-07T21:31:29.794Z"
+    }
+  ]
+}

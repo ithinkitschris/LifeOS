@@ -1,0 +1,31 @@
+id: navigation-mobility
+name: Navigation & Mobility
+description: Getting from place to place, spatial awareness, movement through physical world
+status: open
+version: 1.0.0
+
+sections:
+  - title: Core Activities
+    content: |
+      - Wayfinding and navigation to destinations
+      - Route planning and optimization
+      - Spatial awareness and orientation
+      - Movement through physical spaces
+      - Travel coordination and logistics
+      - Real-time location awareness
+
+  - title: Key Interactions
+    content: |
+      - Initiating navigation to a destination
+      - Monitoring progress and ETA
+      - Adapting to route changes
+      - Coordinating arrival timing
+      - Managing transportation options
+
+  - title: Design Considerations
+    content: |
+      - Attention must remain on physical environment for safety
+      - Time pressure varies (late for meeting vs. casual travel)
+      - Familiarity affects cognitive load (known vs. unknown routes)
+      - Interruptions during navigation can be dangerous
+      - Need for glanceable, minimal-attention interfaces

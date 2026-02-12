@@ -1,9 +1,45 @@
 domains:
   - id: modes
-    name: Mode System
+    name: Mode Framework
     file: modes.yaml
-    order: 3
+    order: 0
+
   - id: intents
     name: Intent Framework
     file: intents.yaml
+    order: 0
+
+  - id: navigation-mobility
+    name: Navigation & Mobility
+    file: navigation-mobility.yaml
+    order: 1
+
+  - id: communication-connection
+    name: Communication & Connection
+    file: communication-connection.yaml
+    order: 2
+
+  - id: entertainment-media
+    name: Entertainment & Media
+    file: entertainment-media.yaml
+    order: 3
+
+  - id: life-management
+    name: Life Management
+    file: life-management.yaml
     order: 4
+
+  - id: work-career
+    name: Work & Career
+    file: work-career.yaml
+    order: 5
+
+  - id: health-wellness
+    name: Health & Wellness
+    file: health-wellness.yaml
+    order: 6
+
+  - id: personal-fulfillment
+    name: Personal Fulfillment
+    file: personal-fulfillment.yaml
+    order: 7

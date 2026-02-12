@@ -1,11 +1,105 @@
-# Mode System Domain
-# How modes work and what modes exist
+# Mode–Intent Framework: Modes
+# How modes work, their relationship to domains, and their fluid nature
 
 id: modes
-name: "Mode System"
-description: "The mechanics of mode activation, exit, and the defined modes in LifeOS"
+name: "Mode Framework"
+description: "Modes are fluid, contextual stances that emerge from Life Domains. They are not fixed categories but dynamic responses to the user's current situation within a domain."
 status: locked
-version: "0.1.0"
+version: "0.2.0"
+
+# Core Concept: Domain → Mode → Intent Flow
+framework_flow:
+  description: |
+    The Mode–Intent Framework follows a four-stage flow:
+    1. Life Domain - The 7 fundamental categories of human activity
+    2. Mode - A fluid, contextual stance activated within a domain
+    3. Intent - Available actions surfaced by the active mode
+    4. UI - Dynamically generated interface for the selected intent
+
+  key_principle: |
+    Modes are NOT fixed. Mode names emerge naturally from the intersection of 
+    a Life Domain and the user's current situation. Each domain can spawn 
+    countless contextual modes based on what the user is doing.
+
+# Mode Fluidity Concept
+mode_fluidity:
+  status: locked
+  description: |
+    Unlike traditional app categories, modes are fluid and emerge from context.
+    A mode name like "Thesis Discussion" or "Quick Check-in" emerges naturally 
+    from the intersection of domain and situation.
+
+  examples_by_domain:
+    communication_connection:
+      domain: "Communication & Connection"
+      example_modes:
+        - "Thesis Discussion"
+        - "Critique"
+        - "Catch-up"
+        - "Messaging"
+        - "Deep Conversation"
+        - "Quick Check-in"
+      note: "These are not fixed modes—they emerge from the context within this domain"
+
+    work_career:
+      domain: "Work & Career"
+      example_modes:
+        - "Focus Work"
+        - "Meeting"
+        - "Planning"
+        - "Creative Session"
+        - "Review"
+        - "Brainstorming"
+
+    health_wellness:
+      domain: "Health & Wellness"
+      example_modes:
+        - "Workout"
+        - "Meditation"
+        - "Recovery"
+        - "Sleep Prep"
+        - "Active Recovery"
+        - "Health Check"
+
+    navigation_mobility:
+      domain: "Navigation & Mobility"
+      example_modes:
+        - "Commute"
+        - "Exploration"
+        - "Errand Run"
+        - "Travel"
+        - "Walking Meeting"
+        - "Transit"
+
+    entertainment_media:
+      domain: "Entertainment & Media"
+      example_modes:
+        - "Movie Night"
+        - "Gaming"
+        - "Reading"
+        - "Music Discovery"
+        - "Podcast"
+        - "Browsing"
+
+    life_management:
+      domain: "Life Management"
+      example_modes:
+        - "Weekly Review"
+        - "Financial Check"
+        - "Home Maintenance"
+        - "Planning"
+        - "Admin Tasks"
+        - "Organizing"
+
+    personal_fulfillment:
+      domain: "Personal Fulfillment"
+      example_modes:
+        - "Learning"
+        - "Creative Project"
+        - "Skill Practice"
+        - "Reflection"
+        - "Journaling"
+        - "Side Project"
 
 sections:
   - id: activation-model
@@ -79,11 +173,37 @@ sections:
       - name: "Hybrid mode"
         description: "Rare - elements of both"
 
+  - id: domain-mode-relationship
+    name: "Domain-Mode Relationship"
+    status: locked
+    description: "How life domains inform mode generation"
+
+    key_distinctions:
+      - aspect: "Nature"
+        domain: "Category of human activity (persistent)"
+        mode: "Contextual stance at a moment in time (temporal)"
+      - aspect: "Examples"
+        domain: "Work & Career, Health & Wellness"
+        mode: "Focus Work, Meeting, Workout, Meditation"
+      - aspect: "Control"
+        domain: "User-defined life areas"
+        mode: "Orchestrator-activated based on context signals"
+      - aspect: "Fluidity"
+        domain: "Stable, rarely change"
+        mode: "Highly fluid, emerge from situation"
+
+    invariants:
+      - "A single mode can span multiple domains (Focus Mode applies to Work AND Personal Fulfillment)"
+      - "A single domain can spawn countless modes (Communication domain → Thesis Discussion, Catch-up, Messaging, etc.)"
+      - "Mode names are not fixed—they emerge from context"
+      - "Domain information informs mode confidence signals and triage rules"
+
 defined_modes:
   - id: navigation
     name: "Navigation Mode"
     status: defined
     purpose: "Active when user is traveling to a destination. Optimizes for wayfinding while protecting attention."
+    primary_domain: "navigation-mobility"
 
     activation_triggers:
       - "Calendar event with different location approaching"
@@ -120,6 +240,9 @@ defined_modes:
     name: "Focus Mode"
     status: defined
     purpose: "Active during deep work requiring sustained attention. Maximizes protection from interruption."
+    primary_domain: "work-career"
+    secondary_domains:
+      - "personal-fulfillment"
 
     activation_triggers:
       - "User declares focus time"
@@ -140,6 +263,7 @@ defined_modes:
     name: "Social Mode"
     status: defined
     purpose: "Active during interpersonal interaction. Optimizes for presence with people."
+    primary_domain: "communication-connection"
 
     activation_triggers:
       - "Co-located contacts detected"
@@ -159,6 +283,7 @@ defined_modes:
     name: "Rest Mode"
     status: scaffolded
     purpose: "Downtime and recovery periods."
+    primary_domain: "health-wellness"
 
     activation_triggers:
       - "Time-based (evening hours)"
@@ -169,6 +294,7 @@ defined_modes:
     name: "Work Mode"
     status: scaffolded
     purpose: "Professional tasks and communications."
+    primary_domain: "work-career"
 
     activation_triggers:
       - "Scheduled work hours"

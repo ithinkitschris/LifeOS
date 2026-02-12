@@ -1,0 +1,32 @@
+id: communication-connection
+name: Communication & Connection
+description: Personal relationships, staying in touch, social coordination, meaningful connection
+status: open
+version: 1.0.0
+
+sections:
+  - title: Core Activities
+    content: |
+      - Maintaining personal relationships
+      - Synchronous communication (calls, face-to-face)
+      - Asynchronous communication (messaging, email)
+      - Social coordination and planning
+      - Building and deepening connections
+      - Presence and active listening
+
+  - title: Key Interactions
+    content: |
+      - Responding to messages and communications
+      - Initiating contact with others
+      - Managing availability and boundaries
+      - Coordinating social activities
+      - Being present during in-person interactions
+
+  - title: Design Considerations
+    content: |
+      - Quality of connection vs. quantity of interactions
+      - Presence matters: digital interruptions erode social quality
+      - Response urgency is context-dependent
+      - Different relationships have different communication norms
+      - Synchronous moments deserve protection from asynchronous demands
+      - Connection depth requires sustained attention

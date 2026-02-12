@@ -145,8 +145,10 @@ These are locked in WORLD.md — never contradict them:
 
 | Concept | Definition |
 |---------|------------|
-| **Mode** | Context-aware stance toward the world. Orchestrator-controlled. Constrains available intents. |
-| **Intent** | Bounded action within current mode. User-selected. Never auto-executed. |
+| **Life Domain** | One of 7 fundamental categories of human activity (Navigation, Communication, Entertainment, Life Management, Work, Health, Personal Fulfillment). Foundation for mode generation. |
+| **Mode** | Fluid, contextual stance within a domain. Orchestrator-controlled. Emerges from intersection of domain + situation. Constrains available intents. NOT a fixed list. |
+| **Intent** | Bounded action within current mode. User-selected. Never auto-executed. Generates purpose-built UI. |
+| **Domain → Mode → Intent → UI** | The core flow: Domain informs Mode, Mode surfaces Intents, Intent generates UI. |
 | **Center/Periphery/Silence** | Three-layer attention model. Every piece of info exists in exactly one layer per mode. |
 | **Constitutional Framework** | User-articulated values translated into operational rules that inform triage. |
 

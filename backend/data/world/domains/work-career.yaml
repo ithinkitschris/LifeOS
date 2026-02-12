@@ -1,0 +1,36 @@
+id: work-career
+name: Work & Career
+description: Professional responsibilities, collaboration, career development, workplace dynamics
+status: open
+version: 1.0.0
+
+sections:
+  - title: Core Activities
+    content: |
+      - Executing professional tasks and projects
+      - Collaboration with colleagues
+      - Meetings and synchronous work
+      - Deep focus work
+      - Professional communication
+      - Career development and learning
+      - Strategic planning
+
+  - title: Key Interactions
+    content: |
+      - Managing work communications
+      - Attending and scheduling meetings
+      - Executing focused work sessions
+      - Coordinating with team members
+      - Tracking projects and deliverables
+      - Professional learning and skill development
+
+  - title: Design Considerations
+    content: |
+      - Deep work requires sustained attention blocks
+      - Context switching is costly
+      - Work-life boundaries need active protection
+      - Different work modes (focus, collaboration, admin)
+      - Urgency vs. importance often conflated
+      - Always-on culture creates burnout
+      - Asynchronous vs. synchronous collaboration trade-offs
+      - Career development easily deprioritized

@@ -1,179 +1,66 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import {
-  fetchConversations,
-  createConversation,
-  fetchConversation,
-  sendMessage,
-  deleteConversation,
-  type Conversation,
-  type ConversationSummary,
-  type ConversationMessage,
+  fetchScenarios,
+  fetchScenario,
+  deleteScenario,
+  type Scenario,
+  type ScenarioSummary,
 } from '@/lib/api';
 
 export default function ScenariosPage() {
-  // Conversation list state
-  const [conversations, setConversations] = useState<ConversationSummary[]>([]);
-  const [loadingList, setLoadingList] = useState(true);
+  // Scenario list state
+  const [scenarios, setScenarios] = useState<ScenarioSummary[]>([]);
+  const [loadingScenarios, setLoadingScenarios] = useState(false);
 
-  // Active conversation state
-  const [activeConversation, setActiveConversation] = useState<Conversation | null>(null);
-  const [loadingConversation, setLoadingConversation] = useState(false);
+  // Active scenario state
+  const [activeScenario, setActiveScenario] = useState<Scenario | null>(null);
+  const [loadingScenario, setLoadingScenario] = useState(false);
 
-  // Message input state
-  const [inputValue, setInputValue] = useState('');
-  const [sending, setSending] = useState(false);
-
-  // Refs
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLTextAreaElement>(null);
-
-  // Load conversation list on mount
+  // Load scenarios on mount
   useEffect(() => {
-    loadConversations();
+    loadScenarios();
   }, []);
 
-  // Scroll to bottom when messages change
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [activeConversation?.messages]);
-
-  // Auto-resize textarea
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.style.height = 'auto';
-      inputRef.current.style.height = `${Math.min(inputRef.current.scrollHeight, 150)}px`;
-    }
-  }, [inputValue]);
-
-  async function loadConversations() {
+  async function loadScenarios() {
+    setLoadingScenarios(true);
     try {
-      const data = await fetchConversations();
-      setConversations(data.conversations);
+      const data = await fetchScenarios();
+      setScenarios(data.scenarios);
     } catch (e) {
-      console.error('Failed to load conversations:', e);
+      console.error('Failed to load scenarios:', e);
     } finally {
-      setLoadingList(false);
+      setLoadingScenarios(false);
     }
   }
 
-  async function handleNewConversation() {
-    try {
-      const conversation = await createConversation();
-      setConversations((prev) => [
-        {
-          id: conversation.id,
-          title: conversation.title,
-          created_at: conversation.created_at,
-          updated_at: conversation.updated_at,
-          message_count: 0,
-        },
-        ...prev,
-      ]);
-      setActiveConversation(conversation);
-      inputRef.current?.focus();
-    } catch (e) {
-      console.error('Failed to create conversation:', e);
-    }
-  }
+  async function handleSelectScenario(id: string) {
+    if (activeScenario?.id === id) return;
 
-  async function handleSelectConversation(id: string) {
-    if (activeConversation?.id === id) return;
-
-    setLoadingConversation(true);
+    setLoadingScenario(true);
     try {
-      const conversation = await fetchConversation(id);
-      setActiveConversation(conversation);
+      const scenario = await fetchScenario(id);
+      setActiveScenario(scenario);
     } catch (e) {
-      console.error('Failed to load conversation:', e);
+      console.error('Failed to load scenario:', e);
     } finally {
-      setLoadingConversation(false);
+      setLoadingScenario(false);
     }
   }
 
-  async function handleDeleteConversation(id: string, e: React.MouseEvent) {
+  async function handleDeleteScenario(id: string, e: React.MouseEvent) {
     e.stopPropagation();
-    if (!confirm('Delete this conversation?')) return;
+    if (!confirm('Delete this scenario?')) return;
 
     try {
-      await deleteConversation(id);
-      setConversations((prev) => prev.filter((c) => c.id !== id));
-      if (activeConversation?.id === id) {
-        setActiveConversation(null);
+      await deleteScenario(id);
+      setScenarios((prev) => prev.filter((s) => s.id !== id));
+      if (activeScenario?.id === id) {
+        setActiveScenario(null);
       }
     } catch (e) {
-      console.error('Failed to delete conversation:', e);
-    }
-  }
-
-  async function handleSendMessage() {
-    if (!inputValue.trim() || !activeConversation || sending) return;
-
-    const content = inputValue.trim();
-    setInputValue('');
-    setSending(true);
-
-    // Optimistically add user message
-    const tempUserMessage: ConversationMessage = {
-      role: 'user',
-      content,
-      timestamp: new Date().toISOString(),
-    };
-    setActiveConversation((prev) =>
-      prev ? { ...prev, messages: [...prev.messages, tempUserMessage] } : null
-    );
-
-    try {
-      const response = await sendMessage(activeConversation.id, content);
-
-      // Update with actual response
-      setActiveConversation((prev) => {
-        if (!prev) return null;
-        // Replace the optimistic user message and add assistant response
-        const messagesWithoutOptimistic = prev.messages.slice(0, -1);
-        return {
-          ...prev,
-          title: response.conversation.title,
-          updated_at: response.conversation.updated_at,
-          messages: [
-            ...messagesWithoutOptimistic,
-            response.userMessage,
-            response.assistantMessage,
-          ],
-        };
-      });
-
-      // Update conversation list
-      setConversations((prev) =>
-        prev.map((c) =>
-          c.id === activeConversation.id
-            ? {
-              ...c,
-              title: response.conversation.title,
-              updated_at: response.conversation.updated_at,
-              message_count: c.message_count + 2,
-            }
-            : c
-        ).sort((a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime())
-      );
-    } catch (e) {
-      console.error('Failed to send message:', e);
-      // Revert optimistic update
-      setActiveConversation((prev) =>
-        prev ? { ...prev, messages: prev.messages.slice(0, -1) } : null
-      );
-      setInputValue(content);
-    } finally {
-      setSending(false);
-      inputRef.current?.focus();
-    }
-  }
-
-  function handleKeyDown(e: React.KeyboardEvent) {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      handleSendMessage();
+      console.error('Failed to delete scenario:', e);
     }
   }
 
@@ -194,22 +81,19 @@ export default function ScenariosPage() {
 
   return (
     <div className="h-screen flex">
-      {/* Conversation List Sidebar */}
+      {/* Scenario List Sidebar */}
       <div className="w-72 border-r border-gray-200 dark:border-gray-700 flex flex-col bg-gray-50 dark:bg-gray-900">
         <div className="p-4 border-b border-gray-200 dark:border-gray-700">
-          <button
-            onClick={handleNewConversation}
-            className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-sky-600 hover:bg-sky-700 text-white rounded-lg font-medium transition-colors cursor-pointer"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-            </svg>
-            New Scenario
-          </button>
+          <h2 className="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-1">
+            Scenarios
+          </h2>
+          <p className="text-xs text-gray-500 dark:text-gray-400">
+            YAML-based design artifacts
+          </p>
         </div>
 
         <div className="flex-1 overflow-y-auto">
-          {loadingList ? (
+          {loadingScenarios ? (
             <div className="p-4 space-y-3">
               {[1, 2, 3].map((i) => (
                 <div key={i} className="animate-pulse">
@@ -218,34 +102,35 @@ export default function ScenariosPage() {
                 </div>
               ))}
             </div>
-          ) : conversations.length === 0 ? (
+          ) : scenarios.length === 0 ? (
             <div className="p-4 text-center text-gray-500 dark:text-gray-400 text-sm">
-              No conversations yet.
+              No scenarios yet.
               <br />
-              Start a new scenario to begin.
+              <br />
+              Scenarios are YAML-based design artifacts extracted from conversations.
             </div>
           ) : (
             <div className="divide-y divide-gray-200 dark:divide-gray-700">
-              {conversations.map((conv) => (
+              {scenarios.map((scenario) => (
                 <div
-                  key={conv.id}
-                  onClick={() => handleSelectConversation(conv.id)}
-                  className={`p-4 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors group ${activeConversation?.id === conv.id ? 'bg-gray-100 dark:bg-gray-800' : ''
+                  key={scenario.id}
+                  onClick={() => handleSelectScenario(scenario.id)}
+                  className={`p-4 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors group ${activeScenario?.id === scenario.id ? 'bg-gray-100 dark:bg-gray-800' : ''
                     }`}
                 >
                   <div className="flex items-start justify-between">
                     <div className="flex-1 min-w-0">
                       <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
-                        {conv.title}
+                        {scenario.title}
                       </h3>
                       <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                        {formatTime(conv.updated_at)} · {conv.message_count} messages
+                        {formatTime(scenario.updated_at)} · {scenario.status}
                       </p>
                     </div>
                     <button
-                      onClick={(e) => handleDeleteConversation(conv.id, e)}
+                      onClick={(e) => handleDeleteScenario(scenario.id, e)}
                       className="opacity-0 group-hover:opacity-100 p-1 text-gray-400 hover:text-red-500 transition-all"
-                      title="Delete conversation"
+                      title="Delete scenario"
                     >
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -259,119 +144,23 @@ export default function ScenariosPage() {
         </div>
       </div>
 
-      {/* Chat Area */}
+      {/* Main Content Area */}
       <div className="flex-1 flex flex-col">
-        {activeConversation ? (
-          <>
-            {/* Chat Header */}
-            <div className="p-4 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
-              <div className="flex items-center justify-between">
-                <h2 className="font-medium text-gray-900 dark:text-gray-100">
-                  {activeConversation.title}
-                </h2>
-                <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
-                  <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded">
-                    World v{activeConversation.context.world_version}
-                  </span>
-                  <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded">
-                    {activeConversation.context.pkg_domains.length} PKG domains
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4">
-              {loadingConversation ? (
-                <div className="flex items-center justify-center h-full">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-sky-600"></div>
-                </div>
-              ) : activeConversation.messages.length === 0 ? (
-                <div className="flex items-center justify-center h-full text-gray-500 dark:text-gray-400">
-                  <div className="text-center">
-                    <svg className="w-12 h-12 mx-auto mb-4 text-gray-300 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                    </svg>
-                    <p className="text-sm">Start by describing a scenario...</p>
-                    <p className="text-xs mt-2 text-gray-400">
-                      e.g., "Marcus is in focus mode when Emma texts him about dinner plans"
-                    </p>
-                  </div>
-                </div>
-              ) : (
-                <>
-                  {activeConversation.messages.map((message, index) => (
-                    <ChatMessage key={index} message={message} />
-                  ))}
-                  {sending && (
-                    <div className="flex items-start gap-3">
-                      <div className="w-8 h-8 rounded-full bg-sky-100 dark:bg-sky-900 flex items-center justify-center flex-shrink-0">
-                        <span className="text-sky-600 dark:text-sky-400 text-sm font-medium">L</span>
-                      </div>
-                      <div className="flex-1 bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
-                        <div className="flex items-center gap-2">
-                          <div className="animate-pulse flex space-x-1">
-                            <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                            <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                            <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
-                          </div>
-                          <span className="text-sm text-gray-500">Generating scenario...</span>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                  <div ref={messagesEndRef} />
-                </>
-              )}
-            </div>
-
-            {/* Input Area */}
-            <div className="p-4 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
-              <div className="flex items-end gap-3">
-                <textarea
-                  ref={inputRef}
-                  value={inputValue}
-                  onChange={(e) => setInputValue(e.target.value)}
-                  onKeyDown={handleKeyDown}
-                  placeholder="Describe a scenario to explore..."
-                  className="flex-1 resize-none rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 px-4 py-3 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
-                  rows={1}
-                  disabled={sending}
-                />
-                <button
-                  onClick={handleSendMessage}
-                  disabled={!inputValue.trim() || sending}
-                  className="px-4 py-3 bg-sky-600 hover:bg-sky-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-lg transition-colors cursor-pointer"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                  </svg>
-                </button>
-              </div>
-              <p className="text-xs text-gray-400 mt-2">
-                Press Enter to send, Shift+Enter for new line
-              </p>
-            </div>
-          </>
+        {activeScenario ? (
+          <ScenarioViewer scenario={activeScenario} loading={loadingScenario} />
         ) : (
           /* Empty State */
           <div className="flex-1 flex items-center justify-center bg-gray-50 dark:bg-gray-900">
             <div className="text-center">
               <svg className="w-16 h-16 mx-auto mb-4 text-gray-300 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
               <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
-                Scenario Explorer
+                Scenarios
               </h3>
               <p className="text-gray-500 dark:text-gray-400 text-sm max-w-sm">
-                Generate speculative scenarios grounded in the LifeOS world canon and Marcus's personal knowledge graph.
+                View and manage YAML-based scenario artifacts extracted from conversations.
               </p>
-              <button
-                onClick={handleNewConversation}
-                className="mt-6 px-6 py-2 bg-sky-600 hover:bg-sky-700 text-white rounded-lg font-medium transition-colors cursor-pointer"
-              >
-                Start New Scenario
-              </button>
             </div>
           </div>
         )}
@@ -380,52 +169,97 @@ export default function ScenariosPage() {
   );
 }
 
-// Chat Message Component
-function ChatMessage({ message }: { message: ConversationMessage }) {
-  const isUser = message.role === 'user';
+// Scenario Viewer Component
+function ScenarioViewer({ scenario, loading }: { scenario: Scenario; loading: boolean }) {
+  if (loading) {
+    return (
+      <div className="flex-1 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-sky-600"></div>
+      </div>
+    );
+  }
 
   return (
-    <div className={`flex items-start gap-3 ${isUser ? 'flex-row-reverse' : ''}`}>
-      <div
-        className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${isUser
-            ? 'bg-gray-200 dark:bg-gray-600'
-            : 'bg-sky-100 dark:bg-sky-900'
-          }`}
-      >
-        <span
-          className={`text-sm font-medium ${isUser
-              ? 'text-gray-600 dark:text-gray-300'
-              : 'text-sky-600 dark:text-sky-400'
-            }`}
-        >
-          {isUser ? 'Y' : 'L'}
-        </span>
-      </div>
-      <div
-        className={`flex-1 rounded-lg p-4 ${isUser
-            ? 'bg-sky-600 text-white'
-            : 'bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100'
-          }`}
-      >
-        <div className={`prose prose-sm max-w-none ${isUser ? 'prose-invert' : 'dark:prose-invert'}`}>
-          {isUser ? (
-            <p className="m-0">{message.content}</p>
-          ) : (
-            <MessageContent content={message.content} />
-          )}
+    <div className="flex-1 flex flex-col overflow-hidden">
+      {/* Header */}
+      <div className="p-4 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+        <div className="flex items-start justify-between">
+          <div className="flex-1">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
+              {scenario.title}
+            </h2>
+            <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
+              <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded">
+                {scenario.status}
+              </span>
+              <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded">
+                World v{scenario.context.world_version}
+              </span>
+              {scenario.metadata.setting && (
+                <>
+                  <span>{scenario.metadata.setting.date}</span>
+                  <span>{scenario.metadata.setting.time}</span>
+                  <span>{scenario.metadata.setting.location}</span>
+                </>
+              )}
+            </div>
+          </div>
         </div>
+      </div>
+
+      {/* Content */}
+      <div className="flex-1 overflow-y-auto p-6 bg-white dark:bg-gray-900">
+        {/* Design Questions */}
+        {scenario.metadata.design_questions && scenario.metadata.design_questions.length > 0 && (
+          <div className="mb-6 p-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg">
+            <h3 className="text-sm font-semibold text-amber-900 dark:text-amber-200 mb-2">
+              Design Questions
+            </h3>
+            <ul className="space-y-2">
+              {scenario.metadata.design_questions.map((q, i) => (
+                <li key={i} className="text-sm text-amber-800 dark:text-amber-300">
+                  • {q}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {/* Scenario Content */}
+        <div className="prose prose-sm max-w-none dark:prose-invert">
+          <MessageContent content={scenario.content} />
+        </div>
+
+        {/* Notes */}
+        {scenario.notes && scenario.notes.length > 0 && (
+          <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
+            <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-3">
+              Notes
+            </h3>
+            <ul className="space-y-2">
+              {scenario.notes.map((note, i) => (
+                <li key={i} className="text-sm text-gray-600 dark:text-gray-400">
+                  • {note}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );
 }
 
-// Render markdown-like content for assistant messages
+// Render markdown-like content for scenario content
 function MessageContent({ content }: { content: string }) {
   // Simple markdown-like rendering
   const lines = content.split('\n');
   const elements: React.ReactNode[] = [];
   let inCodeBlock = false;
   let codeContent: string[] = [];
+  let inTable = false;
+  let tableRows: string[] = [];
+  let tableIndex = 0;
 
   lines.forEach((line, i) => {
     if (line.startsWith('```')) {
@@ -438,12 +272,35 @@ function MessageContent({ content }: { content: string }) {
         codeContent = [];
       }
       inCodeBlock = !inCodeBlock;
+      inTable = false; // Exit table mode if in code block
       return;
     }
 
     if (inCodeBlock) {
       codeContent.push(line);
       return;
+    }
+
+    // Detect table rows (lines with | separators)
+    const isTableRow = line.trim().includes('|') && line.trim().split('|').length > 2;
+    const isTableSeparator = /^\s*\|[\s\-:]+\|/.test(line.trim());
+
+    if (isTableRow || isTableSeparator) {
+      if (!inTable) {
+        inTable = true;
+        tableRows = [];
+      }
+      if (!isTableSeparator) {
+        tableRows.push(line);
+      }
+      return;
+    } else if (inTable) {
+      // End of table - render it
+      if (tableRows.length > 0) {
+        elements.push(renderTable(tableRows, tableIndex++));
+        tableRows = [];
+      }
+      inTable = false;
     }
 
     // Headers
@@ -477,7 +334,54 @@ function MessageContent({ content }: { content: string }) {
     }
   });
 
+  // Render any remaining table
+  if (inTable && tableRows.length > 0) {
+    elements.push(renderTable(tableRows, tableIndex));
+  }
+
   return <>{elements}</>;
+}
+
+// Render a markdown table
+function renderTable(rows: string[], key: number): React.ReactNode {
+  if (rows.length === 0) return null;
+
+  const parsedRows = rows.map(row => {
+    const cells = row.split('|').map(cell => cell.trim()).filter(cell => cell);
+    return cells;
+  });
+
+  if (parsedRows.length === 0) return null;
+
+  const headerRow = parsedRows[0];
+  const dataRows = parsedRows.slice(1);
+
+  return (
+    <div key={`table-${key}`} className="my-4 overflow-x-auto">
+      <table className="min-w-full border-collapse border border-gray-300 dark:border-gray-600">
+        <thead>
+          <tr className="bg-gray-100 dark:bg-gray-800">
+            {headerRow.map((cell, i) => (
+              <th key={i} className="border border-gray-300 dark:border-gray-600 px-4 py-2 text-left text-sm font-semibold">
+                {renderInlineFormatting(cell)}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {dataRows.map((row, rowIndex) => (
+            <tr key={rowIndex} className="bg-white dark:bg-gray-900">
+              {row.map((cell, cellIndex) => (
+                <td key={cellIndex} className="border border-gray-300 dark:border-gray-600 px-4 py-2 text-sm">
+                  {renderInlineFormatting(cell)}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
 }
 
 // Render inline formatting (bold, italic)

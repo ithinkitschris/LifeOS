@@ -281,3 +281,86 @@ export async function fetchFullKnowledgeGraph() {
   if (!res.ok) throw new Error('Failed to fetch knowledge graph');
   return res.json();
 }
+
+// ============================================
+// Scenarios API
+// ============================================
+
+export interface Scenario {
+  id: string;
+  title: string;
+  status: 'active' | 'archived' | 'draft';
+  created_at: string;
+  updated_at: string;
+  context: {
+    world_version: string;
+    pkg_snapshot: string[];
+    conversation_source?: string;
+  };
+  metadata: {
+    setting?: {
+      date: string;
+      time: string;
+      location: string;
+    };
+    design_questions?: string[];
+  };
+  content: string;
+  notes: string[];
+}
+
+export interface ScenarioSummary {
+  id: string;
+  title: string;
+  status: 'active' | 'archived' | 'draft';
+  created_at: string;
+  updated_at: string;
+}
+
+export async function fetchScenarios(): Promise<{ scenarios: ScenarioSummary[] }> {
+  const res = await fetch(`${API_BASE}/api/scenarios`);
+  if (!res.ok) throw new Error('Failed to fetch scenarios');
+  return res.json();
+}
+
+export async function fetchScenario(id: string): Promise<Scenario> {
+  const res = await fetch(`${API_BASE}/api/scenarios/${id}`);
+  if (!res.ok) throw new Error('Failed to fetch scenario');
+  return res.json();
+}
+
+export async function createScenario(scenario: {
+  id: string;
+  title: string;
+  status?: 'active' | 'archived' | 'draft';
+  context?: any;
+  metadata?: any;
+  content?: string;
+  notes?: string[];
+}): Promise<Scenario> {
+  const res = await fetch(`${API_BASE}/api/scenarios`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(scenario),
+  });
+  if (!res.ok) throw new Error('Failed to create scenario');
+  return res.json();
+}
+
+export async function updateScenario(id: string, scenario: Partial<Scenario>): Promise<Scenario> {
+  const res = await fetch(`${API_BASE}/api/scenarios/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(scenario),
+  });
+  if (!res.ok) throw new Error('Failed to update scenario');
+  return res.json();
+}
+
+export async function deleteScenario(id: string): Promise<{ message: string; id: string }> {
+  const res = await fetch(`${API_BASE}/api/scenarios/${id}`, {
+    method: 'DELETE',
+  });
+  if (!res.ok) throw new Error('Failed to delete scenario');
+  return res.json();
+}

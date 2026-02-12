@@ -1,0 +1,40 @@
+id: personal-fulfillment
+name: Personal Fulfillment
+description: Creative expression, hobbies, interests, learning for curiosity, personal projects, skill development, self-reflection, personal growth, meaning-making
+status: open
+version: 1.0.0
+
+sections:
+  - title: Core Activities
+    content: |
+      - Creative expression and artistic pursuits
+      - Hobby engagement and exploration
+      - Learning driven by curiosity (not career)
+      - Personal projects and passion work
+      - Skill development for intrinsic satisfaction
+      - Self-reflection and journaling
+      - Personal growth and identity exploration
+      - Meaning-making and purpose discovery
+      - Intellectual curiosity and deep exploration
+
+  - title: Key Interactions
+    content: |
+      - Dedicating time to creative work
+      - Exploring new interests and hobbies
+      - Engaging in reflective practices
+      - Pursuing learning for its own sake
+      - Working on personal projects
+      - Developing skills outside professional context
+
+  - title: Design Considerations
+    content: |
+      - Easily deprioritized under productivity pressure
+      - Requires protected time without interruption
+      - No external deadlines makes scheduling difficult
+      - Value is intrinsic, not instrumental
+      - Flow states require sustained attention
+      - Exploration benefits from low-stakes experimentation
+      - Reflection requires spaciousness and quiet
+      - Often the first domain sacrificed when busy
+      - Critical for long-term wellbeing and identity
+      - Cannot be optimized without losing its essence

@@ -18,6 +18,7 @@ import orchestratorRoutes from './routes/orchestrator.js';
 import llmRoutes from './routes/llm.js';
 import worldRoutes from './routes/world.js';
 import conversationsRoutes from './routes/conversations.js';
+import scenariosRoutes from './routes/scenarios.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -51,6 +52,7 @@ app.use('/api/orchestrator', orchestratorRoutes);
 app.use('/api/llm', llmRoutes);
 app.use('/api/world', worldRoutes);
 app.use('/api/conversations', conversationsRoutes);
+app.use('/api/scenarios', scenariosRoutes);
 
 // API documentation endpoint
 app.get('/api', (req, res) => {
@@ -117,6 +119,13 @@ app.get('/api', (req, res) => {
         'GET /api/conversations/:id': 'Get single conversation',
         'POST /api/conversations/:id/messages': 'Add message and get response',
         'DELETE /api/conversations/:id': 'Delete conversation'
+      },
+      scenarios: {
+        'GET /api/scenarios': 'List all scenarios',
+        'GET /api/scenarios/:id': 'Get single scenario',
+        'POST /api/scenarios': 'Create new scenario',
+        'PUT /api/scenarios/:id': 'Update scenario',
+        'DELETE /api/scenarios/:id': 'Delete scenario'
       }
     }
   });

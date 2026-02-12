@@ -1,11 +1,26 @@
-# Intent Framework Domain
-# How intents work and their requirements
+# Mode–Intent Framework: Intents
+# How intents work, their requirements, and their relationship to modes
 
 id: intents
 name: "Intent Framework"
-description: "The design requirements and mechanics of intents in LifeOS"
+description: "Intents are available actions surfaced by the active mode. They represent what the user can DO within their current contextual stance."
 status: locked
-version: "0.1.0"
+version: "0.2.0"
+
+# Core Concept: Intent's Role in the Framework
+framework_position:
+  description: |
+    In the Domain → Mode → Intent → UI flow, Intents are the third stage:
+    1. Life Domain - Informs the context category
+    2. Mode - Determines the user's stance and filters available actions
+    3. Intent - User-selected action from mode-appropriate options
+    4. UI - Dynamically generated interface for the selected intent
+
+  key_invariants:
+    - "Intents are ALWAYS user-selected (never auto-executed)"
+    - "Available intents are constrained by the current mode"
+    - "Each intent has bounded scope with designed completion"
+    - "Intents generate purpose-built UI, not generic app interfaces"
 
 sections:
   - id: intent-requirements
@@ -64,6 +79,10 @@ sections:
         traditional_app: "Infinite engagement possible"
         lifeos_intent: "Bounded with completion designed in"
 
+      - aspect: "Interface"
+        traditional_app: "Fixed, generic interface"
+        lifeos_intent: "Dynamically generated for specific goal"
+
   - id: intent-inheritance
     name: "Intent Inheritance Across Modes"
     status: open
@@ -79,3 +98,52 @@ sections:
 
       - name: "Intent completion priority"
         description: "Mode exit blocked until intent completes, with override"
+
+  - id: intent-mode-relationship
+    name: "Intent-Mode Relationship"
+    status: locked
+    description: "How modes surface and constrain intents"
+
+    mechanics:
+      filtering: |
+        The current mode acts as a filter over the universe of possible intents.
+        Only intents relevant to the mode's purpose are surfaced to the user.
+
+      surfacing: |
+        When a mode is active, it determines which intents appear prominent (Center),
+        which are available but de-emphasized (Periphery), and which are hidden (Silence).
+
+      generation: |
+        Once a user selects an intent, the orchestrator generates a purpose-built
+        interface that serves that specific intent—not a generic app UI.
+
+    examples:
+      - mode: "Focus Mode"
+        surfaced_intents:
+          - "Review document"
+          - "Deep work session"
+          - "Research task"
+        hidden_intents:
+          - "Browse social media"
+          - "Check news"
+          - "Casual browsing"
+
+      - mode: "Navigation Mode"
+        surfaced_intents:
+          - "Get directions"
+          - "Find parking"
+          - "View arrival info"
+        hidden_intents:
+          - "Start video call"
+          - "Write long document"
+          - "Browse photos"
+
+      - mode: "Social Mode"
+        surfaced_intents:
+          - "Share moment"
+          - "Check shared calendar"
+          - "Split bill"
+        hidden_intents:
+          - "Work email"
+          - "Code review"
+          - "File taxes"

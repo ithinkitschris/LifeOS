@@ -9,7 +9,6 @@ import {
   fetchPKGHealth,
   fetchPKGCommunications,
   fetchPKGCalendar,
-  fetchPKGTimeline,
 } from '@/lib/api';
 
 interface PKGData {
@@ -20,10 +19,9 @@ interface PKGData {
   health: any;
   communications: any;
   calendar: any;
-  timeline: any;
 }
 
-type TabId = 'identity' | 'relationships' | 'behaviors' | 'locations' | 'health' | 'communications' | 'calendar' | 'timeline';
+type TabId = 'identity' | 'relationships' | 'behaviors' | 'locations' | 'health' | 'communications' | 'calendar';
 
 const tabs: { id: TabId; label: string; icon: React.ReactNode }[] = [
   {
@@ -61,11 +59,6 @@ const tabs: { id: TabId; label: string; icon: React.ReactNode }[] = [
     label: 'Calendar',
     icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />,
   },
-  {
-    id: 'timeline',
-    label: 'Timeline',
-    icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />,
-  },
 ];
 
 export default function PKGPage() {
@@ -83,10 +76,9 @@ export default function PKGPage() {
       fetchPKGHealth(),
       fetchPKGCommunications(),
       fetchPKGCalendar(),
-      fetchPKGTimeline(),
     ])
-      .then(([identity, relationships, behaviors, locations, health, communications, calendar, timeline]) => {
-        setData({ identity, relationships, behaviors, locations, health, communications, calendar, timeline });
+      .then(([identity, relationships, behaviors, locations, health, communications, calendar]) => {
+        setData({ identity, relationships, behaviors, locations, health, communications, calendar });
       })
       .catch((e) => setError(e.message))
       .finally(() => setLoading(false));
@@ -153,11 +145,10 @@ export default function PKGPage() {
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all whitespace-nowrap ${
-              activeTab === tab.id
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all whitespace-nowrap ${activeTab === tab.id
                 ? 'bg-[#008cff] text-white shadow-lg shadow-sky-200/50'
                 : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'
-            }`}
+              }`}
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               {tab.icon}
@@ -176,7 +167,6 @@ export default function PKGPage() {
         {activeTab === 'health' && <HealthTab data={data.health} />}
         {activeTab === 'communications' && <CommunicationsTab data={data.communications} />}
         {activeTab === 'calendar' && <CalendarTab data={data.calendar} />}
-        {activeTab === 'timeline' && <TimelineTab data={data.timeline} />}
       </div>
     </div>
   );
@@ -321,11 +311,10 @@ function PersonCard({ person, tier }: { person: any; tier: 'inner' | 'close' }) 
           <p className="text-xs text-gray-500">{person.relationship?.replace(/_/g, ' ')}</p>
         </div>
         {person.lifeos_notes?.priority_level && (
-          <span className={`text-xs px-2 py-1 rounded-full ${
-            person.lifeos_notes.priority_level === 'highest' ? 'bg-rose-100 text-rose-700' :
-            person.lifeos_notes.priority_level === 'high' ? 'bg-amber-100 text-amber-700' :
-            'bg-gray-100 text-gray-600'
-          }`}>
+          <span className={`text-xs px-2 py-1 rounded-full ${person.lifeos_notes.priority_level === 'highest' ? 'bg-rose-100 text-rose-700' :
+              person.lifeos_notes.priority_level === 'high' ? 'bg-amber-100 text-amber-700' :
+                'bg-gray-100 text-gray-600'
+            }`}>
             {person.lifeos_notes.priority_level}
           </span>
         )}
@@ -777,18 +766,16 @@ function CalendarTab({ data }: { data: any }) {
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Upcoming Milestones</h3>
         <div className="space-y-3">
           {data.upcoming_milestones?.map((milestone: any, i: number) => (
-            <div key={i} className={`rounded-lg p-4 border ${
-              milestone.stress_level === 'high' ? 'bg-red-50 border-red-200' : 'bg-gray-50 border-gray-200'
-            }`}>
+            <div key={i} className={`rounded-lg p-4 border ${milestone.stress_level === 'high' ? 'bg-red-50 border-red-200' : 'bg-gray-50 border-gray-200'
+              }`}>
               <div className="flex items-start justify-between">
                 <div>
                   <h4 className="font-medium text-gray-900">{milestone.name}</h4>
                   <p className="text-sm text-gray-500">{milestone.date} {milestone.time && `at ${milestone.time}`}</p>
                 </div>
                 {milestone.stress_level && (
-                  <span className={`text-xs px-2 py-1 rounded-full ${
-                    milestone.stress_level === 'high' ? 'bg-red-100 text-red-700' : 'bg-gray-100 text-gray-600'
-                  }`}>
+                  <span className={`text-xs px-2 py-1 rounded-full ${milestone.stress_level === 'high' ? 'bg-red-100 text-red-700' : 'bg-gray-100 text-gray-600'
+                    }`}>
                     {milestone.stress_level} stress
                   </span>
                 )}
@@ -813,96 +800,7 @@ function CalendarTab({ data }: { data: any }) {
   );
 }
 
-// ============================================
-// Timeline Tab
-// ============================================
-function TimelineTab({ data }: { data: any }) {
-  if (!data?.days) return <div className="p-6 text-gray-500">No timeline data</div>;
 
-  const days = Object.values(data.days) as any[];
-
-  return (
-    <div className="p-6 space-y-6">
-      {days.map((day: any) => (
-        <div key={day.date}>
-          <div className="flex items-center gap-4 mb-4">
-            <h3 className="text-lg font-semibold text-gray-900">{day.date}</h3>
-            <span className="text-sm text-gray-500 capitalize">{day.day_of_week}</span>
-            {day.context?.day_theme && (
-              <span className="text-xs bg-amber-100 text-amber-700 px-2 py-1 rounded-full">{day.context.day_theme}</span>
-            )}
-          </div>
-
-          {/* Day Context */}
-          {day.context && (
-            <div className="bg-gray-50 rounded-lg p-4 mb-4">
-              <div className="grid grid-cols-3 gap-4 text-sm">
-                {day.context.weather && (
-                  <div>
-                    <span className="text-gray-500">Weather:</span>{' '}
-                    <span>{day.context.weather.temperature_celsius}°C, {day.context.weather.condition}</span>
-                  </div>
-                )}
-                {day.context.user_state?.stress_level && (
-                  <div>
-                    <span className="text-gray-500">Stress:</span>{' '}
-                    <span className={day.context.user_state.stress_level === 'elevated' ? 'text-red-600' : ''}>{day.context.user_state.stress_level}</span>
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
-
-          {/* Timeline Events */}
-          <div className="space-y-3">
-            {day.timeline?.map((event: any) => (
-              <div key={event.id} className="flex gap-4">
-                <div className="w-20 text-sm text-gray-500 pt-1">
-                  {event.start_time}
-                </div>
-                <div className={`flex-1 rounded-lg p-4 border ${
-                  event.mode === 'restore' ? 'bg-emerald-50 border-emerald-200' :
-                  event.mode === 'focus' ? 'bg-sky-50 border-sky-200' :
-                  event.mode === 'navigation' ? 'bg-indigo-50 border-indigo-200' :
-                  'bg-gray-50 border-gray-200'
-                }`}>
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <h4 className="font-medium text-gray-900">{event.title}</h4>
-                      {event.description && <p className="text-sm text-gray-600 mt-1">{event.description}</p>}
-                    </div>
-                    <span className={`text-xs px-2 py-1 rounded-full ${
-                      event.mode === 'restore' ? 'bg-emerald-100 text-emerald-700' :
-                      event.mode === 'focus' ? 'bg-sky-100 text-sky-700' :
-                      event.mode === 'navigation' ? 'bg-indigo-100 text-indigo-700' :
-                      'bg-gray-100 text-gray-600'
-                    }`}>
-                      {event.mode}
-                    </span>
-                  </div>
-
-                  {/* Available Intents */}
-                  {event.intents?.available && event.intents.available.length > 0 && (
-                    <div className="mt-3 pt-3 border-t border-gray-200/50">
-                      <div className="text-xs font-medium text-gray-500 mb-2">Available Intents</div>
-                      <div className="flex flex-wrap gap-2">
-                        {event.intents.available.map((intent: any) => (
-                          <span key={intent.id} className="text-xs bg-white/50 text-gray-600 px-2 py-1 rounded">
-                            {intent.name}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
 
 // ============================================
 // Shared Components

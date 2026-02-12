@@ -8,7 +8,6 @@ questions:
       Example: "don't miss important things" vs "work shouldn't bleed into everything"
       when important work message arrives during family dinner.
     created: '2025-02-01'
-    
   - id: OQ-2
     name: Urgency Determination
     status: open
