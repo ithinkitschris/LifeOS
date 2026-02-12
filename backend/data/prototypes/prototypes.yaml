@@ -1,13 +1,77 @@
 prototypes:
   - id: start-of-day
     name: Start of Day
-    days: []
+    days:
+      - date: '2026-02-12'
+        screenshots:
+          - filename: 1770915022414-Start_of_Day_____1.jpg
+            originalName: "Start of Day â\x80\x93 1.jpg"
+            path: /prototype-images/start-of-day/1770915022414-Start_of_Day_____1.jpg
+            uploadedAt: '2026-02-12T16:50:22.433Z'
+          - filename: 1770915027148-Frame_306.jpg
+            originalName: Frame 306.jpg
+            path: /prototype-images/start-of-day/1770915027148-Frame_306.jpg
+            uploadedAt: '2026-02-12T16:50:27.160Z'
+          - filename: 1770915027156-Frame_307.jpg
+            originalName: Frame 307.jpg
+            path: /prototype-images/start-of-day/1770915027156-Frame_307.jpg
+            uploadedAt: '2026-02-12T16:50:27.160Z'
   - id: discussion
     name: Discussion
-    days: []
+    days:
+      - date: '2026-02-12'
+        screenshots:
+          - filename: 1770915080863-Frame_279.jpg
+            originalName: Frame 279.jpg
+            path: /prototype-images/discussion/1770915080863-Frame_279.jpg
+            uploadedAt: '2026-02-12T16:51:20.878Z'
+          - filename: 1770915080872-Frame_284.jpg
+            originalName: Frame 284.jpg
+            path: /prototype-images/discussion/1770915080872-Frame_284.jpg
+            uploadedAt: '2026-02-12T16:51:20.878Z'
+          - filename: 1770915080874-Thesis_Discussion.jpg
+            originalName: Thesis Discussion.jpg
+            path: /prototype-images/discussion/1770915080874-Thesis_Discussion.jpg
+            uploadedAt: '2026-02-12T16:51:20.878Z'
+          - filename: 1770915944041-2026-02-05_18-23-13.mp4
+            originalName: 2026-02-05_18-23-13.mp4
+            path: /prototype-images/discussion/1770915944041-2026-02-05_18-23-13.mp4
+            uploadedAt: '2026-02-12T17:05:44.072Z'
   - id: navigation
     name: Navigation
-    days: []
+    days:
+      - date: '2026-02-12'
+        screenshots:
+          - filename: 1770915171036-Home______1.jpg
+            originalName: "Home â\x80\x93Â\_1.jpg"
+            path: /prototype-images/navigation/1770915171036-Home______1.jpg
+            uploadedAt: '2026-02-12T16:52:51.040Z'
+          - filename: 1770915194164-Transit_-_17.jpg
+            originalName: Transit - 17.jpg
+            path: /prototype-images/navigation/1770915194164-Transit_-_17.jpg
+            uploadedAt: '2026-02-12T16:53:14.169Z'
+          - filename: 1770915196731-Transit_-_18.jpg
+            originalName: Transit - 18.jpg
+            path: /prototype-images/navigation/1770915196731-Transit_-_18.jpg
+            uploadedAt: '2026-02-12T16:53:16.732Z'
+          - filename: 1770915203012-Transit_-_8.jpg
+            originalName: Transit - 8.jpg
+            path: /prototype-images/navigation/1770915203012-Transit_-_8.jpg
+            uploadedAt: '2026-02-12T16:53:23.014Z'
   - id: realtime-3d
     name: Real-time 3D Visualization
-    days: []
+    days:
+      - date: '2026-02-12'
+        screenshots:
+          - filename: 1770915210913-Frame_279.jpg
+            originalName: Frame 279.jpg
+            path: /prototype-images/realtime-3d/1770915210913-Frame_279.jpg
+            uploadedAt: '2026-02-12T16:53:30.922Z'
+          - filename: 1770915214472-Frame_283.jpg
+            originalName: Frame 283.jpg
+            path: /prototype-images/realtime-3d/1770915214472-Frame_283.jpg
+            uploadedAt: '2026-02-12T16:53:34.477Z'
+          - filename: 1770915220740-Start_of_Day_____1.jpg
+            originalName: "Start of Day â\x80\x93 1.jpg"
+            path: /prototype-images/realtime-3d/1770915220740-Start_of_Day_____1.jpg
+            uploadedAt: '2026-02-12T16:53:40.745Z'

@@ -1,0 +1,13 @@
+prototypes:
+  - id: start-of-day
+    name: Start of Day
+    description: ''
+  - id: discussion
+    name: Discussion
+    description: ''
+  - id: navigation
+    name: Navigation
+    description: ''
+  - id: realtime-3d
+    name: Real-time 3D Visualization
+    description: ''

@@ -1,4 +1,4 @@
-version: 0.1.0
+version: 0.1.1
 created: '2025-02-01'
 last_modified: '2026-02-07'
 description: LifeOS speculative world canon - the source of truth for all design artifacts
@@ -9,3 +9,7 @@ changelog:
       - Initial world canon extracted from WORLD.md
       - Established domain structure
       - Documented locked vs open design decisions
+  - version: 0.1.1
+    date: '2026-02-12'
+    changes:
+      - Version snapshot created

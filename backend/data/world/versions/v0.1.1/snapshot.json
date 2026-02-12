@@ -1,0 +1,2096 @@
+{
+  "version": "0.1.1",
+  "created": "2026-02-12T16:54:33.061Z",
+  "notes": "",
+  "files": {
+    "meta.yaml": {
+      "version": "0.1.0",
+      "created": "2025-02-01",
+      "last_modified": "2026-02-07",
+      "description": "LifeOS speculative world canon - the source of truth for all design artifacts",
+      "changelog": [
+        {
+          "version": "0.1.0",
+          "date": "2025-02-01",
+          "changes": [
+            "Initial world canon extracted from WORLD.md",
+            "Established domain structure",
+            "Documented locked vs open design decisions"
+          ]
+        }
+      ]
+    },
+    "setting.yaml": {
+      "id": "setting",
+      "name": "The World of 2030",
+      "description": "The speculative world that serves as the backdrop for all LifeOS scenarios",
+      "context": {
+        "year": 2030,
+        "summary": "AI assistance is deeply embedded in daily life. Wearable and ambient computing has matured, making context-aware systems technically feasible.\n",
+        "technological_landscape": [
+          {
+            "id": "ai-integration",
+            "name": "AI Integration",
+            "description": "AI assistance is deeply embedded in daily life"
+          },
+          {
+            "id": "ambient-computing",
+            "name": "Ambient Computing Maturity",
+            "description": "Wearable/ambient computing has matured - neural smartwatches, AR glasses, smart earphones are commonplace"
+          },
+          {
+            "id": "app-model-decline",
+            "name": "App Model Showing Limits",
+            "description": "The app-centric model is showing its limitations - users experience fragmentation fatigue"
+          }
+        ],
+        "design_constraint": "All LifeOS elements should feel plausible for 2030 - ambitious but not\nfantastical. No magic, no hand-waving. Technology must exist or be\nclearly emerging today.\n"
+      },
+      "problem_statement": {
+        "summary": "Contemporary digital interaction demands constant cognitive labor: selecting\nappropriate applications, managing context across fragmented tools, and\nnavigating rapid transitions between tasks. This produces digital fatigue—not\nfrom technology use itself, but from the overhead of operating technology.\n",
+        "diagnosis": "The app-centric model treats applications as the primary interface primitive.\nUsers must translate goals into app selections, then operate within each app's\nconstraints. Context lives in the user's head. Every task switch requires\ncognitive reset.\n",
+        "pain_points": [
+          {
+            "id": "goal-to-app-translation",
+            "name": "Goal-to-App Translation",
+            "description": "Users must continuously translate what they want to accomplish into which app to use"
+          },
+          {
+            "id": "context-in-head",
+            "name": "Context Lives in User's Head",
+            "description": "The system has no model of what the user is doing; all context management falls to the user"
+          },
+          {
+            "id": "cognitive-reset",
+            "name": "Cognitive Reset on Task Switch",
+            "description": "Every transition between tasks requires mental overhead to reorient"
+          },
+          {
+            "id": "fragmented-tools",
+            "name": "Fragmented Tool Landscape",
+            "description": "Managing state across dozens of apps, each with its own model of the user"
+          }
+        ]
+      },
+      "solution": {
+        "name": "LifeOS",
+        "summary": "An operating system that shifts the user's job from \"choose tool and operate it\" to \"select intent from contextually-relevant options\"",
+        "capabilities": [
+          {
+            "id": "adapts-to-context",
+            "name": "Adapts to Context",
+            "description": "System determines current mode based on signals (time, location, calendar, biometrics, activity)"
+          },
+          {
+            "id": "surfaces-intents",
+            "name": "Surfaces Relevant Intents",
+            "description": "Within each mode, presents what user might want to accomplish right now"
+          },
+          {
+            "id": "generates-ui",
+            "name": "Generates UI to Serve Intents",
+            "description": "When user selects intent, system constructs purpose-built interface"
+          }
+        ],
+        "implication": "The application layer becomes obsolete when the system can determine context,\nsurface relevant intents, and generate interfaces to serve them.\n"
+      },
+      "core_tension": {
+        "summary": "Mode-intent architecture reduces cognitive load by shifting context management\nand intent curation to the system. But this same shift raises a fundamental\nquestion: where does user agency sit when the system determines context and\nproposes what you might want?\n",
+        "statement": "This tension between automation benefit and user agency is not incidental to\nthe solution—it is the central design problem for human-AI interaction. Every\ndesign decision in a mode-intent system (how modes are determined, which intents\nsurface, how UI is generated) is a negotiation within this tension.\n"
+      }
+    },
+    "thesis.yaml": {
+      "id": "bargaining-with-the-future",
+      "name": "Bargaining with the Future",
+      "description": "Automation, Agency, and the Design of Personal AI Systems",
+      "problem_statement": "Digital interaction demands constant cognitive labor: selecting tools, managing fragmented context, navigating rapid transitions. This produces digital fatigue—not from technology use itself, but from the overhead of operating technology.\n",
+      "context": "The app-centric paradigm forces users to maintain context across fragmented tools. AI assistance promises relief but creates new friction: systems that optimize on users' behalf often feel alien. Users report feeling disconnected from decisions made in their name—a loss of agency that undermines the automation benefit.\n",
+      "research_question": "What interaction patterns enable AI systems to reduce cognitive overhead while maintaining user agency? Can automation boundaries, override mechanisms, and value alignment be made structural rather than optional?\n",
+      "approach": "This thesis explores these questions through LifeOS—a speculative mode-intent architecture where:\n\n1. Context determines available actions (modes)\n2. Users select from system-surfaced options (intents)\n3. Decisions align with articulated values (constitutional frameworks)\n\nThe architecture makes a specific bet: that explicit automation boundaries and structured override paths can preserve agency while delivering convenience. Future self-continuity research suggests this bet may work—when users feel connected to the \"future self\" the system optimizes for, proactive assistance feels helpful rather than imposing.\n",
+      "core_tension": "Every design decision negotiates the same tradeoff: present autonomy vs. future benefit. When should the system act as \"future you's advocate\"? How much override friction maintains agency without recreating cognitive overhead? These questions have no universal answers—only context-dependent negotiations.\n",
+      "scope_and_limitations": "Due to the scope of such a problem, this thesis likely won't be able to solve nor pretend to propose a solution to this tension. \n\n1. The tension is real, persistent, and underexplored — Neither tech-optimist framing (automation is unambiguously good) nor tech-critical framing (automation necessarily erodes agency) provides useful guidance for practitioners\n\n2. Mode-intent provides structural vocabulary for engaging with it — Rather than abstract debates about \"AI and autonomy,\" designers can examine specific questions: How should mode confidence thresholds work? What makes intent surfacing feel helpful vs. manipulative? Where should override friction sit?\n\n3. LifeOS serves as reference architecture, not prescription — A sufficiently specified speculative system that enables concrete debate about design decisions, rather than speculation from scratch\n\nThe contribution is a platform for informed engagement with this tension—not a claim to have solved it.\n",
+      "contributions": [
+        {
+          "id": "mode-intent-architecture",
+          "name": "Mode-intent as interaction architecture",
+          "description": "A structural framework for context-adaptive, intent-driven systems where:\n- Modes define contextual solution space (system-managed)\n- Intents represent user goals within that space (user-selected from surfaced options)\n- Generative UI constructs purpose-built interfaces to serve selected intents\n\nThis architecture proposes that the application layer becomes obsolete when the system can determine context, surface relevant intents, and generate interfaces to serve them.\n"
+        },
+        {
+          "id": "lifeos-artifact",
+          "name": "LifeOS as speculative design artifact",
+          "description": "A fully-realized reference system that:\n- Demonstrates mode-intent architecture in concrete detail\n- Makes the automation-agency tension visible and debatable at the level of specific design decisions\n- Provides practitioners a platform for exploring human-AI interaction paradigms without starting from zero\n"
+        }
+      ]
+    },
+    "devices.yaml": {
+      "id": "devices",
+      "name": "Multimodal Ecosystem",
+      "description": "The device ecosystem that comprises LifeOS 2030 - information and peripheral interfaces",
+      "locked": true,
+      "architecture": {
+        "model": "two-tier",
+        "description": "LifeOS operates through a two-tier device architecture: Information Interfaces\nhandle orchestration and primary interaction, while Peripheral Interfaces provide\nsensing and ambient output. Peripheral devices never orchestrate.\n",
+        "principle": "Each device occupies a specific role in the attention spectrum. Information\ninterfaces handle Center-layer content (immersive, authoritative). Peripheral\ninterfaces handle Periphery-layer awareness (ambient, non-interrupting).\n"
+      },
+      "information_interfaces": {
+        "description": "Devices that handle orchestration and primary user interaction",
+        "devices": [
+          {
+            "id": "foldable-tablet",
+            "name": "Foldable Tablet",
+            "role": "Core Information Interface",
+            "characteristics": [
+              "Immersive",
+              "Authoritative",
+              "Persistent"
+            ],
+            "capabilities": [
+              "Supports attention-heavy tasks (full workflows)",
+              "Primary orchestration device",
+              "Real-time state detection",
+              "Primary interaction surface"
+            ],
+            "attention_layers": [
+              "Center (full display)",
+              "Periphery (glanceable sections)"
+            ],
+            "ui_modality": "Visual + Touch",
+            "notes": "The foldable form factor provides both portable and extended workspace modes.\nWhen folded, operates as standard phone. When unfolded, provides tablet-scale\nimmersive interface for attention-heavy work.\n"
+          }
+        ]
+      },
+      "peripheral_interfaces": {
+        "description": "Devices that provide sensing and ambient output without orchestration",
+        "principle": "Peripheral devices sense and output; they never orchestrate",
+        "devices": [
+          {
+            "id": "neural-smartwatch",
+            "name": "Neural Smartwatch",
+            "role": "Core Contextual Interface",
+            "ui_modality": "Spatial UI",
+            "interaction_model": "Haptic-First Interaction Interface",
+            "characteristics": [
+              "Non-Interrupting Context Control",
+              "Haptic-first feedback",
+              "Continuous biometric sensing"
+            ],
+            "capabilities": {
+              "sensing": [
+                {
+                  "name": "Real-Time State Detection",
+                  "description": "Multi-signal physiological and usage context",
+                  "signals": [
+                    "Physiological state (heart rate, HRV, skin conductance)",
+                    "Usage context (interaction patterns, gesture detection)",
+                    "Environmental context (location, movement, ambient conditions)"
+                  ]
+                },
+                {
+                  "name": "Peripheral Ecosystems Integration",
+                  "description": "Temporal mapping and biometric fusion",
+                  "features": [
+                    "Temporal mapping (circadian rhythms, energy patterns)",
+                    "Biometric fusion (multi-sensor synthesis)",
+                    "Location dynamics (movement patterns, place recognition)"
+                  ]
+                },
+                {
+                  "name": "Health Domain Integration",
+                  "description": "Physiological readiness assessment",
+                  "features": [
+                    "Stress indicators",
+                    "Energy levels",
+                    "Recovery state",
+                    "Sleep quality signals"
+                  ]
+                }
+              ],
+              "output": [
+                "Haptic notifications (non-interrupting)",
+                "Peripheral awareness indicators (counts, not content)",
+                "Ambient glanceable information"
+              ]
+            },
+            "attention_layers": [
+              "Periphery (indicated presence, counts)",
+              "Silence (no indication)"
+            ],
+            "notes": "The \"neural\" designation refers to advanced biometric sensing capabilities\nthat capture physiological state for mode confidence signals. The watch serves\nas the primary sensing hub for the LifeOS ecosystem.\n"
+          },
+          {
+            "id": "glass",
+            "name": "Glass",
+            "role": "Core Contextual Interface",
+            "ui_modality": "Visual UI",
+            "interaction_model": "Just-in-Time Ambient Perception",
+            "characteristics": [
+              "Visual Situated Intelligence",
+              "Context-aware AR overlays",
+              "Non-interrupting ambient display"
+            ],
+            "capabilities": {
+              "sensing": [
+                {
+                  "name": "Multimodal Perception Cues",
+                  "description": "Synthesized environmental awareness",
+                  "signals": [
+                    "Visual context (scene understanding, object recognition)",
+                    "Auditory gestures (ambient sound awareness)",
+                    "Haptic confirmation (interaction feedback)"
+                  ]
+                }
+              ],
+              "output": [
+                {
+                  "name": "Location-Aware AR",
+                  "description": "Contextual information overlays",
+                  "features": [
+                    "Environmental overlays (place information, navigation cues)",
+                    "Micro-alerts that dissolve into periphery",
+                    "Facial recognition (for contact identification)"
+                  ]
+                },
+                {
+                  "name": "Embedded Knowledge",
+                  "description": "Just-in-time contextual information",
+                  "features": [
+                    "Information surfaced as part of real-world interaction",
+                    "Non-interrupting knowledge augmentation",
+                    "Context-sensitive content display"
+                  ]
+                }
+              ]
+            },
+            "attention_layers": [
+              "Periphery (ambient overlays, subtle indicators)",
+              "Silence (no display)"
+            ],
+            "notes": "Glass provides ambient information augmentation without demanding attention.\nOverlays appear contextually and dissolve into periphery when not relevant.\nThe device never shows Center-layer content - that requires primary interface.\n"
+          },
+          {
+            "id": "earphones",
+            "name": "Earphones",
+            "role": "Secondary Interface",
+            "ui_modality": "Audio UI",
+            "interaction_model": "Secondary Conversational Perception",
+            "characteristics": [
+              "Audio-based awareness",
+              "Voice interaction support",
+              "Ambient sound processing"
+            ],
+            "capabilities": {
+              "sensing": [
+                {
+                  "name": "Ambient Interceptions",
+                  "description": "Environmental audio awareness",
+                  "features": [
+                    "Voice transcriptions in silence (captures conversation for context)",
+                    "Sentiment analysis (emotional tone detection)"
+                  ]
+                },
+                {
+                  "name": "Conversational Input",
+                  "description": "Voice-based interaction",
+                  "features": [
+                    "Voice commands",
+                    "Natural language input",
+                    "Ambient conversation detection"
+                  ]
+                }
+              ],
+              "output": [
+                {
+                  "name": "Cognitive Support",
+                  "description": "Audio-based assistance",
+                  "features": [
+                    "Whispered summaries (discrete information delivery)",
+                    "Bias alerts (decision-making support)",
+                    "Fragmented sound reproduction (attention-aware audio)"
+                  ]
+                },
+                {
+                  "name": "Audio Notifications",
+                  "description": "Non-visual awareness",
+                  "features": [
+                    "Subtle audio cues",
+                    "Voice-based alerts",
+                    "Contextual sound adjustment"
+                  ]
+                }
+              ]
+            },
+            "attention_layers": [
+              "Periphery (subtle audio cues)",
+              "Silence (no audio)"
+            ],
+            "coupling": "Ultra-loose",
+            "notes": "\"Ultra-loose\" coupling means earphones have the least orchestration dependency.\nThey can operate semi-independently for audio playback while still respecting\nmode-based attention triage for notifications and interruptions.\n"
+          }
+        ]
+      },
+      "attention_layer_mapping": {
+        "description": "How attention layers map to peripheral device display",
+        "rules": [
+          {
+            "layer": "Center",
+            "peripheral_display": "Not shown on peripherals (requires primary device)",
+            "rationale": "Center content requires immersive attention - tablet/phone only"
+          },
+          {
+            "layer": "Periphery",
+            "peripheral_display": "Indicated on watch/glasses (counts, presence, ambient)",
+            "rationale": "Peripheral devices show awareness without demanding attention"
+          },
+          {
+            "layer": "Silence",
+            "peripheral_display": "No indication on any device",
+            "rationale": "Silenced content remains invisible until contextually appropriate"
+          }
+        ]
+      },
+      "device_interaction_principles": [
+        {
+          "id": "no-peripheral-orchestration",
+          "name": "No Peripheral Orchestration",
+          "description": "Peripheral devices never make mode decisions or orchestrate system state",
+          "rationale": "Orchestration requires full context synthesis and constitutional rule application.\nOnly information interfaces have sufficient compute and context to orchestrate safely.\n"
+        },
+        {
+          "id": "sensing-distribution",
+          "name": "Distributed Sensing",
+          "description": "Multiple devices contribute different signal types for mode confidence",
+          "rationale": "Mode confidence requires multi-modal signal fusion. Watch provides biometric context,\nglass provides environmental awareness, earphones provide ambient audio, tablet\nprovides interaction patterns.\n"
+        },
+        {
+          "id": "output-appropriateness",
+          "name": "Output Appropriateness",
+          "description": "Information is delivered through the most contextually appropriate device",
+          "rationale": "Haptic for non-interrupting awareness (watch), ambient visual for environmental\ncontext (glass), audio for hands-free scenarios (earphones), immersive for\nattention-heavy work (tablet).\n"
+        },
+        {
+          "id": "graceful-degradation",
+          "name": "Graceful Degradation",
+          "description": "LifeOS functions with any subset of devices; full ecosystem is optimal but not required",
+          "rationale": "User may not always wear all devices. System adapts mode confidence thresholds\nbased on available signal sources. Reduced sensing → higher confirmation thresholds.\n"
+        }
+      ],
+      "plausibility_notes": {
+        "year": 2030,
+        "assumptions": [
+          "Foldable displays have matured (price, durability, software)",
+          "AR glasses have achieved acceptable form factor (weight, battery, social acceptance)",
+          "Biometric sensing has advanced (non-invasive neural state indicators)",
+          "Multi-device orchestration protocols are standardized",
+          "Battery technology supports all-day wear for peripheral devices"
+        ],
+        "constraints": [
+          "No brain-computer interfaces (too speculative for 2030)",
+          "No implantables (social/ethical barriers)",
+          "No magic - all capabilities grounded in emerging tech"
+        ]
+      }
+    },
+    "system-architecture.yaml": {
+      "id": "system-architecture",
+      "name": "LifeOS Model Architecture",
+      "description": "Multi-Model Cooperation Stack — the full backend architecture defining how LifeOS perceives, reasons, remembers, and acts",
+      "locked": true,
+      "overview": {
+        "summary": "LifeOS operates as a multi-model cooperation stack where specialized subsystems\nhandle perception, cognition, memory, safety, and information integrity. The\nOrchestrator sits at the center, routing tasks to the right specialist without\n\"thinking\" deeply on its own. All inputs arrive at the Orchestrator and all\noutputs leave from it.\n",
+        "design_principle": "No single model does everything. The architecture distributes intelligence across\nspecialized layers — fast on-device models for quick decisions, large cloud models\nfor complex reasoning, dedicated perception models for environmental awareness —\nall coordinated by the Orchestrator and checked by the Safety layer.\n"
+      },
+      "orchestrator": {
+        "id": "orchestrator",
+        "name": "The Orchestrator",
+        "role": "Central Hub",
+        "description": "The traffic controller and the only component that touches everything. It does not\n\"think\" deeply on its own; rather, it routes tasks to the right specialist.\n",
+        "dependencies": [
+          {
+            "perception_layer": "Provides awareness of what is happening in the user's physical reality"
+          },
+          {
+            "cognition_layer": "Provides reasoning and decision-making capabilities"
+          },
+          {
+            "personal_context": "Provides knowledge, values, and privacy constraints"
+          },
+          {
+            "information_integrity": "Provides verified external information"
+          }
+        ],
+        "flow": "All inputs (user voice, video, external news) arrive here, and all outputs\n(actions, answers) leave from here. The Orchestrator:\n1. Receives input from Perception (current state)\n2. Retrieves context from Personal Knowledge Graph\n3. Routes to appropriate reasoning model (fast or slow)\n4. Validates through Safety layer\n5. Checks against Personal Constitution\n6. Delivers output to user through appropriate device\n",
+        "responsibilities": [
+          "Route tasks to appropriate specialist subsystems",
+          "Synthesize information from multiple sources",
+          "Make presentation decisions (Center/Periphery/Silence)",
+          "Apply constitutional rules to all outputs",
+          "Construct bounded intent experiences",
+          "Maintain final authority over what reaches the user"
+        ]
+      },
+      "perception_layer": {
+        "id": "perception-layer",
+        "name": "Input & Perception Layer",
+        "role": "The Senses",
+        "position": "Left side of architecture",
+        "description": "Gives LifeOS \"eyes and ears\" to understand the user's immediate physical reality.\nConverts raw sensory data into structured representations the system can reason about.\n",
+        "components": [
+          {
+            "id": "vlm",
+            "name": "Vision-Language Models (VLM)",
+            "description": "Takes raw data streams and converts them into text descriptions or embeddings\nthe AI can understand.\n",
+            "inputs": [
+              "Video feed from AR glasses",
+              "Audio from microphone",
+              "Screen recording from phone/tablet"
+            ],
+            "outputs": [
+              "Text descriptions of visual scenes",
+              "Embeddings for semantic matching",
+              "Transcriptions of speech and ambient audio"
+            ],
+            "processing": "Raw multimodal data streams are processed into structured representations that\nother components can consume. The VLM bridges the gap between physical reality\nand digital understanding.\n"
+          },
+          {
+            "id": "world-models",
+            "name": "World Models",
+            "description": "The system's \"intuition\" about physics and time. Predicts what will happen next\nin the user's environment.\n",
+            "capabilities": [
+              "Predicts immediate future states (e.g., \"user is walking toward a door; they will likely open it\")",
+              "Models physical causality and spatial relationships",
+              "Tracks temporal patterns and rhythms"
+            ],
+            "purpose": "Provides anticipatory context so the system can prepare responses before they're\nneeded, enabling proactive rather than purely reactive assistance.\n"
+          },
+          {
+            "id": "perception-grounding",
+            "name": "Perception and Grounding",
+            "role": "The Bridge",
+            "description": "Synthesizes raw data from the VLM and predictions from the World Model into a\ncoherent \"current state\" for the Orchestrator.\n",
+            "function": "Without this component, the Orchestrator is blind to the user's physical context.\nPerception and Grounding is the critical bridge that converts raw sensory data\nand predictions into actionable situational awareness.\n",
+            "outputs": [
+              "Coherent current state representation",
+              "Confidence signals for mode activation",
+              "Environmental context for intent surfacing"
+            ]
+          }
+        ]
+      },
+      "cognition_layer": {
+        "id": "cognition-layer",
+        "name": "Cognition & Safety Stack",
+        "role": "The Brain",
+        "position": "Top left of architecture",
+        "description": "Once the Orchestrator understands the situation, it needs to figure out what to do.\nThinking is split into two speeds, modeled after System 1 vs. System 2 thinking\nin psychology.\n",
+        "components": [
+          {
+            "id": "decision-making",
+            "name": "Decision Making (System 1 — Fast)",
+            "thinking_speed": "fast",
+            "description": "Uses small, on-device models for quick tasks. Handles things like \"turn on\nthe lights\" or \"schedule a reminder.\" Prioritizes speed and privacy.\n",
+            "characteristics": [
+              "On-device processing (no cloud dependency)",
+              "Low latency responses",
+              "Privacy-preserving (data stays local)",
+              "Handles routine, well-defined tasks"
+            ],
+            "examples": [
+              "Toggle smart home controls",
+              "Schedule reminders",
+              "Quick lookups from local knowledge",
+              "Simple navigation commands"
+            ]
+          },
+          {
+            "id": "large-scale-reasoning",
+            "name": "Large-scale Reasoning (System 2 — Slow)",
+            "thinking_speed": "slow",
+            "description": "For complex problems, the system offloads to massive LLMs in the cloud that\ncan code, research, and plan over long horizons.\n",
+            "characteristics": [
+              "Cloud-based processing (requires connectivity)",
+              "Higher latency, deeper reasoning",
+              "Can synthesize across many sources",
+              "Long-horizon planning capability"
+            ],
+            "examples": [
+              "Plan a travel itinerary based on my budget and these 5 articles",
+              "Complex research synthesis",
+              "Multi-step planning with constraints",
+              "Code generation and analysis"
+            ],
+            "tool_use": "System 2 models can invoke external tools — search engines, calculators,\ncode interpreters, booking APIs — as part of their reasoning chain.\n"
+          },
+          {
+            "id": "safety-governance-verification",
+            "name": "Safety, Governance, and Verification",
+            "role": "The Kill Switch",
+            "description": "A critical checkpoint. Before any plan from the reasoning models is executed,\nit must pass through this safety layer. The entire system relies on this to\nprevent the AI from taking dangerous or unauthorized actions.\n",
+            "functions": [
+              {
+                "name": "Constraint Checking",
+                "description": "Validates plans against user-defined boundaries and system limits"
+              },
+              {
+                "name": "Red-teaming",
+                "description": "Actively tries to find flaws in proposed plans before execution"
+              },
+              {
+                "name": "Audit Logging",
+                "description": "Logs all decisions and actions for retrospective review"
+              },
+              {
+                "name": "Authorization Verification",
+                "description": "Ensures actions are within the scope of user consent"
+              }
+            ],
+            "invariant": "No plan reaches execution without passing through Safety. This is the\narchitectural guarantee that prevents autonomous action beyond user-authorized scope.\n"
+          }
+        ]
+      },
+      "personal_context": {
+        "id": "personal-context",
+        "name": "Personal Context Layer",
+        "role": "Memory & Values",
+        "position": "Bottom center of architecture",
+        "description": "What makes the OS \"yours\" rather than just a generic chatbot. Contains long-term\nmemory, personal values, and privacy governance.\n",
+        "components": [
+          {
+            "id": "personal-knowledge-graph",
+            "name": "Personal Knowledge Graph (PKG)",
+            "role": "Long-term Memory",
+            "description": "Stores private data (emails, notes, history) and connects it to public knowledge.\nFeatures provenance chips — the system remembers where it learned a fact.\n",
+            "features": [
+              {
+                "name": "Private Data Storage",
+                "description": "Emails, notes, browsing history, conversation logs, health data"
+              },
+              {
+                "name": "Public Knowledge Integration",
+                "description": "Connects personal data to world knowledge for richer context"
+              },
+              {
+                "name": "Provenance Chips",
+                "description": "Every stored fact carries metadata about its origin. The system knows\nWHERE it learned something (e.g., \"I know you like sushi because you\nemailed John about it on Tuesday\").\n",
+                "purpose": "Provenance enables trust, auditability, and the ability to retract\nknowledge when sources are found unreliable.\n"
+              },
+              {
+                "name": "Relationship Mapping",
+                "description": "Models connections between people, places, events, and preferences"
+              }
+            ],
+            "flow": "The Orchestrator queries the PKG for relevant context before making decisions.\nThe PKG provides the personalized information that transforms generic AI\nresponses into contextually appropriate assistance.\n"
+          },
+          {
+            "id": "personal-constitution",
+            "name": "Personal Constitution",
+            "role": "The Moral Compass",
+            "description": "Contains explicit rules and values articulated by the user. The Orchestrator\nchecks every decision against this Constitution to ensure alignment with the\nuser's specific principles.\n",
+            "examples": [
+              "Never book flights on a Tuesday",
+              "Prioritize privacy over convenience",
+              "No work notifications during family dinner",
+              "Prefer local businesses over chains"
+            ],
+            "function": "The Constitution is not a preference list — it is an operational ruleset that\nactively constrains system behavior. Constitutional rules override convenience\noptimizations.\n"
+          },
+          {
+            "id": "privacy",
+            "name": "Privacy",
+            "role": "The Vault",
+            "description": "A strict governance layer that manages data retention and ensures sensitive\nmemories are handled appropriately.\n",
+            "capabilities": [
+              {
+                "name": "Data Retention (TTLs)",
+                "description": "Time-to-live policies that automatically expire sensitive data"
+              },
+              {
+                "name": "Redaction",
+                "description": "Removes sensitive information from data before storage or sharing"
+              },
+              {
+                "name": "Deletion Policies",
+                "description": "Ensures data is permanently removed when retention period expires"
+              },
+              {
+                "name": "Access Control",
+                "description": "Governs which components can access which categories of personal data"
+              }
+            ]
+          }
+        ]
+      },
+      "information_integrity": {
+        "id": "information-integrity",
+        "name": "Information Integrity Stack",
+        "role": "The Library",
+        "position": "Right side of architecture",
+        "description": "Responsible for ingesting the chaotic external world and cleaning it before it\ntouches personal data. Ensures information quality and alignment with user values.\n",
+        "components": [
+          {
+            "id": "external-provider-data",
+            "name": "External Provider Data",
+            "role": "The Raw Feed",
+            "description": "The raw, unfiltered information from the outside world. These providers have\nbusiness models and agendas — they cannot directly reach the user.\n",
+            "sources": [
+              {
+                "id": "social-media",
+                "name": "Social Media",
+                "examples": [
+                  "Instagram",
+                  "TikTok",
+                  "LinkedIn",
+                  "Facebook"
+                ]
+              },
+              {
+                "id": "messaging",
+                "name": "Messaging Platforms",
+                "examples": [
+                  "WhatsApp",
+                  "Telegram",
+                  "Signal"
+                ]
+              },
+              {
+                "id": "news",
+                "name": "News Outlets",
+                "examples": [
+                  "NYT",
+                  "WSJ",
+                  "Reuters",
+                  "AP"
+                ]
+              },
+              {
+                "id": "navigation",
+                "name": "Navigation Services",
+                "examples": [
+                  "Maps",
+                  "Traffic data",
+                  "Public transit"
+                ]
+              },
+              {
+                "id": "commerce",
+                "name": "Commerce & Services",
+                "examples": [
+                  "Spotify",
+                  "Apple Music",
+                  "Booking platforms"
+                ]
+              },
+              {
+                "id": "other",
+                "name": "Other Providers",
+                "description": "Any external data source the system integrates with"
+              }
+            ]
+          },
+          {
+            "id": "verification-provenance",
+            "name": "Verification & Provenance",
+            "role": "The Filter",
+            "description": "Before external data reaches the user, it passes through deepfake detection\nand source authentication. Verifies if the information is real.\n",
+            "capabilities": [
+              {
+                "name": "Deepfake Detection",
+                "description": "Identifies AI-generated or manipulated media"
+              },
+              {
+                "name": "Source Authentication",
+                "description": "Verifies the origin and authority of information sources"
+              },
+              {
+                "name": "Fact Verification",
+                "description": "Cross-references claims against trusted knowledge bases"
+              },
+              {
+                "name": "Provenance Tracking",
+                "description": "Maintains chain of custody for information from source to user"
+              }
+            ]
+          },
+          {
+            "id": "constitutional-filtering",
+            "name": "Constitutional Filtering",
+            "role": "The Alignment Check",
+            "description": "Filters verified data based on the user's Personal Constitution. Ensures\nexternal information aligns with user-articulated values.\n",
+            "examples": [
+              "Filtering clickbait when Constitution requests factual reporting",
+              "Removing biased news when user values neutral perspectives",
+              "Blocking engagement-optimized content that conflicts with attention values"
+            ],
+            "flow": "Verified external data → Constitutional rule matching → Filtered data that\naligns with user values → Passed to Information Augmentation\n"
+          },
+          {
+            "id": "information-augmentation",
+            "name": "Information Augmentation (RAG)",
+            "role": "The Synthesis",
+            "description": "Retrieval-Augmented Generation — matches the user's current query with verified\nexternal information and feeds contextualized results to the Orchestrator.\n",
+            "function": "Combines verified external data with personal context to produce relevant,\ntrustworthy, and personalized information for the Orchestrator to present.\n",
+            "flow": "User query → Retrieve relevant verified external data → Augment with personal\ncontext → Generate contextualized response → Deliver to Orchestrator\n"
+          }
+        ]
+      },
+      "data_flow": {
+        "description": "The complete path from user request to system response, demonstrating how all\nlayers cooperate.\n",
+        "example": {
+          "scenario": "User asks: Plan a dinner for my anniversary.",
+          "steps": [
+            {
+              "step": 1,
+              "name": "User Request",
+              "description": "Voice or text input arrives at the Orchestrator",
+              "layer": "orchestrator"
+            },
+            {
+              "step": 2,
+              "name": "Perception",
+              "description": "VLM sees user is in their kitchen; World Model knows it's evening",
+              "layer": "perception_layer"
+            },
+            {
+              "step": 3,
+              "name": "Context Retrieval",
+              "description": "Orchestrator pings the Personal Knowledge Graph to recall anniversary date\nand partner's allergies\n",
+              "layer": "personal_context"
+            },
+            {
+              "step": 4,
+              "name": "External Search",
+              "description": "Searches External Provider Data for restaurants. Verification layer removes\nfake reviews; Constitutional Filtering removes restaurants that don't match\ndietary values.\n",
+              "layer": "information_integrity"
+            },
+            {
+              "step": 5,
+              "name": "Reasoning",
+              "description": "Large-scale Reasoning model creates a plan: \"Book table at X, order flowers from Y.\"\n",
+              "layer": "cognition_layer"
+            },
+            {
+              "step": 6,
+              "name": "Safety Check",
+              "description": "Safety module verifies the plan (e.g., checks if restaurant is within budget limits)",
+              "layer": "cognition_layer"
+            },
+            {
+              "step": 7,
+              "name": "Execution",
+              "description": "Decision Making model executes the booking tool",
+              "layer": "cognition_layer"
+            },
+            {
+              "step": 8,
+              "name": "Output",
+              "description": "Orchestrator displays the confirmation on the user's phone",
+              "layer": "orchestrator"
+            }
+          ]
+        }
+      },
+      "cross_cutting": [
+        {
+          "id": "privacy-by-design",
+          "name": "Privacy by Design",
+          "description": "Privacy is not an afterthought — it is enforced at every layer. On-device\nprocessing is preferred. Cloud processing requires justification. Personal\ndata never leaves the Privacy vault without governance checks.\n"
+        },
+        {
+          "id": "constitutional-alignment",
+          "name": "Constitutional Alignment Throughout",
+          "description": "The Personal Constitution is not checked at one point — it influences decisions\nat multiple layers: mode activation, intent surfacing, information filtering,\nand action execution.\n"
+        },
+        {
+          "id": "auditability",
+          "name": "Full Auditability",
+          "description": "Every decision, from perception interpretation to action execution, is logged\nand available for retrospective review through the Dashboard. The system can\nalways explain why it did what it did.\n"
+        },
+        {
+          "id": "graceful-degradation",
+          "name": "Graceful Degradation",
+          "description": "When cloud services are unavailable, the system falls back to on-device\ncapabilities (System 1). When perception is limited (fewer devices), the\nsystem raises confirmation thresholds. No single component failure should\nrender the system useless.\n"
+        }
+      ],
+      "plausibility_notes": {
+        "year": 2030,
+        "assumptions": [
+          "VLMs capable of real-time multimodal processing exist (trajectory from GPT-4V, Gemini)",
+          "On-device SLMs are sufficient for routine tasks (trajectory from Apple Intelligence, Gemma)",
+          "Cloud LLMs have reliable tool-use and planning (trajectory from current agent frameworks)",
+          "RAG pipelines are mature and production-ready (already emerging in 2024-2025)",
+          "Deepfake detection is viable but imperfect (arms race continues)",
+          "World models for everyday scenarios are feasible (trajectory from video prediction models)"
+        ],
+        "constraints": [
+          "No artificial general intelligence assumed",
+          "No perfect deepfake detection (probabilistic, not certain)",
+          "Network connectivity required for System 2 reasoning",
+          "Privacy governance requires legal/regulatory framework (GDPR descendants)"
+        ]
+      }
+    },
+    "provider-integration.yaml": {
+      "id": "provider-integration",
+      "name": "Provider Integration Model",
+      "description": "The core mechanism that replaces the application paradigm with provider-orchestrator-user flow",
+      "locked": true,
+      "overview": {
+        "summary": "The Provider Integration Model is the fundamental architectural innovation that makes\nthe application layer obsolete. Instead of apps as interfaces, brands and services\nbecome data providers that feed into the Information Integrity Stack, which the\nOrchestrator then synthesizes and presents through contextually appropriate intents.\n",
+        "paradigm_shift": "Traditional computing: User → App Selection → App Interface → Service\nLifeOS computing: Provider → Information Integrity → Orchestrator → Intent → User\n\nThe critical difference: In LifeOS, providers cannot directly reach users. All\ninformation flows through integrity verification and constitutional filtering before\nthe Orchestrator decides what reaches the user and how.\n"
+      },
+      "three_stage_flow": {
+        "description": "Every piece of external information follows this path from provider to user.\nNo shortcuts, no direct access, no bypassing the integrity layer.\n",
+        "stage_1_providers": {
+          "name": "External Providers Supply Raw Data",
+          "description": "Brands and services (Spotify, NYT, WhatsApp, Maps, etc.) provide data, APIs,\nand capabilities. They have business models and agendas, but cannot directly\nreach the user.\n",
+          "characteristics": [
+            "Providers supply raw, unfiltered data",
+            "Business models may conflict with user goals",
+            "No direct user interface access",
+            "Must integrate via provider API specification"
+          ],
+          "provider_categories": [
+            {
+              "id": "social-media",
+              "name": "Social Media",
+              "examples": [
+                "Instagram",
+                "TikTok",
+                "LinkedIn",
+                "Facebook",
+                "Twitter/X"
+              ],
+              "data_types": [
+                "posts",
+                "stories",
+                "messages",
+                "connections",
+                "engagement_metrics"
+              ]
+            },
+            {
+              "id": "messaging",
+              "name": "Messaging Platforms",
+              "examples": [
+                "WhatsApp",
+                "Telegram",
+                "Signal",
+                "iMessage",
+                "Slack"
+              ],
+              "data_types": [
+                "messages",
+                "media",
+                "group_chats",
+                "presence_status"
+              ]
+            },
+            {
+              "id": "news",
+              "name": "News Outlets",
+              "examples": [
+                "New York Times",
+                "Wall Street Journal",
+                "Reuters",
+                "AP",
+                "BBC"
+              ],
+              "data_types": [
+                "articles",
+                "headlines",
+                "multimedia",
+                "opinion_pieces"
+              ]
+            },
+            {
+              "id": "navigation",
+              "name": "Navigation Services",
+              "examples": [
+                "Google Maps",
+                "Apple Maps",
+                "Waze",
+                "Transit apps"
+              ],
+              "data_types": [
+                "routes",
+                "traffic",
+                "ETA",
+                "location_data",
+                "place_information"
+              ]
+            },
+            {
+              "id": "commerce",
+              "name": "Commerce & Services",
+              "examples": [
+                "Amazon",
+                "Booking.com",
+                "OpenTable",
+                "Uber",
+                "DoorDash"
+              ],
+              "data_types": [
+                "products",
+                "prices",
+                "availability",
+                "bookings",
+                "orders"
+              ]
+            },
+            {
+              "id": "entertainment",
+              "name": "Entertainment",
+              "examples": [
+                "Spotify",
+                "Apple Music",
+                "Netflix",
+                "YouTube",
+                "Audible"
+              ],
+              "data_types": [
+                "media_content",
+                "playlists",
+                "recommendations",
+                "playback_state"
+              ]
+            },
+            {
+              "id": "productivity",
+              "name": "Productivity Services",
+              "examples": [
+                "Google Calendar",
+                "Notion",
+                "Todoist",
+                "GitHub",
+                "Figma"
+              ],
+              "data_types": [
+                "events",
+                "tasks",
+                "documents",
+                "projects",
+                "collaboration_state"
+              ]
+            },
+            {
+              "id": "health",
+              "name": "Health & Fitness",
+              "examples": [
+                "Strava",
+                "MyFitnessPal",
+                "Headspace",
+                "Apple Health",
+                "Oura"
+              ],
+              "data_types": [
+                "activity",
+                "biometrics",
+                "nutrition",
+                "sleep",
+                "mindfulness"
+              ]
+            }
+          ]
+        },
+        "stage_2_information_integrity": {
+          "name": "Information Integrity Stack Filters & Verifies",
+          "description": "Before external data reaches the user, it passes through verification and\nconstitutional filtering. This is the trust mechanism that protects users\nfrom manipulation, misinformation, and engagement optimization.\n",
+          "components": [
+            {
+              "id": "verification-provenance",
+              "name": "Verification & Provenance",
+              "function": "The Filter",
+              "responsibilities": [
+                {
+                  "name": "Deepfake Detection",
+                  "description": "Identifies AI-generated or manipulated media",
+                  "confidence": "Probabilistic, not perfect (ongoing arms race)"
+                },
+                {
+                  "name": "Source Authentication",
+                  "description": "Verifies origin and authority of information sources",
+                  "methods": [
+                    "digital_signatures",
+                    "domain_verification",
+                    "reputation_systems"
+                  ]
+                },
+                {
+                  "name": "Fact Verification",
+                  "description": "Cross-references claims against trusted knowledge bases",
+                  "scope": "Factual claims only, not opinions or subjective content"
+                },
+                {
+                  "name": "Provenance Tracking",
+                  "description": "Maintains chain of custody from source to user",
+                  "purpose": "Enables trust, auditability, retraction of unreliable sources"
+                }
+              ]
+            },
+            {
+              "id": "constitutional-filtering",
+              "name": "Constitutional Filtering",
+              "function": "The Alignment Check",
+              "description": "Filters verified data based on user's Personal Constitution. This is not\ncensorship—it's alignment with explicitly articulated user values.\n",
+              "examples": [
+                {
+                  "constitution_rule": "Prioritize factual reporting over opinion pieces",
+                  "filter_behavior": "De-prioritize editorial content, surface news analysis"
+                },
+                {
+                  "constitution_rule": "No clickbait or engagement-optimized headlines",
+                  "filter_behavior": "Remove headlines with emotional manipulation patterns"
+                },
+                {
+                  "constitution_rule": "Prefer local businesses over chains",
+                  "filter_behavior": "Boost local options in commerce/dining recommendations"
+                },
+                {
+                  "constitution_rule": "Limit social media during work hours",
+                  "filter_behavior": "Hold social content in Silence during Work mode"
+                }
+              ],
+              "principles": [
+                "User controls the rules (not the system, not providers)",
+                "Rules are explicit and auditable (not hidden algorithmic preferences)",
+                "Filtering respects urgency (emergency content pierces filters)",
+                "User can always request held content (transparency, not paternalism)"
+              ]
+            },
+            {
+              "id": "information-augmentation",
+              "name": "Information Augmentation (RAG)",
+              "function": "The Synthesis",
+              "description": "Retrieval-Augmented Generation matches current query with verified external\ndata and augments it with personal context from the PKG.\n",
+              "process": [
+                "User query or system-detected need",
+                "Retrieve relevant verified external data",
+                "Augment with personal context (preferences, history, relationships)",
+                "Generate contextualized, personalized response",
+                "Deliver to Orchestrator for presentation"
+              ]
+            }
+          ]
+        },
+        "stage_3_orchestrator": {
+          "name": "Orchestrator Generates Contextual UI & Intents",
+          "description": "The Orchestrator has final authority over what reaches users and how. It\nsynthesizes verified information, applies constitutional rules, and generates\npurpose-built interfaces based on current mode and available intents.\n",
+          "responsibilities": [
+            {
+              "name": "Mode Determination",
+              "description": "Assesses current context to activate appropriate mode",
+              "inputs": [
+                "perception_signals",
+                "calendar",
+                "location",
+                "biometrics",
+                "usage_patterns"
+              ]
+            },
+            {
+              "name": "Intent Surfacing",
+              "description": "Presents relevant actions available in current mode",
+              "constraint": "User selects intents—never auto-executed"
+            },
+            {
+              "name": "Attention Triage",
+              "description": "Routes information to Center, Periphery, or Silence",
+              "criteria": [
+                "mode_relevance",
+                "constitutional_rules",
+                "urgency",
+                "user_patterns"
+              ]
+            },
+            {
+              "name": "UI Generation",
+              "description": "Constructs purpose-built interface to serve selected intent",
+              "characteristics": [
+                "bounded_scope",
+                "clear_completion",
+                "contextually_appropriate"
+              ]
+            },
+            {
+              "name": "Multi-Provider Synthesis",
+              "description": "Combines data from multiple providers in single intent",
+              "example": "Navigation intent may synthesize: Maps (route), Calendar (destination),\nWeather (conditions), Contacts (meeting attendees), Messaging (ETA sharing)\n"
+            }
+          ]
+        }
+      },
+      "app_obsolescence": {
+        "description": "When the orchestrator can determine context, surface relevant capabilities,\ngenerate purpose-built interfaces, and filter manipulation—the app as\nintermediary is no longer necessary.\n",
+        "traditional_app_model": {
+          "characteristics": [
+            {
+              "name": "User selects app, then figures out task",
+              "problem": "Goal-to-app translation is cognitive overhead"
+            },
+            {
+              "name": "General-purpose tool",
+              "problem": "One interface tries to serve many use cases"
+            },
+            {
+              "name": "Business model may conflict with user goals",
+              "problem": "Engagement optimization vs. user wellbeing"
+            },
+            {
+              "name": "Persistent, always demanding attention",
+              "problem": "Notification overload, attention manipulation"
+            },
+            {
+              "name": "Infinite engagement possible",
+              "problem": "No designed completion, endless scroll"
+            },
+            {
+              "name": "Context lives in user's head",
+              "problem": "User must maintain mental model across fragmented tools"
+            }
+          ]
+        },
+        "lifeos_provider_model": {
+          "characteristics": [
+            {
+              "name": "User selects intent based on goal",
+              "benefit": "Direct goal accomplishment, no app selection overhead"
+            },
+            {
+              "name": "Specific goal accomplishment",
+              "benefit": "Purpose-built interface for this moment's task"
+            },
+            {
+              "name": "Orchestrator filters for user goals",
+              "benefit": "Constitutional alignment blocks manipulation"
+            },
+            {
+              "name": "Available based on context (mode)",
+              "benefit": "Attention-aware presentation, not persistent noise"
+            },
+            {
+              "name": "Bounded with completion designed in",
+              "benefit": "Clear exit, no infinite engagement traps"
+            },
+            {
+              "name": "Context maintained by system",
+              "benefit": "No mental overhead, seamless transitions"
+            }
+          ]
+        }
+      },
+      "provider_examples": [
+        {
+          "id": "spotify",
+          "name": "Spotify",
+          "category": "Music Streaming",
+          "traditional_flow": "1. User decides they want music\n2. Opens Spotify app\n3. Browses playlists or searches\n4. Selects music and plays\n5. App persists, can distract with recommendations\n",
+          "lifeos_flow": "1. Music intent surfaces in Rest mode (system detected context)\n2. Orchestrator queries Spotify provider for user's library\n3. Constitutional filter applies listening preferences\n4. Playback UI generated with relevant playlists\n5. Intent completes when user starts playback or exits\n",
+          "key_difference": "Spotify becomes a music library provider, not an interface. The Orchestrator\npresents music options when contextually appropriate, filtered by user's\nlistening values.\n"
+        },
+        {
+          "id": "new-york-times",
+          "name": "New York Times",
+          "category": "News",
+          "traditional_flow": "1. User opens NYT app (or checks notifications)\n2. Scrolls through feed\n3. Engagement-optimized algorithm surfaces content\n4. No alignment check with user's information diet values\n5. Potential for doomscrolling, outrage engagement\n",
+          "lifeos_flow": "1. News surfaces in Periphery during morning routine\n2. Verification layer validates sources and checks for manipulation\n3. Constitutional filter removes clickbait, applies reading preferences\n4. Orchestrator generates summary matching user's information diet\n5. Bounded reading experience with clear completion\n",
+          "key_difference": "NYT provides articles, but cannot control presentation or force engagement\npatterns. Orchestrator filters for quality journalism aligned with user's\nconstitutional values.\n"
+        },
+        {
+          "id": "google-maps",
+          "name": "Google Maps",
+          "category": "Navigation",
+          "traditional_flow": "1. User realizes they need to navigate somewhere\n2. Opens Maps app\n3. Enters destination manually\n4. Reviews route options\n5. Starts navigation\n",
+          "lifeos_flow": "1. Navigation mode auto-activates when calendar event approaches\n2. Maps provider supplies route data to event location\n3. Orchestrator synthesizes: route, traffic, weather, meeting context\n4. Navigation intent presented in Center (highest attention)\n5. Automatic transition to next mode upon arrival\n",
+          "key_difference": "Maps becomes a route data provider. The system knows where you're going\n(from calendar) and surfaces navigation proactively, not reactively.\n"
+        },
+        {
+          "id": "whatsapp",
+          "name": "WhatsApp",
+          "category": "Messaging",
+          "traditional_flow": "1. Notification arrives (app decides when to interrupt)\n2. User context-switches to check message\n3. Responds in app\n4. Returns to previous task (with cognitive reset overhead)\n",
+          "lifeos_flow": "1. Message arrives from WhatsApp provider\n2. Constitutional triage determines appropriate layer:\n   - Center: Emergency contacts, awaited replies\n   - Periphery: Friend messages during work\n   - Silence: Group chats during Focus mode\n3. Message surfaces in current mode context when appropriate\n4. Response intent available without full context switch\n",
+          "key_difference": "WhatsApp provides messages but cannot demand attention. Orchestrator\napplies constitutional rules to determine when and how messages surface.\n"
+        }
+      ],
+      "user_benefits": [
+        {
+          "id": "no-context-switching",
+          "name": "No Context Switching",
+          "description": "System maintains context across all data sources. User doesn't mentally switch\nbetween apps—they select intents within coherent modes. The cognitive overhead\nof app selection and context management is eliminated.\n"
+        },
+        {
+          "id": "protected-from-manipulation",
+          "name": "Protected from Manipulation",
+          "description": "Information Integrity layer blocks dark patterns, engagement optimization, and\nalgorithmic manipulation before it reaches users. Constitutional filtering ensures\nprovider business models don't override user wellbeing.\n"
+        },
+        {
+          "id": "constitutional-alignment",
+          "name": "Constitutional Alignment",
+          "description": "Every piece of information filtered through Personal Constitution. System behavior\naligns with explicitly articulated user values, not provider incentives or default\nengagement metrics.\n"
+        },
+        {
+          "id": "attention-aware-triage",
+          "name": "Attention-Aware Triage",
+          "description": "Information routed to Center, Periphery, or Silence based on current mode and\nconstitutional rules—not notification counts or engagement optimization. User's\nattention is treated as valuable, not extractable.\n"
+        },
+        {
+          "id": "purpose-built-interfaces",
+          "name": "Purpose-Built Interfaces",
+          "description": "UI generated to serve specific intent in current mode, not general-purpose app.\nBounded experiences with clear completion conditions, not infinite feeds designed\nfor maximum time-on-platform.\n"
+        },
+        {
+          "id": "multi-provider-synthesis",
+          "name": "Multi-Provider Synthesis",
+          "description": "Orchestrator can combine data from multiple providers in a single intent—no manual\napp switching required. Navigation can include calendar, weather, traffic, contacts,\nand messaging in one coherent experience.\n"
+        }
+      ],
+      "provider_integration_requirements": {
+        "description": "For a service to integrate as a provider in LifeOS, it must meet these requirements.\nThis ensures quality, security, and alignment with LifeOS principles.\n",
+        "technical_requirements": [
+          {
+            "id": "api-specification",
+            "name": "Provider API Specification",
+            "description": "Well-documented API for data access and action execution",
+            "mandatory_endpoints": [
+              "data_query",
+              "action_execution",
+              "webhook_registration"
+            ]
+          },
+          {
+            "id": "authentication",
+            "name": "Secure Authentication",
+            "description": "OAuth 2.0 or equivalent secure auth mechanism",
+            "requirements": [
+              "user_consent",
+              "token_expiry",
+              "revocation_support"
+            ]
+          },
+          {
+            "id": "rate-limiting",
+            "name": "Rate Limiting & Quotas",
+            "description": "Documented API limits to prevent abuse",
+            "purpose": "Protects both provider infrastructure and user experience"
+          },
+          {
+            "id": "data-schema",
+            "name": "Structured Data Schema",
+            "description": "Clear schema for all data types returned",
+            "formats": [
+              "JSON",
+              "Protocol Buffers",
+              "GraphQL"
+            ],
+            "requirement": "Machine-readable, versioned"
+          }
+        ],
+        "integrity_requirements": [
+          {
+            "id": "provenance",
+            "name": "Provenance Metadata",
+            "description": "Every piece of data carries source information",
+            "required_fields": [
+              "source_url",
+              "timestamp",
+              "author",
+              "verification_status"
+            ]
+          },
+          {
+            "id": "content-authenticity",
+            "name": "Content Authenticity Indicators",
+            "description": "Signals for AI-generated or manipulated content",
+            "examples": [
+              "C2PA metadata",
+              "cryptographic signatures",
+              "content credentials"
+            ]
+          },
+          {
+            "id": "update-mechanism",
+            "name": "Real-time Update Mechanism",
+            "description": "Webhooks or push notifications for timely data",
+            "purpose": "Enables proactive assistance without polling"
+          }
+        ],
+        "governance_requirements": [
+          {
+            "id": "data-minimization",
+            "name": "Data Minimization",
+            "description": "Providers should only request necessary data",
+            "principle": "Collect minimum viable data for service provision"
+          },
+          {
+            "id": "user-consent",
+            "name": "Explicit User Consent",
+            "description": "Users approve each provider integration explicitly",
+            "requirements": [
+              "clear_purpose_statement",
+              "scope_limitation",
+              "revocable_consent"
+            ]
+          },
+          {
+            "id": "audit-trail",
+            "name": "Audit Trail",
+            "description": "All provider actions logged for retrospective review",
+            "purpose": "Trust-building, accountability, debugging"
+          }
+        ]
+      },
+      "architectural_implications": {
+        "provider_neutrality": {
+          "description": "The Orchestrator must remain neutral toward providers. No preferential\ntreatment, no pay-to-surface. Provider data competes on constitutional\nalignment and relevance, not business relationships.\n"
+        },
+        "graceful-degradation": {
+          "description": "When a provider is unavailable (API down, rate limited, user revoked access),\nthe system must gracefully degrade. Other providers may compensate, or the\nOrchestrator may surface alternative intents.\n"
+        },
+        "provider_competition": {
+          "description": "Multiple providers can serve the same category (e.g., multiple music streaming\nservices). The Orchestrator selects based on user preferences, availability,\nand constitutional alignment—not exclusivity deals.\n"
+        },
+        "intent_portability": {
+          "description": "Intents are provider-agnostic where possible. \"Play music\" shouldn't be\nSpotify-specific—it should work with any music provider the user has connected.\n"
+        }
+      },
+      "open_questions": [
+        {
+          "id": "provider-business-model",
+          "question": "How do providers sustain business models without direct user attention?",
+          "notes": "Traditional apps monetize attention (ads, engagement). In LifeOS, providers\nsupply data but don't control presentation. Possible models: subscription\n(Spotify), transaction fees (Uber), data licensing to Orchestrator. This is\nan unresolved economic question.\n"
+        },
+        {
+          "id": "provider-incentives",
+          "question": "What incentivizes providers to integrate if they lose interface control?",
+          "notes": "Providers lose ability to manipulate attention but gain: reduced app maintenance,\naccess to contextual presentation, integration with other services. The value\nproposition needs validation.\n"
+        },
+        {
+          "id": "verification-reliability",
+          "question": "How reliable can verification/deepfake detection be by 2030?",
+          "notes": "Verification is an ongoing arms race. The system should be transparent about\nconfidence levels rather than presenting certainty. \"This source is verified\"\nvs. \"This source claims to be X but verification failed.\"\n"
+        }
+      ],
+      "plausibility_notes": {
+        "year": 2030,
+        "assumptions": [
+          "Providers willing to adapt to platform model (like apps adapted to iOS/Android)",
+          "API standards mature enough for consistent integration",
+          "Verification technology viable but imperfect (probabilistic confidence)",
+          "Users value constitutional filtering over direct app control",
+          "Economic models emerge that sustain providers without direct attention monetization"
+        ],
+        "constraints": [
+          "No perfect deepfake detection (arms race continues)",
+          "Provider cooperation required (cannot force integration)",
+          "Some services may resist giving up interface control",
+          "Network effects favor incumbent apps initially"
+        ]
+      }
+    },
+    "open-questions.yaml": {
+      "questions": [
+        {
+          "id": "OQ-1",
+          "name": "Constitutional Conflict",
+          "status": "open",
+          "domain": "constitution",
+          "question": "How does the system handle values that contradict in specific scenarios?",
+          "notes": "Example: \"don't miss important things\" vs \"work shouldn't bleed into everything\"\nwhen important work message arrives during family dinner.\n",
+          "created": "2025-02-01"
+        },
+        {
+          "id": "OQ-2",
+          "name": "Urgency Determination",
+          "status": "open",
+          "domain": "modes",
+          "question": "What pierces Silence? Who decides what's urgent?",
+          "notes": "Need to define urgency signals and how they interact with\nconstitutional values. User-defined vs system-inferred urgency.\n",
+          "created": "2025-02-01"
+        }
+      ]
+    },
+    "domains/_registry.yaml": {
+      "domains": [
+        {
+          "id": "modes",
+          "name": "Mode Framework",
+          "file": "modes.yaml",
+          "order": 0
+        },
+        {
+          "id": "intents",
+          "name": "Intent Framework",
+          "file": "intents.yaml",
+          "order": 0
+        },
+        {
+          "id": "navigation-mobility",
+          "name": "Navigation & Mobility",
+          "file": "navigation-mobility.yaml",
+          "order": 1
+        },
+        {
+          "id": "communication-connection",
+          "name": "Communication & Connection",
+          "file": "communication-connection.yaml",
+          "order": 2
+        },
+        {
+          "id": "entertainment-media",
+          "name": "Entertainment & Media",
+          "file": "entertainment-media.yaml",
+          "order": 3
+        },
+        {
+          "id": "life-management",
+          "name": "Life Management",
+          "file": "life-management.yaml",
+          "order": 4
+        },
+        {
+          "id": "work-career",
+          "name": "Work & Career",
+          "file": "work-career.yaml",
+          "order": 5
+        },
+        {
+          "id": "health-wellness",
+          "name": "Health & Wellness",
+          "file": "health-wellness.yaml",
+          "order": 6
+        },
+        {
+          "id": "personal-fulfillment",
+          "name": "Personal Fulfillment",
+          "file": "personal-fulfillment.yaml",
+          "order": 7
+        }
+      ]
+    },
+    "domains/modes.yaml": {
+      "id": "modes",
+      "name": "Mode Framework",
+      "description": "Modes are fluid, contextual stances that emerge from Life Domains. They are not fixed categories but dynamic responses to the user's current situation within a domain.",
+      "status": "locked",
+      "version": "0.2.0",
+      "framework_flow": {
+        "description": "The Mode–Intent Framework follows a four-stage flow:\n1. Life Domain - The 7 fundamental categories of human activity\n2. Mode - A fluid, contextual stance activated within a domain\n3. Intent - Available actions surfaced by the active mode\n4. UI - Dynamically generated interface for the selected intent\n",
+        "key_principle": "Modes are NOT fixed. Mode names emerge naturally from the intersection of \na Life Domain and the user's current situation. Each domain can spawn \ncountless contextual modes based on what the user is doing.\n"
+      },
+      "mode_fluidity": {
+        "status": "locked",
+        "description": "Unlike traditional app categories, modes are fluid and emerge from context.\nA mode name like \"Thesis Discussion\" or \"Quick Check-in\" emerges naturally \nfrom the intersection of domain and situation.\n",
+        "examples_by_domain": {
+          "communication_connection": {
+            "domain": "Communication & Connection",
+            "example_modes": [
+              "Thesis Discussion",
+              "Critique",
+              "Catch-up",
+              "Messaging",
+              "Deep Conversation",
+              "Quick Check-in"
+            ],
+            "note": "These are not fixed modes—they emerge from the context within this domain"
+          },
+          "work_career": {
+            "domain": "Work & Career",
+            "example_modes": [
+              "Focus Work",
+              "Meeting",
+              "Planning",
+              "Creative Session",
+              "Review",
+              "Brainstorming"
+            ]
+          },
+          "health_wellness": {
+            "domain": "Health & Wellness",
+            "example_modes": [
+              "Workout",
+              "Meditation",
+              "Recovery",
+              "Sleep Prep",
+              "Active Recovery",
+              "Health Check"
+            ]
+          },
+          "navigation_mobility": {
+            "domain": "Navigation & Mobility",
+            "example_modes": [
+              "Commute",
+              "Exploration",
+              "Errand Run",
+              "Travel",
+              "Walking Meeting",
+              "Transit"
+            ]
+          },
+          "entertainment_media": {
+            "domain": "Entertainment & Media",
+            "example_modes": [
+              "Movie Night",
+              "Gaming",
+              "Reading",
+              "Music Discovery",
+              "Podcast",
+              "Browsing"
+            ]
+          },
+          "life_management": {
+            "domain": "Life Management",
+            "example_modes": [
+              "Weekly Review",
+              "Financial Check",
+              "Home Maintenance",
+              "Planning",
+              "Admin Tasks",
+              "Organizing"
+            ]
+          },
+          "personal_fulfillment": {
+            "domain": "Personal Fulfillment",
+            "example_modes": [
+              "Learning",
+              "Creative Project",
+              "Skill Practice",
+              "Reflection",
+              "Journaling",
+              "Side Project"
+            ]
+          }
+        }
+      },
+      "sections": [
+        {
+          "id": "activation-model",
+          "name": "Activation Model",
+          "status": "locked",
+          "description": "How modes are entered based on confidence signals",
+          "mechanics": {
+            "confidence_based_entry": "Multiple context signals contribute to confidence score.\nEach signal has weight based on reliability and relevance.\nConfidence must exceed threshold for activation.\n",
+            "thresholds": [
+              {
+                "type": "Soft activation",
+                "value": "~0.60",
+                "behavior": "System suggests mode: 'Looks like you're entering Focus. Confirm?'"
+              },
+              {
+                "type": "Hard activation",
+                "value": "~0.85",
+                "behavior": "System enters mode automatically, explanation available"
+              },
+              {
+                "type": "Exit threshold",
+                "value": "~0.40",
+                "behavior": "Hysteresis - must drop below this to exit"
+              }
+            ],
+            "hysteresis_rationale": "Different thresholds for entry vs. exit prevents oscillation.\nOnce in a mode, stay until clearly no longer appropriate.\n"
+          }
+        },
+        {
+          "id": "exit-design",
+          "name": "Exit Design",
+          "status": "locked",
+          "description": "How users exit modes - always possible, with informational friction",
+          "invariant": "Exit is always possible. User is never locked into a mode.",
+          "friction_design": [
+            "Exit has friction, but friction is informational, not obstructive",
+            "Friction surfaces trade-offs: 'This is what you're leaving; this is what changes'",
+            "Friction never punishes, shames, or creates dead ends",
+            "Exit option always visible"
+          ],
+          "template": "You're leaving [Mode Name].\n\nWhat changes:\n- [Specific change 1]\n- [Specific change 2]\n- [What was held will become active]\n\nWhy you might stay:\n- [Contextual reason]\n- [Progress indicator if applicable]\n\n[Exit anyway]  [Stay in mode]\n"
+        },
+        {
+          "id": "mode-collision",
+          "name": "Mode Collision",
+          "status": "open",
+          "description": "What happens when two modes have equal or near-equal confidence",
+          "open_question": "OQ-1",
+          "candidate_approaches": [
+            {
+              "name": "Recency bias",
+              "description": "Stay in current mode unless new mode clearly dominant"
+            },
+            {
+              "name": "User tiebreaker",
+              "description": "Soft prompt for ambiguous cases"
+            },
+            {
+              "name": "Hierarchical priority",
+              "description": "Some modes trump others"
+            },
+            {
+              "name": "Hybrid mode",
+              "description": "Rare - elements of both"
+            }
+          ]
+        },
+        {
+          "id": "domain-mode-relationship",
+          "name": "Domain-Mode Relationship",
+          "status": "locked",
+          "description": "How life domains inform mode generation",
+          "key_distinctions": [
+            {
+              "aspect": "Nature",
+              "domain": "Category of human activity (persistent)",
+              "mode": "Contextual stance at a moment in time (temporal)"
+            },
+            {
+              "aspect": "Examples",
+              "domain": "Work & Career, Health & Wellness",
+              "mode": "Focus Work, Meeting, Workout, Meditation"
+            },
+            {
+              "aspect": "Control",
+              "domain": "User-defined life areas",
+              "mode": "Orchestrator-activated based on context signals"
+            },
+            {
+              "aspect": "Fluidity",
+              "domain": "Stable, rarely change",
+              "mode": "Highly fluid, emerge from situation"
+            }
+          ],
+          "invariants": [
+            "A single mode can span multiple domains (Focus Mode applies to Work AND Personal Fulfillment)",
+            "A single domain can spawn countless modes (Communication domain → Thesis Discussion, Catch-up, Messaging, etc.)",
+            "Mode names are not fixed—they emerge from context",
+            "Domain information informs mode confidence signals and triage rules"
+          ]
+        }
+      ],
+      "defined_modes": [
+        {
+          "id": "navigation",
+          "name": "Navigation Mode",
+          "status": "defined",
+          "purpose": "Active when user is traveling to a destination. Optimizes for wayfinding while protecting attention.",
+          "primary_domain": "navigation-mobility",
+          "activation_triggers": [
+            "Calendar event with different location approaching",
+            "User initiates travel/directions query",
+            "GPS movement pattern suggests transit"
+          ],
+          "confidence_signals": [
+            "Calendar certainty (confirmed vs. tentative)",
+            "Location delta (distance to destination)",
+            "Time pressure (buffer available)",
+            "Historical patterns (familiar route?)"
+          ],
+          "triage": {
+            "center": [
+              "Route guidance",
+              "ETA",
+              "Destination preparation"
+            ],
+            "periphery": [
+              "Message counts (no content)",
+              "Batched notifications",
+              "Media controls"
+            ],
+            "silence": [
+              "Social media",
+              "News",
+              "Non-urgent email",
+              "Marketing"
+            ]
+          },
+          "exit_conditions": [
+            "Arrival at destination (automatic soft exit)",
+            "Route becomes irrelevant (event cancelled)",
+            "User explicit exit (with friction)"
+          ]
+        },
+        {
+          "id": "focus",
+          "name": "Focus Mode",
+          "status": "defined",
+          "purpose": "Active during deep work requiring sustained attention. Maximizes protection from interruption.",
+          "primary_domain": "work-career",
+          "secondary_domains": [
+            "personal-fulfillment"
+          ],
+          "activation_triggers": [
+            "User declares focus time",
+            "Calendar 'focus block' detected",
+            "Work pattern signals (specific apps, typing patterns)"
+          ],
+          "triage": {
+            "center": [
+              "Current work task",
+              "Relevant documents"
+            ],
+            "periphery": [
+              "Timer",
+              "Emergency-only contacts"
+            ],
+            "silence": [
+              "Everything else"
+            ]
+          }
+        },
+        {
+          "id": "social",
+          "name": "Social Mode",
+          "status": "defined",
+          "purpose": "Active during interpersonal interaction. Optimizes for presence with people.",
+          "primary_domain": "communication-connection",
+          "activation_triggers": [
+            "Co-located contacts detected",
+            "Calendar social event",
+            "User declares social time"
+          ],
+          "triage": {
+            "center": [
+              "Present moment (minimal digital)"
+            ],
+            "periphery": [
+              "Emergency contacts only"
+            ],
+            "silence": [
+              "All notifications",
+              "Work content"
+            ]
+          }
+        },
+        {
+          "id": "rest",
+          "name": "Rest Mode",
+          "status": "scaffolded",
+          "purpose": "Downtime and recovery periods.",
+          "primary_domain": "health-wellness",
+          "activation_triggers": [
+            "Time-based (evening hours)",
+            "User declares rest",
+            "Health signals (fatigue indicators)"
+          ]
+        },
+        {
+          "id": "work",
+          "name": "Work Mode",
+          "status": "scaffolded",
+          "purpose": "Professional tasks and communications.",
+          "primary_domain": "work-career",
+          "activation_triggers": [
+            "Scheduled work hours",
+            "Work location detected",
+            "User declares work time"
+          ]
+        }
+      ]
+    },
+    "domains/intents.yaml": {
+      "id": "intents",
+      "name": "Intent Framework",
+      "description": "Intents are available actions surfaced by the active mode. They represent what the user can DO within their current contextual stance.",
+      "status": "locked",
+      "version": "0.2.0",
+      "framework_position": {
+        "description": "In the Domain → Mode → Intent → UI flow, Intents are the third stage:\n1. Life Domain - Informs the context category\n2. Mode - Determines the user's stance and filters available actions\n3. Intent - User-selected action from mode-appropriate options\n4. UI - Dynamically generated interface for the selected intent\n",
+        "key_invariants": [
+          "Intents are ALWAYS user-selected (never auto-executed)",
+          "Available intents are constrained by the current mode",
+          "Each intent has bounded scope with designed completion",
+          "Intents generate purpose-built UI, not generic app interfaces"
+        ]
+      },
+      "sections": [
+        {
+          "id": "intent-requirements",
+          "name": "Intent Requirements",
+          "status": "locked",
+          "description": "Every intent must meet these requirements",
+          "requirements": [
+            {
+              "id": "clear-entry",
+              "name": "Clear Entry",
+              "description": "How user accesses/initiates the intent"
+            },
+            {
+              "id": "bounded-scope",
+              "name": "Bounded Scope",
+              "description": "What the intent includes and explicitly excludes"
+            },
+            {
+              "id": "completion-condition",
+              "name": "Completion Condition",
+              "description": "How user knows they're done"
+            },
+            {
+              "id": "exit-path",
+              "name": "Exit Path",
+              "description": "How to leave before completion"
+            },
+            {
+              "id": "mode-constraints",
+              "name": "Mode Constraints",
+              "description": "Which modes this intent is available in"
+            }
+          ],
+          "rationale": "Bounded experiences, not infinite feeds. Every intent has designed\ncompletion, not endless engagement.\n"
+        },
+        {
+          "id": "intent-vs-app",
+          "name": "Intent vs. App Distinction",
+          "status": "locked",
+          "description": "How intents differ from traditional apps",
+          "comparison": [
+            {
+              "aspect": "Purpose",
+              "traditional_app": "General-purpose tool",
+              "lifeos_intent": "Specific goal accomplishment"
+            },
+            {
+              "aspect": "Selection",
+              "traditional_app": "User selects app, then figures out task",
+              "lifeos_intent": "User selects intent based on goal"
+            },
+            {
+              "aspect": "Availability",
+              "traditional_app": "Persistent, always available",
+              "lifeos_intent": "Available based on context (mode)"
+            },
+            {
+              "aspect": "Alignment",
+              "traditional_app": "Business model may conflict with user goals",
+              "lifeos_intent": "Orchestrator filters for user goals"
+            },
+            {
+              "aspect": "Engagement",
+              "traditional_app": "Infinite engagement possible",
+              "lifeos_intent": "Bounded with completion designed in"
+            },
+            {
+              "aspect": "Interface",
+              "traditional_app": "Fixed, generic interface",
+              "lifeos_intent": "Dynamically generated for specific goal"
+            }
+          ]
+        },
+        {
+          "id": "intent-inheritance",
+          "name": "Intent Inheritance Across Modes",
+          "status": "open",
+          "description": "Can intents span mode transitions, or do they terminate on mode exit?",
+          "open_question": "OQ-2",
+          "candidate_approaches": [
+            {
+              "name": "Hard termination",
+              "description": "Intent ends when mode ends"
+            },
+            {
+              "name": "Graceful handoff",
+              "description": "Intent pauses, can resume if mode re-entered"
+            },
+            {
+              "name": "Intent completion priority",
+              "description": "Mode exit blocked until intent completes, with override"
+            }
+          ]
+        },
+        {
+          "id": "intent-mode-relationship",
+          "name": "Intent-Mode Relationship",
+          "status": "locked",
+          "description": "How modes surface and constrain intents",
+          "mechanics": {
+            "filtering": "The current mode acts as a filter over the universe of possible intents.\nOnly intents relevant to the mode's purpose are surfaced to the user.\n",
+            "surfacing": "When a mode is active, it determines which intents appear prominent (Center),\nwhich are available but de-emphasized (Periphery), and which are hidden (Silence).\n",
+            "generation": "Once a user selects an intent, the orchestrator generates a purpose-built\ninterface that serves that specific intent—not a generic app UI.\n"
+          },
+          "examples": [
+            {
+              "mode": "Focus Mode",
+              "surfaced_intents": [
+                "Review document",
+                "Deep work session",
+                "Research task"
+              ],
+              "hidden_intents": [
+                "Browse social media",
+                "Check news",
+                "Casual browsing"
+              ]
+            },
+            {
+              "mode": "Navigation Mode",
+              "surfaced_intents": [
+                "Get directions",
+                "Find parking",
+                "View arrival info"
+              ],
+              "hidden_intents": [
+                "Start video call",
+                "Write long document",
+                "Browse photos"
+              ]
+            },
+            {
+              "mode": "Social Mode",
+              "surfaced_intents": [
+                "Share moment",
+                "Check shared calendar",
+                "Split bill"
+              ],
+              "hidden_intents": [
+                "Work email",
+                "Code review",
+                "File taxes"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "domains/navigation-mobility.yaml": {
+      "id": "navigation-mobility",
+      "name": "Navigation & Mobility",
+      "description": "Getting from place to place, spatial awareness, movement through physical world",
+      "status": "open",
+      "version": "1.0.0",
+      "sections": [
+        {
+          "title": "Core Activities",
+          "content": "- Wayfinding and navigation to destinations\n- Route planning and optimization\n- Spatial awareness and orientation\n- Movement through physical spaces\n- Travel coordination and logistics\n- Real-time location awareness\n"
+        },
+        {
+          "title": "Key Interactions",
+          "content": "- Initiating navigation to a destination\n- Monitoring progress and ETA\n- Adapting to route changes\n- Coordinating arrival timing\n- Managing transportation options\n"
+        },
+        {
+          "title": "Design Considerations",
+          "content": "- Attention must remain on physical environment for safety\n- Time pressure varies (late for meeting vs. casual travel)\n- Familiarity affects cognitive load (known vs. unknown routes)\n- Interruptions during navigation can be dangerous\n- Need for glanceable, minimal-attention interfaces\n"
+        }
+      ]
+    },
+    "domains/communication-connection.yaml": {
+      "id": "communication-connection",
+      "name": "Communication & Connection",
+      "description": "Personal relationships, staying in touch, social coordination, meaningful connection",
+      "status": "open",
+      "version": "1.0.0",
+      "sections": [
+        {
+          "title": "Core Activities",
+          "content": "- Maintaining personal relationships\n- Synchronous communication (calls, face-to-face)\n- Asynchronous communication (messaging, email)\n- Social coordination and planning\n- Building and deepening connections\n- Presence and active listening\n"
+        },
+        {
+          "title": "Key Interactions",
+          "content": "- Responding to messages and communications\n- Initiating contact with others\n- Managing availability and boundaries\n- Coordinating social activities\n- Being present during in-person interactions\n"
+        },
+        {
+          "title": "Design Considerations",
+          "content": "- Quality of connection vs. quantity of interactions\n- Presence matters: digital interruptions erode social quality\n- Response urgency is context-dependent\n- Different relationships have different communication norms\n- Synchronous moments deserve protection from asynchronous demands\n- Connection depth requires sustained attention\n"
+        }
+      ]
+    },
+    "domains/entertainment-media.yaml": {
+      "id": "entertainment-media",
+      "name": "Entertainment & Media",
+      "description": "Content consumption, news, games, entertainment, staying informed, cultural participation",
+      "status": "open",
+      "version": "1.0.0",
+      "sections": [
+        {
+          "title": "Core Activities",
+          "content": "- Consuming media content (video, audio, text)\n- Playing games and interactive entertainment\n- Following news and current events\n- Exploring cultural content\n- Discovering new content\n- Social media engagement\n"
+        },
+        {
+          "title": "Key Interactions",
+          "content": "- Browsing and discovering content\n- Active consumption (watching, reading, listening)\n- Engagement with content (commenting, sharing)\n- Managing subscriptions and feeds\n- Balancing information diet\n"
+        },
+        {
+          "title": "Design Considerations",
+          "content": "- Infinite feeds designed for maximum engagement\n- Boundary between intentional consumption and passive scrolling\n- News anxiety and information overload\n- Algorithmic recommendations vs. user-directed exploration\n- Completion conditions often absent by design\n- Time easily lost to auto-play and endless content\n- Need for intentional stopping points\n"
+        }
+      ]
+    },
+    "domains/life-management.yaml": {
+      "id": "life-management",
+      "name": "Life Management",
+      "description": "Life logistics, household tasks, finances, scheduling, admin work, keeping things running",
+      "status": "open",
+      "version": "1.0.0",
+      "sections": [
+        {
+          "title": "Core Activities",
+          "content": "- Calendar and schedule management\n- Financial tracking and bill payment\n- Household task coordination\n- Administrative paperwork\n- Errand planning and execution\n- Maintenance and upkeep\n- Life logistics coordination\n"
+        },
+        {
+          "title": "Key Interactions",
+          "content": "- Adding and reviewing calendar events\n- Managing to-do lists and tasks\n- Tracking expenses and budgets\n- Coordinating household responsibilities\n- Processing administrative tasks\n- Planning and executing errands\n"
+        },
+        {
+          "title": "Design Considerations",
+          "content": "- High cognitive overhead from fragmented systems\n- Many small decisions throughout the day\n- Interruptions break task flow\n- Planning requires focus, execution can be automated\n- Cognitive load from remembering vs. being reminded\n- Coordination across multiple people and systems\n- Balance between control and delegation\n"
+        }
+      ]
+    },
+    "domains/work-career.yaml": {
+      "id": "work-career",
+      "name": "Work & Career",
+      "description": "Professional responsibilities, collaboration, career development, workplace dynamics",
+      "status": "open",
+      "version": "1.0.0",
+      "sections": [
+        {
+          "title": "Core Activities",
+          "content": "- Executing professional tasks and projects\n- Collaboration with colleagues\n- Meetings and synchronous work\n- Deep focus work\n- Professional communication\n- Career development and learning\n- Strategic planning\n"
+        },
+        {
+          "title": "Key Interactions",
+          "content": "- Managing work communications\n- Attending and scheduling meetings\n- Executing focused work sessions\n- Coordinating with team members\n- Tracking projects and deliverables\n- Professional learning and skill development\n"
+        },
+        {
+          "title": "Design Considerations",
+          "content": "- Deep work requires sustained attention blocks\n- Context switching is costly\n- Work-life boundaries need active protection\n- Different work modes (focus, collaboration, admin)\n- Urgency vs. importance often conflated\n- Always-on culture creates burnout\n- Asynchronous vs. synchronous collaboration trade-offs\n- Career development easily deprioritized\n"
+        }
+      ]
+    },
+    "domains/health-wellness.yaml": {
+      "id": "health-wellness",
+      "name": "Health & Wellness",
+      "description": "Physical health, mental wellbeing, rest, recovery, body awareness",
+      "status": "open",
+      "version": "1.0.0",
+      "sections": [
+        {
+          "title": "Core Activities",
+          "content": "- Physical exercise and movement\n- Sleep and rest\n- Nutrition and eating\n- Mental health and stress management\n- Medical care and health monitoring\n- Recovery and downtime\n- Body awareness and physiological state\n"
+        },
+        {
+          "title": "Key Interactions",
+          "content": "- Monitoring health metrics\n- Planning and executing exercise\n- Managing sleep schedules\n- Stress awareness and intervention\n- Medical appointments and care\n- Mindfulness and relaxation practices\n"
+        },
+        {
+          "title": "Design Considerations",
+          "content": "- Health data is highly personal and sensitive\n- Physiological state affects all other domains\n- Recovery time is productive time\n- Stress response can be detected but requires nuanced interpretation\n- Gamification can be motivating or anxiety-inducing\n- Rest is active wellbeing, not absence of productivity\n- Mental health is as important as physical health\n- Body awareness provides context for all other activities\n"
+        }
+      ]
+    },
+    "domains/personal-fulfillment.yaml": {
+      "id": "personal-fulfillment",
+      "name": "Personal Fulfillment",
+      "description": "Creative expression, hobbies, interests, learning for curiosity, personal projects, skill development, self-reflection, personal growth, meaning-making",
+      "status": "open",
+      "version": "1.0.0",
+      "sections": [
+        {
+          "title": "Core Activities",
+          "content": "- Creative expression and artistic pursuits\n- Hobby engagement and exploration\n- Learning driven by curiosity (not career)\n- Personal projects and passion work\n- Skill development for intrinsic satisfaction\n- Self-reflection and journaling\n- Personal growth and identity exploration\n- Meaning-making and purpose discovery\n- Intellectual curiosity and deep exploration\n"
+        },
+        {
+          "title": "Key Interactions",
+          "content": "- Dedicating time to creative work\n- Exploring new interests and hobbies\n- Engaging in reflective practices\n- Pursuing learning for its own sake\n- Working on personal projects\n- Developing skills outside professional context\n"
+        },
+        {
+          "title": "Design Considerations",
+          "content": "- Easily deprioritized under productivity pressure\n- Requires protected time without interruption\n- No external deadlines makes scheduling difficult\n- Value is intrinsic, not instrumental\n- Flow states require sustained attention\n- Exploration benefits from low-stakes experimentation\n- Reflection requires spaciousness and quiet\n- Often the first domain sacrificed when busy\n- Critical for long-term wellbeing and identity\n- Cannot be optimized without losing its essence\n"
+        }
+      ]
+    }
+  }
+}

@@ -366,7 +366,7 @@ export async function deleteScenario(id: string): Promise<{ message: string; id:
 }
 
 // ============================================
-// Prototypes API
+// Prototypes API (OLD - Deprecated)
 // ============================================
 
 export async function fetchPrototypes() {
@@ -405,3 +405,127 @@ export async function uploadScreenshots(prototypeId: string, date: string, files
   if (!res.ok) throw new Error('Failed to upload screenshots');
   return res.json();
 }
+
+// ============================================
+// Days API (NEW - Day-First Structure)
+// ============================================
+
+export interface DayScreenshot {
+  filename: string;
+  originalName: string;
+  path: string;
+  uploadedAt: string;
+}
+
+export interface DayPrototype {
+  id: string;
+  name: string;
+  screenshots: DayScreenshot[];
+}
+
+export interface Day {
+  date: string;
+  prototypes: DayPrototype[];
+}
+
+export interface PrototypeDefinition {
+  id: string;
+  name: string;
+  description: string;
+}
+
+// Fetch all days
+export async function fetchDays(): Promise<{ days: Day[] }> {
+  const res = await fetch(`${API_BASE}/api/days`);
+  if (!res.ok) throw new Error('Failed to fetch days');
+  return res.json();
+}
+
+// Fetch a single day
+export async function fetchDay(date: string): Promise<Day> {
+  const res = await fetch(`${API_BASE}/api/days/${date}`);
+  if (!res.ok) throw new Error('Failed to fetch day');
+  return res.json();
+}
+
+// Create a new day
+export async function createDay(date: string): Promise<Day> {
+  const res = await fetch(`${API_BASE}/api/days`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ date }),
+  });
+  if (!res.ok) throw new Error('Failed to create day');
+  return res.json();
+}
+
+// Delete a day
+export async function deleteDay(date: string): Promise<{ success: boolean; deleted: string }> {
+  const res = await fetch(`${API_BASE}/api/days/${date}`, {
+    method: 'DELETE',
+  });
+  if (!res.ok) throw new Error('Failed to delete day');
+  return res.json();
+}
+
+// Add a prototype to a day
+export async function addPrototypeToDay(date: string, prototypeId: string, name?: string): Promise<Day> {
+  const res = await fetch(`${API_BASE}/api/days/${date}/prototypes`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ prototypeId, name }),
+  });
+  if (!res.ok) throw new Error('Failed to add prototype to day');
+  return res.json();
+}
+
+// Remove a prototype from a day
+export async function removePrototypeFromDay(date: string, prototypeId: string): Promise<{ success: boolean; deleted: string }> {
+  const res = await fetch(`${API_BASE}/api/days/${date}/prototypes/${prototypeId}`, {
+    method: 'DELETE',
+  });
+  if (!res.ok) throw new Error('Failed to remove prototype from day');
+  return res.json();
+}
+
+// Upload screenshots to a day's prototype
+export async function uploadDayScreenshots(date: string, prototypeId: string, files: FileList | File[]): Promise<any> {
+  const formData = new FormData();
+  for (const file of files) {
+    formData.append('files', file);
+  }
+  const res = await fetch(`${API_BASE}/api/days/${date}/prototypes/${prototypeId}/screenshots`, {
+    method: 'POST',
+    body: formData,
+  });
+  if (!res.ok) throw new Error('Failed to upload screenshots');
+  return res.json();
+}
+
+// Delete a screenshot
+export async function deleteDayScreenshot(date: string, prototypeId: string, filename: string): Promise<{ success: boolean; deleted: string }> {
+  const res = await fetch(`${API_BASE}/api/days/${date}/prototypes/${prototypeId}/screenshots/${filename}`, {
+    method: 'DELETE',
+  });
+  if (!res.ok) throw new Error('Failed to delete screenshot');
+  return res.json();
+}
+
+// Fetch prototype registry
+export async function fetchPrototypeRegistry(): Promise<{ prototypes: PrototypeDefinition[] }> {
+  const res = await fetch(`${API_BASE}/api/days/registry/prototypes`);
+  if (!res.ok) throw new Error('Failed to fetch prototype registry');
+  return res.json();
+}
+
+// Create a prototype definition in the registry
+export async function createPrototypeDefinition(id: string, name: string, description?: string): Promise<PrototypeDefinition> {
+  const res = await fetch(`${API_BASE}/api/days/registry/prototypes`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id, name, description }),
+  });
+  if (!res.ok) throw new Error('Failed to create prototype definition');
+  return res.json();
+}
+
