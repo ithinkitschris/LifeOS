@@ -119,7 +119,7 @@ const protoRegistry = safeLoad(loadYaml, path.join(protoDir, 'prototype-registry
 // ── Assemble output ─────────────────────────────────────
 const output = {
   world: {
-    full: { meta, setting, thesis, devices, systemArchitecture, providerIntegration, domains: domainsById, openQuestions },
+    full: { meta, setting, thesis, devices, systemArchitecture, providerIntegration, domains: domainsById, openQuestions: openQuestions?.questions || [] },
     meta,
     setting,
     thesis,
