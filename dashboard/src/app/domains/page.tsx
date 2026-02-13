@@ -41,7 +41,7 @@ export default function LifeDomainsPage() {
     ];
 
     useEffect(() => {
-        fetch('http://localhost:3001/api/world/domains')
+        fetch('/api/world/domains')
             .then(res => res.json())
             .then(async (data) => {
                 // Filter to only life domains

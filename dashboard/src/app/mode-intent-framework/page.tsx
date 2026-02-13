@@ -46,7 +46,7 @@ export default function ModeIntentFrameworkPage() {
         Promise.all([
             fetchDomain('modes'),
             fetchDomain('intents'),
-            fetch('http://localhost:3001/api/world/domains').then(r => r.json())
+            fetch('/api/world/domains').then(r => r.json())
         ])
             .then(([modes, intents, domainsRes]) => {
                 setModesData(modes);
