@@ -1,3 +1,4 @@
+export const dynamic = 'force-static';
 import { readOnly } from '@/lib/readonly';
 
 export async function GET() {

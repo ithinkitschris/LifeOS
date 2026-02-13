@@ -3,6 +3,19 @@ import path from 'path';
 import { loadYaml, WORLD_PATH } from '@/lib/data-loader';
 import { readOnly } from '@/lib/readonly';
 
+export const dynamic = 'force-static';
+
+export async function generateStaticParams() {
+  try {
+    const registry = loadYaml<{ domains: { id: string }[] }>(
+      path.join(WORLD_PATH, 'domains', '_registry.yaml')
+    );
+    return (registry?.domains || []).map(d => ({ id: d.id }));
+  } catch {
+    return [];
+  }
+}
+
 export async function GET(_req: Request, { params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
     try {

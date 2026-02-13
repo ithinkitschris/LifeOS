@@ -1,3 +1,4 @@
+export const dynamic = 'force-static';
 import { NextResponse } from 'next/server';
 import path from 'path';
 import { loadYaml, KG_PATH } from '@/lib/data-loader';
