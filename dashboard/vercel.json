@@ -1,4 +1,4 @@
 {
-    "buildCommand": "cp -r ../backend/data ./data && node scripts/generate-static-data.mjs && npm run build",
+    "buildCommand": "cp -r ../backend/data ./data && cp -r ../backend/data/prototypes/images ./public/prototype-images && node scripts/generate-static-data.mjs && npm run build",
     "framework": "nextjs"
 }
