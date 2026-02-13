@@ -1,4 +1,4 @@
-// Vercel deployment configuration
+// Vercel deployment configuration (v2)
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
