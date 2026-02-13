@@ -3,16 +3,14 @@
 import { useState, useEffect } from 'react';
 
 export default function Sidebar() {
-  // Initialize state from localStorage directly to prevent flash
-  const [isCollapsed, setIsCollapsed] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('sidebarCollapsed');
-      return saved === 'true';
-    }
-    return false;
-  });
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
-  // Save collapsed state to localStorage
+  // Read localStorage after hydration to avoid server/client mismatch
+  useEffect(() => {
+    const saved = localStorage.getItem('sidebarCollapsed');
+    if (saved === 'true') setIsCollapsed(true);
+  }, []);
+
   const toggleSidebar = () => {
     const newState = !isCollapsed;
     setIsCollapsed(newState);
