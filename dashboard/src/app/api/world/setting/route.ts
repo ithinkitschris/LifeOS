@@ -1,15 +1,10 @@
 export const dynamic = 'force-static';
 import { NextResponse } from 'next/server';
-import path from 'path';
-import { loadYaml, WORLD_PATH } from '@/lib/data-loader';
+import { getWorldSetting } from '@/lib/data-loader';
 import { readOnly } from '@/lib/readonly';
 
-export async function GET() {
-    try {
-        return NextResponse.json(loadYaml(path.join(WORLD_PATH, 'setting.yaml')));
-    } catch {
-        return NextResponse.json({ error: 'Failed to load setting' }, { status: 500 });
-    }
+export function GET() {
+  return NextResponse.json(getWorldSetting());
 }
 
 export const PUT = readOnly;
