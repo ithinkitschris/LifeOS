@@ -1,0 +1,16 @@
+{
+  "id": "conv_1770941477501",
+  "title": "New conversation",
+  "created_at": "2026-02-13T00:11:17.501Z",
+  "updated_at": "2026-02-13T00:11:17.501Z",
+  "context": {
+    "world_version": "0.1.1",
+    "pkg_domains": [
+      "identity",
+      "relationships",
+      "behaviors",
+      "calendar"
+    ]
+  },
+  "messages": []
+}

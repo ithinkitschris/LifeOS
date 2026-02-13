@@ -1,4 +1,6 @@
 days:
+  - date: '2026-02-14'
+    prototypes: []
   - date: '2026-02-12'
     prototypes:
       - id: discussion
