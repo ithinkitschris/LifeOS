@@ -33,7 +33,7 @@ export function getWorldOpenQuestions() {
 }
 
 export function getDomainsList() {
-  return data.world.domainsList;
+  return { domains: data.world.domainsList };
 }
 
 export function getDomain(id: string) {

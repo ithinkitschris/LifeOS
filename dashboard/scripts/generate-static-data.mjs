@@ -42,13 +42,22 @@ const openQuestions = safeLoad(loadYaml, path.join(worldDir, 'open-questions.yam
 const domainsDir = path.join(worldDir, 'domains');
 const registry = safeLoad(loadYaml, path.join(domainsDir, '_registry.yaml'));
 const domainsById = {};
+// domainsList matches the backend's /api/world/domains shape: { id, name, file, order, description, status, version }
 const domainsList = [];
 if (registry?.domains) {
   for (const ref of registry.domains) {
     try {
       const d = loadYaml(path.join(domainsDir, ref.file));
       domainsById[ref.id] = d;
-      domainsList.push(d);
+      domainsList.push({
+        id: ref.id,
+        name: ref.name,
+        file: ref.file,
+        order: ref.order,
+        description: d?.description || '',
+        status: d?.status || 'unknown',
+        version: d?.version || '0.0.0',
+      });
     } catch {}
   }
 }

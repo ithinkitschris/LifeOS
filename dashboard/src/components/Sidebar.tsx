@@ -107,23 +107,6 @@ export default function Sidebar() {
                 {!isCollapsed && <span>Work in Progress</span>}
               </a>
             </li>
-            <li>
-              <a
-                href="/about"
-                className={`nav-item flex items-center px-3 py-2.5 text-sm text-gray-600 hover:text-gray-900 group ${isCollapsed ? 'justify-center' : ''}`}
-                title={isCollapsed ? 'About this page' : ''}
-              >
-                <svg
-                  className={`w-5 h-5 text-gray-400 group-hover:text-gray-600 flex-shrink-0 ${isCollapsed ? '' : 'mr-3'}`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                {!isCollapsed && <span>About this page</span>}
-              </a>
-            </li>
             {/* Open Questions - Hidden */}
             {/* <li>
               <a
