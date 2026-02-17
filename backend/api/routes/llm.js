@@ -4,7 +4,7 @@
  */
 
 import { Router } from 'express';
-import { readFile } from 'fs/promises';
+import { readFile, writeFile, mkdir } from 'fs/promises';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import yaml from 'js-yaml';
@@ -647,6 +647,280 @@ router.get('/creativity-modes', (req, res) => {
     description: config.description
   }));
   res.json({ modes });
+});
+
+// POST /api/llm/digital-twin
+// Multi-turn conversation with Chris's digital twin
+const PKG_COMPACT_PATH = join(__dirname, '..', '..', '..', 'pkg-chris.md');
+const PKG_FULL_PATH = join(__dirname, '..', '..', '..', 'pkg-chris-full.md');
+const CORRECTIONS_DIR = join(__dirname, '..', '..', 'data', 'corrections');
+const CORRECTIONS_PATH = join(CORRECTIONS_DIR, 'twin-corrections.json');
+
+async function loadPKGFile(version) {
+  const filepath = version === 'full' ? PKG_FULL_PATH : PKG_COMPACT_PATH;
+  try {
+    const content = await readFile(filepath, 'utf-8');
+    return content;
+  } catch (e) {
+    console.warn(`Failed to load PKG (${version}):`, e.message);
+    return null;
+  }
+}
+
+async function loadCorrections() {
+  try {
+    const content = await readFile(CORRECTIONS_PATH, 'utf-8');
+    return JSON.parse(content);
+  } catch (e) {
+    return [];
+  }
+}
+
+async function saveCorrections(corrections) {
+  await mkdir(CORRECTIONS_DIR, { recursive: true });
+  await writeFile(CORRECTIONS_PATH, JSON.stringify(corrections, null, 2));
+}
+
+// POST /api/llm/digital-twin/corrections
+// Save a correction flag on a twin response
+router.post('/digital-twin/corrections', async (req, res) => {
+  try {
+    const {
+      message_index,
+      original_response,
+      correction,
+      correction_type = 'other',
+      user_message = '',
+      pkg_version = 'compact'
+    } = req.body;
+
+    if (!correction || correction.trim() === '') {
+      return res.status(400).json({ error: 'correction text is required' });
+    }
+
+    const id = `corr_${Date.now()}`;
+    const record = {
+      id,
+      timestamp: new Date().toISOString(),
+      pkg_version,
+      user_message,
+      original_response: original_response || '',
+      correction: correction.trim(),
+      correction_type,
+      message_index: typeof message_index === 'number' ? message_index : null
+    };
+
+    const corrections = await loadCorrections();
+    corrections.push(record);
+    await saveCorrections(corrections);
+
+    res.json({ id, saved: true });
+  } catch (err) {
+    console.error('Correction save error:', err);
+    res.status(500).json({ error: 'Failed to save correction', message: err.message });
+  }
+});
+
+// GET /api/llm/digital-twin/corrections/analyze
+// Analyze corrections and suggest PKG edits
+router.get('/digital-twin/corrections/analyze', async (req, res) => {
+  try {
+    if (!process.env.ANTHROPIC_API_KEY) {
+      return res.status(503).json({ error: 'API key not configured' });
+    }
+
+    const corrections = await loadCorrections();
+    if (corrections.length === 0) {
+      return res.json({ suggestions: [], message: 'No corrections to analyze' });
+    }
+
+    const pkgContent = await loadPKGFile('compact');
+    if (!pkgContent) {
+      return res.status(500).json({ error: 'Failed to load PKG' });
+    }
+
+    const client = getClient();
+
+    const correctionsText = corrections.map((c, i) =>
+      `[${c.id}] Type: ${c.correction_type}\n` +
+      `User asked: ${c.user_message}\n` +
+      `Twin said: ${c.original_response}\n` +
+      `Correction: ${c.correction}`
+    ).join('\n\n---\n\n');
+
+    const analysisPrompt = `You are analyzing corrections made to a digital twin chatbot. The twin is supposed to accurately represent the voice, opinions, and knowledge of a specific person (Chris) based on a Personal Knowledge Graph (PKG).
+
+Here is the current PKG:
+<pkg>
+${pkgContent}
+</pkg>
+
+Here are the corrections that have been flagged (where the twin's response did not accurately represent Chris):
+<corrections>
+${correctionsText}
+</corrections>
+
+Based on these corrections, identify specific edits that should be made to the PKG to improve accuracy. Return a JSON array of suggestions. Each suggestion must have:
+- "section": which section of the PKG to edit (e.g. "voice", "opinions/design", "expertise")
+- "current_text": the approximate text that currently exists (or "missing" if it's an omission)
+- "suggested_edit": the specific change to make
+- "reasoning": why this edit would fix the pattern
+- "based_on_corrections": array of correction IDs that motivated this suggestion
+
+Return ONLY valid JSON. No markdown, no preamble.`;
+
+    const response = await client.messages.create({
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 1024,
+      messages: [{ role: 'user', content: analysisPrompt }]
+    });
+
+    let suggestions;
+    try {
+      suggestions = JSON.parse(response.content[0].text);
+    } catch {
+      suggestions = [{ raw: response.content[0].text, parse_error: true }];
+    }
+
+    res.json({
+      suggestions,
+      correction_count: corrections.length,
+      model: 'claude-haiku-4-5-20251001'
+    });
+
+  } catch (err) {
+    console.error('Corrections analyze error:', err);
+    res.status(500).json({ error: 'Analysis failed', message: err.message });
+  }
+});
+
+// POST /api/llm/digital-twin
+// Multi-turn conversation with Chris's digital twin (with streaming)
+router.post('/digital-twin', async (req, res) => {
+  try {
+    const {
+      message,
+      history = [],
+      pkg_version = 'compact'
+    } = req.body;
+
+    if (!message) {
+      return res.status(400).json({ error: 'Message is required' });
+    }
+
+    // Check if API key is configured
+    if (!process.env.ANTHROPIC_API_KEY) {
+      return res.json({
+        text: '[Digital twin unavailable - no API key configured]\n\nMessage received: "' + message + '"\n\nSet ANTHROPIC_API_KEY environment variable to enable the digital twin.',
+        stub: true,
+        note: 'Set ANTHROPIC_API_KEY to enable digital twin conversations'
+      });
+    }
+
+    // Load PKG as system prompt
+    const pkgContent = await loadPKGFile(pkg_version);
+    if (!pkgContent) {
+      return res.status(500).json({ error: 'Failed to load PKG file' });
+    }
+
+    const config = await loadConfig();
+    const client = getClient();
+
+    // Build system prompt with PKG
+    const systemPrompt = `${pkgContent}
+
+---
+
+## CONVERSATION GUIDELINES
+
+You are in a conversation. Respond naturally and authentically as Chris would. Keep responses concise and conversational—not lengthy treatises.
+
+When responding:
+- Stay true to your voice, opinions, and patterns
+- Don't over-explain or be verbose
+- Engage directly with what's asked
+- Show your thinking when it's interesting to show
+- Be honest about uncertainty or disagreement
+- Reference your work, experiences, and values when relevant
+
+Remember: You're Chris talking to someone. Not an AI pretending to be Chris.`;
+
+    // Build messages array with history
+    const messages = [
+      ...history.map(msg => ({
+        role: msg.role,
+        content: msg.content
+      })),
+      {
+        role: 'user',
+        content: message
+      }
+    ];
+
+    // Set SSE headers
+    res.setHeader('Content-Type', 'text/event-stream');
+    res.setHeader('Cache-Control', 'no-cache');
+    res.setHeader('Connection', 'keep-alive');
+    res.flushHeaders();
+
+    // Stream with Anthropic SDK
+    const stream = await client.messages.stream({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 512,
+      temperature: 0.7,
+      system: [
+        {
+          type: 'text',
+          text: systemPrompt,
+          cache_control: { type: 'ephemeral' }
+        }
+      ],
+      messages: messages
+    });
+
+    // Stream text deltas
+    stream.on('text', (text) => {
+      res.write(`data: ${JSON.stringify({ type: 'delta', text })}\n\n`);
+    });
+
+    // Send usage on completion
+    stream.on('finalMessage', (msg) => {
+      res.write(`data: ${JSON.stringify({
+        type: 'done',
+        usage: {
+          input_tokens: msg.usage.input_tokens,
+          output_tokens: msg.usage.output_tokens
+        },
+        pkg_version
+      })}\n\n`);
+      res.end();
+    });
+
+    // Handle stream errors
+    stream.on('error', (err) => {
+      console.error('Stream error:', err);
+      res.write(`data: ${JSON.stringify({ type: 'error', message: err.message })}\n\n`);
+      res.end();
+    });
+
+    // Handle client disconnect
+    req.on('close', () => {
+      try {
+        stream.controller?.abort?.();
+      } catch (e) {
+        // ignore abort errors
+      }
+    });
+
+  } catch (err) {
+    console.error('Digital twin error:', err);
+    if (!res.headersSent) {
+      res.status(500).json({ error: 'Digital twin conversation failed', message: err.message });
+    } else {
+      res.write(`data: ${JSON.stringify({ type: 'error', message: err.message })}\n\n`);
+      res.end();
+    }
+  }
 });
 
 export default router;
