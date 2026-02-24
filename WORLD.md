@@ -35,9 +35,13 @@ The current app-centric computing model creates cognitive overload through:
 
 ### 1.3 The Core Thesis
 
-**Question:** How can interaction design preserve human agency and meaningful oversight while delivering genuine automation benefits like reduced cognitive load, decreased screen dependence, and proactive assistance?
+**Goal:** Augment human intelligence and capability — extend what people can do and think. Not replace them.
 
-**Argument:** Convenience and control are not necessarily zero-sum opposites. LifeOS demonstrates that automation can enhance rather than erode human agency—if the interaction model is designed thoughtfully.
+**The paradox that goal creates:** A system capable enough to genuinely augment you is also capable enough to quietly replace you. The more it anticipates, the less you have to think. That is not a bug to be designed away — it is the honest condition of any sufficiently capable system.
+
+**What the thesis does:** It does not resolve this tension. It holds it honestly, designs into it, and makes it visible. Convenience and control are not zero-sum — that dichotomy is a design failure — but the tension does not disappear with good design either.
+
+**The argument:** LifeOS demonstrates that genuine augmentation is possible if the interaction model is designed thoughtfully. It also demonstrates that any system capable of genuine augmentation requires serious design scrutiny.
 
 ---
 

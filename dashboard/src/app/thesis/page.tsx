@@ -3,6 +3,17 @@
 import { useEffect, useState } from 'react';
 import { fetchThesis } from '@/lib/api';
 
+interface DesignPrinciple {
+  name: string;
+  description: string;
+}
+
+interface Deliverable {
+  id: string;
+  name: string;
+  description: string;
+}
+
 interface Contribution {
   id: string;
   name: string;
@@ -13,12 +24,17 @@ interface ThesisData {
   id: string;
   name: string;
   description: string;
+  opening_statement: string;
+  goal: string;
   problem_statement: string;
   context: string;
-  research_question: string;
+  paradox: string;
+  narrative_arc: string;
   approach: string;
   core_tension: string;
   scope_and_limitations: string;
+  design_principles: DesignPrinciple[];
+  deliverables: Deliverable[];
   contributions: Contribution[];
 }
 
@@ -68,6 +84,19 @@ export default function ThesisPage() {
 
       {/* Main Content Grid */}
       <div className="space-y-6">
+
+        {/* Opening Statement */}
+        {thesis.opening_statement && (
+          <section className="glass rounded-2xl overflow-hidden bg-gradient-to-br from-gray-50 to-slate-50">
+            <div className="px-6 py-4 border-b border-black/5">
+              <h2 className="text-lg font-medium text-black">Opening Statement</h2>
+            </div>
+            <div className="px-6 py-5">
+              <p className="text-black/60 text-[12pt] leading-relaxed whitespace-pre-line">{thesis.opening_statement}</p>
+            </div>
+          </section>
+        )}
+
         {/* Problem Statement */}
         <section className="glass rounded-2xl overflow-hidden">
           <div className="px-6 py-4 border-b border-black/5">
@@ -88,15 +117,41 @@ export default function ThesisPage() {
           </div>
         </section>
 
-        {/* Research Question */}
-        {/* <section className="glass rounded-2xl overflow-hidden bg-gradient-to-br from-purple-50 to-pink-50">
-          <div className="px-6 py-4 border-b border-purple-200/50">
-            <h2 className="text-lg font-medium text-black">Research Question</h2>
-          </div>
-          <div className="px-6 py-5">
-            <p className="text-black/60 text-[12pt] leading-relaxed whitespace-pre-line">{thesis.research_question}</p>
-          </div>
-        </section> */}
+        {/* Goal */}
+        {thesis.goal && (
+          <section className="glass rounded-2xl overflow-hidden bg-gradient-to-br from-emerald-50 to-teal-50">
+            <div className="px-6 py-4 border-b border-emerald-200/50">
+              <h2 className="text-lg font-medium text-black">Goal</h2>
+            </div>
+            <div className="px-6 py-5">
+              <p className="text-black/60 text-[12pt] leading-relaxed whitespace-pre-line">{thesis.goal}</p>
+            </div>
+          </section>
+        )}
+
+        {/* The Paradox */}
+        {thesis.paradox && (
+          <section className="glass rounded-2xl overflow-hidden bg-gradient-to-br from-red-50 to-orange-50">
+            <div className="px-6 py-4 border-b border-red-200/50">
+              <h2 className="text-lg font-medium text-black">The Paradox</h2>
+            </div>
+            <div className="px-6 py-5">
+              <p className="text-black/60 text-[12pt] leading-relaxed whitespace-pre-line">{thesis.paradox}</p>
+            </div>
+          </section>
+        )}
+
+        {/* Narrative Arc */}
+        {thesis.narrative_arc && (
+          <section className="glass rounded-2xl overflow-hidden">
+            <div className="px-6 py-4 border-b border-black/5">
+              <h2 className="text-lg font-medium text-black">Narrative Arc</h2>
+            </div>
+            <div className="px-6 py-5">
+              <p className="text-black/60 text-[12pt] leading-relaxed whitespace-pre-line">{thesis.narrative_arc}</p>
+            </div>
+          </section>
+        )}
 
         {/* Approach */}
         <section className="glass rounded-2xl overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-50">
@@ -128,6 +183,40 @@ export default function ThesisPage() {
           </div>
         </section>
 
+        {/* Design Principles */}
+        {thesis.design_principles && thesis.design_principles.length > 0 && (
+          <section className="glass rounded-2xl overflow-hidden">
+            <div className="px-6 py-4 border-b border-black/5">
+              <h2 className="text-lg font-medium text-black">Design Principles</h2>
+            </div>
+            <div className="divide-y divide-black/5">
+              {thesis.design_principles.map((principle, i) => (
+                <div key={i} className="px-6 py-4">
+                  <h3 className="text-[0.95rem] font-semibold text-gray-800 mb-1">{principle.name}</h3>
+                  <p className="text-black/60 text-sm leading-relaxed">{(principle.description || '').trim()}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Deliverables */}
+        {thesis.deliverables && thesis.deliverables.length > 0 && (
+          <section className="glass rounded-2xl overflow-hidden bg-gradient-to-br from-purple-50 to-violet-50">
+            <div className="px-6 py-4 border-b border-purple-200/50">
+              <h2 className="text-lg font-medium text-black">Deliverables</h2>
+            </div>
+            <div className="divide-y divide-black/5">
+              {thesis.deliverables.map((deliverable) => (
+                <div key={deliverable.id} className="px-6 py-4">
+                  <h3 className="text-[0.95rem] font-semibold text-gray-800 mb-1">{deliverable.name}</h3>
+                  <p className="text-black/60 text-sm leading-relaxed">{(deliverable.description || '').trim()}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
         {/* Contributions */}
         <section className="space-y-4 mt-24 mb-62">
           <h2 className="text-2xl ml-6 font-medium text-black">Contributions</h2>
@@ -142,6 +231,7 @@ export default function ThesisPage() {
             </div>
           ))}
         </section>
+
       </div>
     </div>
   );

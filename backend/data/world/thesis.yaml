@@ -1,62 +1,138 @@
 id: bargaining-with-the-future
 name: Bargaining with the Future
-description: Automation, Agency, and the Design of Personal AI Systems
+description: Agency, Automation and the OS of 2030
+
+opening_statement: |
+  The app paradigm was designed for a simpler information world — discrete tasks, deliberate
+  navigation, a user with time and attention to manage their own context. It was sufficient then.
+  Today's information environment is continuous, multimodal, and relentless — and the paradigm
+  is increasingly unsuitable for it. We adapted. Our operating systems didn't.
+
+  This thesis envisions LifeOS — an intent-based, context-aware operating system for 2030 designed
+  to augment human intelligence and capability by closing the gap between context and assistance.
+  But in designing it, a harder question emerges: a system capable enough to genuinely augment you
+  is also capable enough to quietly replace you. The more it anticipates, the less you have to think.
+  And the less you have to think, the more you have to ask — what exactly are you preserving your
+  agency for?
+
+goal: >
+  To augment human intelligence and capability — to extend what people can do and think, not to
+  replace them. This goal is both the positive vision the thesis pursues and the source of its
+  central design paradox.
+
 problem_statement: >
-  Digital interaction demands constant cognitive labor: selecting tools, managing fragmented context,
-  navigating rapid transitions. This produces digital fatigue—not from technology use itself, but
-  from the overhead of operating technology.
+  The app paradigm — introduced in 2007 — was designed for a world of scarce information, discrete
+  tasks, and deliberate user navigation. That world no longer reflects reality. Today's information
+  environment is continuous, multimodal, and relentless. The paradigm is not broken — it is
+  insufficient. It cannot keep up with how information travels and is consumed today.
+
 context: >
-  The app-centric paradigm forces users to maintain context across fragmented tools. AI assistance
-  promises relief but creates new friction: systems that optimize on users' behalf often feel
-  alien. Users report feeling disconnected from decisions made in their name—a loss of agency that
-  undermines the automation benefit.
-research_question: >
-  What interaction patterns enable AI systems to reduce cognitive overhead while maintaining user
-  agency? Can automation boundaries, override mechanisms, and value alignment be made structural
-  rather than optional?
-approach: >
-  This thesis explores these questions through LifeOS—a speculative mode-intent architecture where:
+  AI and LLMs are already augmenting human intelligence. But the current paradigm still requires
+  the user to initiate, prompt, and manage the interaction — the burden of orchestration remains
+  human. The thesis asks what happens when that model inverts: when the system is proactive,
+  context-aware, and closes the loop between intent and assistance without requiring explicit prompting.
 
+paradox: >
+  A system capable enough to genuinely augment you is also capable enough to quietly replace you.
+  You stop navigating because the system navigates for you. You stop deciding because the system
+  anticipates your decisions. The augmentation becomes substitution — invisibly, gradually, without
+  your explicit consent.
 
-  1. Context determines available actions (modes)
+  This reframes what "good design" means for LifeOS. The success condition is not just reduced
+  friction or alleviated cognitive load. It is: does this system make you more capable over time,
+  or less?
 
-  2. Users select from system-surfaced options (intents)
+narrative_arc: >
+  Chris began designing LifeOS as a genuinely beneficial system — a visionary exploration of a
+  better future. Through the process of designing it, he discovered that the future it represents
+  is genuinely uncomfortable and demands serious interrogation.
 
-  3. Decisions align with articulated values (constitutional frameworks)
+  The same proactivity that makes the system powerful is what makes it dangerous. The same
+  capability that augments you is what could replace you. That discovery — arriving through the
+  act of designing, not through prior theory — is itself a core part of the thesis.
 
+  His role is both simultaneously: the designer who believes in this future and is building it as
+  well as it can be built, and the designer who has looked at it clearly enough to know it requires
+  scrutiny.
 
-  The architecture makes a specific bet: that explicit automation boundaries and structured override
-  paths can preserve agency while delivering convenience. Future self-continuity research suggests
-  this bet may work—when users feel connected to the "future self" the system optimizes for,
-  proactive assistance feels helpful rather than imposing.
 core_tension: >
-  Every design decision negotiates the same tradeoff: present autonomy vs. future benefit. When
-  should the system act as "future you's advocate"? How much override friction maintains agency
-  without recreating cognitive overhead? These questions have no universal answers—only
-  context-dependent negotiations.
+  The thesis does not resolve the automation-agency tension. It holds it honestly. Convenience
+  and control are not zero-sum — that dichotomy is a design failure — but the tension does not
+  disappear with good design. LifeOS makes the tension visible, holds it seriously, and designs
+  into it rather than around it.
+
+approach: >
+  This thesis explores the tension through LifeOS — a speculative intent-based operating system
+  set in 2030, designed with full conviction toward genuine benefit:
+
+  1. Modes define contextual solution space (orchestrator-managed, automatically entered)
+
+  2. Intents represent user goals within that space (always user-selected, never auto-executed)
+
+  3. Constitutional frameworks align system behavior with user-articulated values
+
+  4. The Dashboard makes what the system decided visible, auditable, and correctable
+
+  The architecture is canonical and core to the design thinking, even where it recedes into the
+  background on the marketing site. Any discomfort that arises from LifeOS is either an identified
+  design problem or an honest surfacing of the augmentation-agency paradox — not a deliberate
+  provocation.
+
 scope_and_limitations: >
-  Due to the scope of such a problem, this thesis likely won't be able to solve nor pretend to
-  propose a solution to this tension. 
+  The thesis does not claim to resolve the augmentation-agency tension. It holds it honestly
+  and makes it visible. The contribution is:
 
+  1. A specific and coherent speculative design artifact (LifeOS) that demonstrates the tension
+     is real, persistent, and worth serious design attention
 
-  1. The tension is real, persistent, and underexplored — Neither tech-optimist framing (automation
-  is unambiguously good) nor tech-critical framing (automation necessarily erodes agency) provides
-  useful guidance for practitioners
+  2. A vocabulary for engaging with it (mode-intent architecture, constitutional framework,
+     attention triage) — specific enough to debate actual design decisions
 
+  3. The narrative of a designer who built the future he believed in, and then had to reckon
+     with it — which is itself the argument
 
-  2. Mode-intent provides structural vocabulary for engaging with it — Rather than abstract debates
-  about "AI and autonomy," designers can examine specific questions: How should mode confidence
-  thresholds work? What makes intent surfacing feel helpful vs. manipulative? Where should override
-  friction sit?
+design_principles:
+  - name: Augment, don't replace
+    description: >
+      Every design decision is evaluated against one question: does this make the user more
+      capable over time, or less? Automation that atrophies human capability is a design failure,
+      regardless of how convenient it feels.
+  - name: Automation must be reversible, explainable, and auditable
+    description: Instant undo. Plain-language explanations. Dashboard audit trail.
+  - name: Freedom through explicit trade-offs
+    description: >
+      Context switching always possible. Friction surfaces costs — it doesn't obstruct. Freedom
+      means informed choice, not frictionless compliance.
+  - name: No punishment, no shame, no dead ends
+    description: Every state has an exit. Override patterns become learning signals.
+  - name: Orchestrator as guardian
+    description: >
+      Final oversight over provider-supplied content. Validates against constitutional rules.
+      Constructs experiences serving user values, not provider business models.
+  - name: Bounded experiences, not infinite feeds
+    description: Completion designed in. Escalation to open-ended consumption is explicit and user-initiated.
+  - name: Convenience and control are not zero-sum
+    description: That dichotomy is a design failure. Good design can deliver automation benefits while preserving meaningful human oversight.
 
+deliverables:
+  - id: marketing-site
+    name: Marketing website
+    description: >
+      Primary delivery vehicle. In the tradition of Apple product pages — focused entirely on
+      what LifeOS does for you as a user, not how it works technically. Polished, believable, world-building.
+  - id: hifi-frames
+    name: High-fidelity frames
+    description: Detailed visual design of key LifeOS interactions.
+  - id: video-flows
+    name: Animated video flow mockups
+    description: Motion-designed walkthroughs of core flows.
+  - id: prototypes
+    name: Functional prototypes
+    description: >
+      Lo-to-mid fidelity interactive prototypes of three interactions that tell the thesis arc:
+      constitutional setup (the bargain is struck), intent surfacing (living with it), and
+      the Dashboard (auditing what was decided without you).
 
-  3. LifeOS serves as reference architecture, not prescription — A sufficiently specified
-  speculative system that enables concrete debate about design decisions, rather than speculation
-  from scratch
-
-
-  The contribution is a platform for informed engagement with this tension—not a claim to have
-  solved it.
 contributions:
   - id: mode-intent-architecture
     name: Mode-intent as interaction architecture
@@ -69,18 +145,18 @@ contributions:
 
       - Generative UI constructs purpose-built interfaces to serve selected intents
 
-
       This architecture proposes that the application layer becomes obsolete when the system can
       determine context, surface relevant intents, and generate interfaces to serve them.
   - id: lifeos-artifact
     name: LifeOS as speculative design artifact
     description: >
-      A fully-realized reference system that:
-
-      - Demonstrates mode-intent architecture in concrete detail
-
-      - Makes the automation-agency tension visible and debatable at the level of specific design
-      decisions
-
-      - Provides practitioners a platform for exploring human-AI interaction paradigms without
-      starting from zero
+      A fully-realized near-future system that demonstrates the mode-intent architecture in
+      concrete detail, makes the augmentation-agency paradox visible and debatable at the
+      level of specific design decisions, and gives practitioners a platform for exploring
+      human-AI interaction paradigms without starting from scratch.
+  - id: design-narrative
+    name: The design narrative itself
+    description: >
+      The evolution from visionary to critic through the act of designing — arriving at
+      discomfort not through prior theory but through the process of building something
+      genuinely intended to be beneficial. That arc is both the methodology and the finding.
