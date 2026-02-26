@@ -41,7 +41,7 @@ For iOS Simulator to access localhost, add this to your `Info.plist`:
 Make sure the LifeOS backend is running:
 
 ```bash
-cd /path/to/lifeos-platform/backend
+cd /path/to/lifeos/backend
 npm install  # First time only
 npm start
 ```

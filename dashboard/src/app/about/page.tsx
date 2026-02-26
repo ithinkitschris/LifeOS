@@ -45,7 +45,7 @@ export default function AboutPage() {
           <div className="px-6 py-5">
             <div className="space-y-4 text-black/60 text-[12pt] leading-relaxed">
             <p>
-              The broader <strong>lifeos-platform</strong> repository is a thesis research tool exploring a
+              The broader <strong>LifeOS</strong> repository is a thesis research tool exploring a
               fundamental design question:
             </p>
             <blockquote className="border-l-4 border-gray-300 pl-6 italic text-gray-700 my-6">

@@ -37,7 +37,7 @@ npm run dev
 ## Project Structure
 
 ```
-lifeos-platform/
+lifeos/
 ├── backend/
 │   ├── api/                    # Express server
 │   │   ├── server.js           # Main entry point

@@ -30,7 +30,7 @@
 - Deep PKG integration, first proof of concept for the framework
 - Claude Sonnet 4.6, streaming SSE, tool use
 
-### lifeos-platform (current thesis) — functional, speculative
+### lifeos (current thesis) — functional, speculative
 - World canon (800 lines), synthetic user Marcus (1,740 lines), dashboard (18 pages), API
 - Strong thesis argument: augmentation-agency paradox
 - Core concepts: Domain > Mode > Intent > UI, Center/Periphery/Silence, Constitutional Framework
