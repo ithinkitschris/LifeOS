@@ -1,18 +1,30 @@
-export const dynamic = 'force-static';
 import { NextResponse } from 'next/server';
-import { getDay, getDayDates } from '@/lib/data-loader';
-import { readOnly } from '@/lib/readonly';
+import { getPrototypeDays, savePrototypeDays } from '@/lib/fs-data';
+import fs from 'fs';
+import path from 'path';
 
-export function generateStaticParams() {
-  return getDayDates().map(date => ({ date }));
+const IMAGES_DIR = path.join(process.cwd(), '..', 'data', 'prototypes', 'images');
+
+export async function DELETE(
+  _request: Request,
+  { params }: { params: Promise<{ date: string }> }
+) {
+  const { date } = await params;
+  const data = getPrototypeDays() ?? { days: [] };
+  const before = data.days?.length ?? 0;
+  data.days = (data.days ?? []).filter((d: any) => d.date !== date);
+
+  if (data.days.length === before) {
+    return NextResponse.json({ error: 'Day not found' }, { status: 404 });
+  }
+
+  savePrototypeDays(data);
+
+  // Clean up images directory for this date
+  const dayImagesDir = path.join(IMAGES_DIR, date);
+  if (fs.existsSync(dayImagesDir)) {
+    fs.rmSync(dayImagesDir, { recursive: true });
+  }
+
+  return NextResponse.json({ success: true, deleted: date });
 }
-
-export function GET(_req: Request, { params }: { params: Promise<{ date: string }> }) {
-  return params.then(({ date }) => {
-    const day = getDay(date);
-    if (!day) return NextResponse.json({ error: 'Day not found' }, { status: 404 });
-    return NextResponse.json(day);
-  });
-}
-
-export const DELETE = readOnly;

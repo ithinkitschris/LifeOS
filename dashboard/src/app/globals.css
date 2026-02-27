@@ -244,3 +244,12 @@ select:focus {
   border-color: rgba(0, 140, 255, 0.4);
   box-shadow: 0 0 0 3px rgba(0, 140, 255, 0.1);
 }
+
+/* ============================================
+   SIMULATION PAGE — streaming cursor blink
+   ============================================ */
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}

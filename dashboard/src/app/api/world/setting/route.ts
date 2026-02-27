@@ -1,10 +1,12 @@
-export const dynamic = 'force-static';
 import { NextResponse } from 'next/server';
-import { getWorldSetting } from '@/lib/data-loader';
-import { readOnly } from '@/lib/readonly';
+import { getWorldSetting, saveWorldSetting } from '@/lib/fs-data';
 
 export function GET() {
   return NextResponse.json(getWorldSetting());
 }
 
-export const PUT = readOnly;
+export async function PUT(request: Request) {
+  const body = await request.json();
+  saveWorldSetting(body);
+  return NextResponse.json(getWorldSetting());
+}

@@ -1,19 +1,22 @@
-export const dynamic = 'force-static';
 import { NextResponse } from 'next/server';
-import { getDomain, getDomainIds } from '@/lib/data-loader';
-import { readOnly } from '@/lib/readonly';
+import { getDomain, saveDomain } from '@/lib/fs-data';
 
-export function generateStaticParams() {
-  return getDomainIds().map(id => ({ id }));
+export async function GET(
+  _request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params;
+  const domain = getDomain(id);
+  if (!domain) return NextResponse.json({ error: 'Not found' }, { status: 404 });
+  return NextResponse.json({ id, ...domain });
 }
 
-export function GET(_req: Request, { params }: { params: Promise<{ id: string }> }) {
-  return params.then(({ id }) => {
-    const domain = getDomain(id);
-    if (!domain) return NextResponse.json({ error: 'Domain not found' }, { status: 404 });
-    return NextResponse.json(domain);
-  });
+export async function PUT(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params;
+  const body = await request.json();
+  saveDomain(id, body);
+  return NextResponse.json({ id, ...getDomain(id) });
 }
-
-export const PUT = readOnly;
-export const DELETE = readOnly;

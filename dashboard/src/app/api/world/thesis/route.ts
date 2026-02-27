@@ -1,10 +1,12 @@
-export const dynamic = 'force-static';
 import { NextResponse } from 'next/server';
-import { getWorldThesis } from '@/lib/data-loader';
-import { readOnly } from '@/lib/readonly';
+import { getWorldThesis, saveWorldThesis } from '@/lib/fs-data';
 
 export function GET() {
   return NextResponse.json(getWorldThesis());
 }
 
-export const PUT = readOnly;
+export async function PUT(request: Request) {
+  const body = await request.json();
+  saveWorldThesis(body);
+  return NextResponse.json(getWorldThesis());
+}

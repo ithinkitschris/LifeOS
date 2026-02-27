@@ -1,10 +1,7 @@
-export const dynamic = 'force-static';
 import { NextResponse } from 'next/server';
-import { getPrototypeRegistry } from '@/lib/data-loader';
-import { readOnly } from '@/lib/readonly';
+import { getPrototypeRegistry } from '@/lib/fs-data';
 
 export function GET() {
-  return NextResponse.json(getPrototypeRegistry());
+  const data = getPrototypeRegistry();
+  return NextResponse.json({ prototypes: data?.prototypes ?? [] });
 }
-
-export const POST = readOnly;

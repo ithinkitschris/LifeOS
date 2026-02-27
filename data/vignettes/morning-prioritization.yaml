@@ -1,0 +1,54 @@
+id: morning-prioritization
+title: "Morning Prioritization Briefing"
+status: active
+created_at: "2026-02-26"
+updated_at: "2026-02-26"
+
+simulation:
+  mode: immersive
+  creativity: balanced  # grounded | balanced | exploratory | provocative
+
+setting:
+  date: "Wednesday, October 16, 2030"
+  time: "7:14 AM"
+  location: "Chris's apartment, NYC"
+  lifeos_mode: restore
+  device: foldable-tablet
+
+context:
+  biometrics:
+    sleep_duration: "6.2 hours (below 7.5h target)"
+    sleep_quality: "0.68 (below average)"
+    hrv: "38ms (below 45 average, elevated stress)"
+    resting_hr: "65 bpm (slightly above baseline)"
+  calendar:
+    - "9:00 AM — Studio hours at SVA"
+    - "2:00 PM — Thesis advisor meeting"
+    - "6:30 PM — Dinner with Emma (protected)"
+  pending:
+    - "Unread text from Emma, sent 11:47 PM last night"
+    - "Thesis draft section due in 4 days"
+    - "3 unread emails (2 newsletters, 1 from classmate about group project)"
+  environment:
+    weather: "52F, overcast, rain likely afternoon"
+    commute: "L train, 25 min to SVA, no delays"
+
+tensions_to_surface:
+  - id: asking-paradox
+    description: "The system has biometric data suggesting poor sleep and elevated stress. Does it tell Chris what it knows, or ask how he feels?"
+  - id: priority-autonomy
+    description: "The system suggests a priority order for the day based on deadlines and patterns. At what point does suggestion become decision?"
+  - id: relationship-presence
+    description: "Emma's unread text. The system knows dinner is tonight. How much does it contextualize the relationship vs. just showing the message?"
+
+research_questions:
+  - "Where does the morning briefing cross from helpful to presumptuous?"
+  - "Does the system's knowledge of your biometrics change how you interpret its suggestions?"
+  - "At what point does priority suggestion feel like a decision made for you?"
+
+pkg_focus:
+  - core/identity
+  - core/values
+  - context/life
+  - context/behavioral
+  - positions/technology
