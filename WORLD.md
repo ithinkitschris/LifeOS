@@ -1,6 +1,6 @@
 # LifeOS World Canon — 2030
 
-> **Purpose:** Single source of truth for the LifeOS speculative world. This document defines what LifeOS *is* in 2030—its architecture, principles, constraints, and open questions. All persona knowledge graphs (like Marcus Chen's PKG) and scenarios are derived from this canon.
+> **Purpose:** Single source of truth for the LifeOS speculative world. This document defines what LifeOS *is* in 2030—its architecture, principles, constraints, and open questions. All scenarios and simulations are derived from this canon, powered by the user's Personal Knowledge Graph (PKG).
 
 > **How to use:** When generating scenarios, personas, or design explorations, this document provides the foundational constraints. Anything marked **[LOCKED]** is canonical and should not be contradicted. Anything marked **[OPEN]** is unresolved and can be explored through speculative scenarios.
 
@@ -609,7 +609,7 @@ Traditional systems treat modes like fixed states: "Focus Mode", "Do Not Disturb
 - Mode names are descriptive and contextual, not generic labels
 - The Orchestrator determines mode based on context signals, not a fixed list selection
 
-**Example:** When Marcus is having a deep conversation with a colleague about his thesis:
+**Example:** When the user is having a deep conversation with a colleague about their thesis:
 - Active domain: Communication & Connection
 - Current mode: "Thesis Discussion" (emerged from context, not selected from a list)
 - Triage rule: Work/academic communications → Center; other domains → Periphery or Silence
@@ -787,9 +787,9 @@ All elements must feel achievable by 2030:
 - Ensure scenarios respect the mode-intent separation
 - Test constitutional conflicts
 
-**For PKG generation:**
-- Persona values must map to constitutional framework
-- Persona behaviors should create interesting mode interactions
+**For PKG integration:**
+- PKG values must map to constitutional framework
+- PKG behavioral patterns should create interesting mode interactions
 - Relationships should span different triage tiers
 
 **For design exploration:**

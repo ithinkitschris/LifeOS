@@ -12,8 +12,8 @@ global_rules:
   
   # Things that ALWAYS reach center (true emergencies)
   always_center:
-    - condition: "message.from == 'emma_zhao' AND message.marked_urgent == true"
-      reason: "Partner emergency"
+    - condition: "message.from IN pkg.contacts.tier_1 AND message.marked_urgent == true"
+      reason: "Inner circle emergency (from PKG relationship tiers)"
       
     - condition: "notification.type == 'emergency_alert'"
       reason: "System emergency"
@@ -45,26 +45,26 @@ global_rules:
 contact_priority:
   
   tier_1_always_accessible:
-    contacts: ["emma_zhao"]
+    contacts: "pkg.relationships.tier_1"  # Loaded from PKG inner circle
     behavior:
       during_focus: "periphery with gentle indicator"
       during_social: "periphery, silent"
       during_rest: "center"
       during_navigation: "periphery with haptic"
-    rationale: "Partner has standing permission to reach Marcus"
+    rationale: "Inner circle contacts have standing permission to reach the user (from PKG)"
     
   tier_2_high_priority:
-    contacts: ["mei_chen", "james_okonkwo", "priya_sharma"]
+    contacts: "pkg.relationships.tier_2"  # Loaded from PKG high-priority contacts
     behavior:
       during_focus: "silence unless urgent signals"
       during_social: "silence"
       during_rest: "periphery"
       during_navigation: "periphery"
-      during_work: "periphery for priya_sharma, silence for others"
+      during_work: "periphery for professional contacts, silence for others"
     rationale: "Important relationships, but can wait for mode-appropriate moment"
     
   tier_3_professional:
-    contacts: ["sarah_mitchell", "work_contacts"]
+    contacts: "pkg.relationships.tier_3"  # Loaded from PKG professional contacts
     behavior:
       during_focus: "silence"
       during_social: "silence"
@@ -141,7 +141,7 @@ temporal_rules:
   time_of_day:
     early_morning:  # before 8am
       bias: "silence"
-      exceptions: ["calendar_alerts", "emma_zhao"]
+      exceptions: ["calendar_alerts", "pkg.contacts.tier_1"]
       rationale: "Protect morning routine"
       
     work_hours:  # 9am-6pm weekdays
@@ -159,12 +159,12 @@ temporal_rules:
       
   day_of_week:
     friday_evening:
-      special_rule: "protect_date_night"
+      special_rule: "protect_evening (from PKG behavioral patterns)"
       all_non_emergency: "silence"
-      
+
     sunday_morning:
-      special_rule: "family_call_time"
-      mei_chen: "center"
+      special_rule: "family_time (from PKG behavioral patterns)"
+      family_contacts: "center"  # From PKG relationship tiers
 
 # ============================================
 # BEHAVIORAL CONTEXT TRIAGE
@@ -175,7 +175,7 @@ behavioral_context:
 
   stress_detected:
     triage_adjustment: "more_aggressive_silencing"
-    only_surface: ["emma_zhao", "genuine_emergency"]
+    only_surface: ["pkg.contacts.tier_1", "genuine_emergency"]
     rationale: "Reduce cognitive load during stress"
     
   flow_state_detected:

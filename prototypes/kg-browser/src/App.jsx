@@ -160,7 +160,7 @@ export default function App() {
                             color: '#7f8c8d',
                             fontSize: '1.1em',
                         }}>
-                            Complete data reference for Marcus Chen's personal knowledge graph
+                            Complete data reference for the personal knowledge graph (PKG)
                         </p>
                     </header>
 

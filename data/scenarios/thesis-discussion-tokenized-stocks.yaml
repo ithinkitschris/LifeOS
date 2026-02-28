@@ -17,12 +17,12 @@ metadata:
   setting:
     date: "Thursday, October 17, 2030"
     time: "2:30 PM"
-    location: "SVA Design Hub, Studio 4, New York City"
+    location: "Design studio (from PKG context)"
     participants:
-      - Marcus Chen
-      - Sarah Chen (close friend, thesis peer)
-      - Naomi (cohort peer)
-      - Jordan (cohort peer)
+      - The user
+      - Close peer (from PKG relationships)
+      - Cohort peer A (presenting)
+      - Cohort peer B
 
   design_questions:
     - "How does LifeOS support learning without interrupting social presence?"
@@ -38,23 +38,23 @@ content: |
 
   **Date:** Thursday, October 17, 2030
   **Time:** 2:30 PM
-  **Location:** SVA Design Hub, Studio 4, New York City
-  **Participants:** Marcus Chen, Sarah Chen, Naomi, Jordan
+  **Location:** Design studio (from PKG context)
+  **Participants:** the user Chen, a close peer, the presenting peer, another cohort peer
 
-  **Context:** Marcus is in a thesis discussion session with three classmates. This is a regular peer support meeting where students present their work-in-progress and discuss theoretical frameworks. Naomi is presenting her thesis on cross-border trading systems. The discussion has been going for about 40 minutes.
+  **Context:** The user is in a thesis discussion session with three classmates. This is a regular peer support meeting where students present their work-in-progress and discuss theoretical frameworks. A cohort peer is presenting their thesis on cross-border trading systems. The discussion has been going for about 40 minutes.
 
   ---
 
   ## The Trigger: An Unfamiliar Term
 
-  Naomi is explaining her research on blockchain-based securities:
+  The presenting peer is explaining their research on blockchain-based securities:
 
-  > **Naomi:** "So the core problem I'm investigating is how tokenized stocks could democratize cross-border investing. Traditional securities are locked to national exchanges, but tokenization creates this interesting tension between accessibility and regulation..."
+  > **the presenting peer:** "So the core problem I'm investigating is how tokenized stocks could democratize cross-border investing. Traditional securities are locked to national exchanges, but tokenization creates this interesting tension between accessibility and regulation..."
 
-  Marcus nods, following along — but internally, he's caught on a term he's never encountered before: **"tokenized stocks."**
+  The user nods, following along — but internally, they've caught on a term they've never encountered before: **"tokenized stocks."**
 
-  He has context clues (blockchain, securities, cross-border) but doesn't have a clear mental model. This is a moment where traditional computing forces a choice:
-  - **Interrupt the discussion** to ask Naomi for clarification (social cost)
+  They have context clues (blockchain, securities, cross-border) but don't have a clear mental model. This is a moment where traditional computing forces a choice:
+  - **Interrupt the discussion** to ask the presenting peer for clarification (social cost)
   - **Pull out phone and Google it** (attention cost, social rudeness)
   - **Pretend to understand** and hope it becomes clear from context (comprehension cost)
   - **Make a mental note** to look it up later (cognitive load, likely forgotten)
@@ -70,9 +70,9 @@ content: |
   ### Mode Activation Reasoning
 
   **Context signals detected:**
-  - Calendar event: "Thesis Group Discussion" with Sarah Chen, Naomi, and Jordan
-  - Location: SVA Design Hub, Studio 4
-  - Co-located contacts: Sarah Chen (inner circle), peers from cohort
+  - Calendar event: "Thesis Group Discussion" with a close peer, the presenting peer, and another cohort peer
+  - Location: Design studio (from PKG)
+  - Co-located contacts: a close peer (inner circle), peers from cohort
   - Audio pattern: Multiple voices, academic vocabulary, turn-taking conversation structure
   - Time: 2:30 PM Thursday (typical thesis work window)
 
@@ -84,21 +84,21 @@ content: |
   - **Presence and active listening** — minimize distractions
   - **Knowledge capture** — record learning opportunities automatically
   - **Just-in-time learning** — support understanding without interrupting flow
-  - **Contribution support** — surface Marcus's relevant knowledge when helpful
+  - **Contribution support** — surface the user's relevant knowledge when helpful
 
   ### Attention Triage in This Mode
 
   | Layer | Content |
   |-------|---------|
-  | **Center** | Current discussion participants, active speaker (Naomi), educational intents when Marcus signals interest |
-  | **Periphery** | Passive capture indicators, time remaining, Emma's messages (counts only), emergency contacts |
+  | **Center** | Current discussion participants, active speaker (the presenting peer), educational intents when the user signals interest |
+  | **Periphery** | Passive capture indicators, time remaining, Partner's messages (from PKG relationships) (counts only), emergency contacts |
   | **Silence** | All other notifications, social media, news, non-urgent email, contract work messages |
 
   ---
 
   ## Passive Intents: What the Orchestrator Does Automatically
 
-  Marcus doesn't need to select these — they happen proactively based on mode context.
+  The user doesn't need to select these — they happen proactively based on mode context.
 
   ### 1. Session Recording & Transcription
 
@@ -110,26 +110,26 @@ content: |
 
   **Surfaced when:** End of discussion as "Discussion Summary"
 
-  **Why this helps:** Marcus doesn't need to take notes manually — he can stay present
+  **Why this helps:** The user doesn't need to take notes manually — they can stay present
 
   ---
 
   ### 2. Unfamiliar Term Detection & Capture
 
   **What happens:**
-  - Orchestrator cross-references discussion audio against Marcus's Personal Knowledge Graph
-  - Detects "tokenized stocks" has never appeared in Marcus's PKG
+  - Orchestrator cross-references discussion audio against the user's Personal Knowledge Graph
+  - Detects "tokenized stocks" has never appeared in the user's PKG
   - Automatically creates learning bookmark:
     - **Term:** "Tokenized Stocks"
-    - **Speaker:** Naomi
+    - **Speaker:** the presenting peer
     - **Context:** "Mentioned during thesis discussion on cross-border trading — democratizing access to securities"
     - **Timestamp:** 2:47 PM
     - **Audio clip:** 30 seconds before and after mention
     - **Related terms mentioned:** blockchain, securities, cross-border investing
 
-  **Surfaced when:** Post-discussion review queue, or when Marcus explicitly asks to explore
+  **Surfaced when:** Post-discussion review queue, or when the user explicitly asks to explore
 
-  **Why this helps:** Learning opportunities are captured automatically without Marcus needing to interrupt the flow to manually bookmark them
+  **Why this helps:** Learning opportunities are captured automatically without the user needing to interrupt the flow to manually bookmark them
 
   ---
 
@@ -137,17 +137,17 @@ content: |
 
   **What happens:**
   - All incoming communications held except emergency-tier contacts
-  - Emma's messages: count indicated in Periphery, content held until discussion ends
+  - Partner's messages (from PKG relationships): count indicated in Periphery, content held until discussion ends
   - Contract client messages: completely suppressed (Silence layer)
-  - Mom's message: counted in Periphery (she's high-priority but not emergency)
+  - Family message: counted in Periphery (high-priority but not emergency, from PKG contact tiers)
   - Triages messages into post-discussion batches:
-    - "Respond today" (Emma, inner circle)
+    - "Respond today" (partner, inner circle)
     - "Respond this week" (professional, cohort logistics)
     - "Review when relevant" (newsletters, updates)
 
-  **Exit condition:** When "Thesis Discussion" mode ends (Marcus leaves location, discussion concludes)
+  **Exit condition:** When "Thesis Discussion" mode ends (the user leaves location, discussion concludes)
 
-  **Why this helps:** Protects Marcus's presence without him manually silencing notifications or worrying about missing important messages
+  **Why this helps:** Protects the user's presence without them manually silencing notifications or worrying about missing important messages
 
   ---
 
@@ -155,7 +155,7 @@ content: |
 
   **What happens:**
   - Listens for mentions of papers, articles, books, frameworks, or tools
-  - When Naomi mentions: "I'm building on the SEC's tokenization framework and this paper from MIT on blockchain governance..."
+  - When the presenting peer mentions: "I'm building on the SEC's tokenization framework and this paper from MIT on blockchain governance..."
   - Orchestrator captures:
     - "SEC tokenization framework" → looks up official document, adds link
     - "MIT paper on blockchain governance" → searches academic databases, finds likely match, adds with confidence indicator
@@ -163,33 +163,33 @@ content: |
     - Full citations where available
     - Links to resources
     - Speaker who mentioned each item
-    - Relevance tags ("Naomi's thesis", "Blockchain", "Regulation")
+    - Relevance tags ("the presenting peer's thesis", "Blockchain", "Regulation")
 
   **Surfaced when:** End of discussion as "Resources mentioned today" summary
 
-  **Why this helps:** Marcus doesn't need to frantically jot down references — the bibliography builds automatically
+  **Why this helps:** The user doesn't need to frantically jot down references — the bibliography builds automatically
 
   ---
 
-  ## Marcus Signals Interest: Active Intent Surfacing
+  ## the user Signals Interest: Active Intent Surfacing
 
-  About 10 minutes later, there's a natural pause in the discussion. Marcus subtly glances at his neural smartwatch — a gesture LifeOS recognizes as a query signal.
+  About 10 minutes later, there's a natural pause in the discussion. The user subtly glances at their neural smartwatch — a gesture LifeOS recognizes as a query signal.
 
   The watch face shows:
   - **1 unfamiliar term captured:** Tokenized stocks
   - **Tap to explore**
 
-  Marcus taps. His foldable tablet (in his bag) sends a haptic pulse. He pulls it out and unfolds it.
+  The user taps. Their foldable tablet (in their bag) sends a haptic pulse. They pull it out and unfold it.
 
   ---
 
-  ## Active Intents: What Marcus Can Choose to Do
+  ## Active Intents: What the user Can Choose to Do
 
   The tablet displays four active intents, constrained by "Thesis Discussion" mode:
 
   ### 1. "What are Tokenized Stocks?" ⭐ (Educational Intent)
 
-  **Entry:** Marcus selects this from offered intents
+  **Entry:** The user selects this from offered intents
 
   **Scope:** Comprehensive educational experience generated by Orchestrator:
   - Quick definition (2-sentence summary)
@@ -197,7 +197,7 @@ content: |
   - Real-world example (Apple stock tokenization case study)
   - Key concepts (expandable: fractional ownership, blockchain, SEC regulation)
   - Video explainer (3:24 from Binance Academy, verified)
-  - Contextual relevance ("Why this matters for Naomi's thesis")
+  - Contextual relevance ("Why this matters for the presenting peer's thesis")
 
   **Completion condition:** "Mark Complete ✓" button or "Save & finish later"
 
@@ -211,7 +211,7 @@ content: |
 
   ### 2. "Quick Context" (Minimal-Interruption Learning)
 
-  **Entry:** Selected when Marcus wants 10-second understanding
+  **Entry:** Selected when the user wants 10-second understanding
 
   **Scope:**
   - 2-sentence definition displayed on Glass AR overlay or tablet glanceable card
@@ -231,10 +231,10 @@ content: |
 
   ### 3. "Connection to My Thesis" (Relevance Analysis)
 
-  **Entry:** Marcus wants to understand how this relates to his own work
+  **Entry:** The user wants to understand how this relates to their own work
 
   **Scope:** Orchestrator analyzes:
-  - Marcus's thesis focus (LifeOS, agency-automation tension, mode-intent architecture)
+  - the user's thesis focus (LifeOS, agency-automation tension, mode-intent architecture)
   - Potential parallels identified:
     - Tokenization = fractional ownership → Modes = fractional attention?
     - Cross-border access tension = regulatory fragmentation → Cross-app context tension = platform fragmentation?
@@ -243,7 +243,7 @@ content: |
   **Output:** Brief analysis card:
   > **Potential connections to LifeOS thesis:**
   >
-  > 1. **Democratization through infrastructure:** Naomi explores how blockchain infrastructure democratizes financial access. Your thesis explores how orchestrator infrastructure democratizes context management.
+  > 1. **Democratization through infrastructure:** the presenting peer explores how blockchain infrastructure democratizes financial access. Your thesis explores how orchestrator infrastructure democratizes context management.
   >
   > 2. **Regulatory tension:** Tokenized stocks create tension between accessibility and regulation (which country's laws?). LifeOS creates tension between automation and agency (who decides?).
   >
@@ -257,15 +257,15 @@ content: |
 
   ### 4. "Surface My Knowledge" (Contribution Support)
 
-  **Entry:** Marcus wants to contribute to discussion using his existing knowledge
+  **Entry:** The user wants to contribute to discussion using their existing knowledge
 
-  **Scope:** Orchestrator searches Marcus's PKG for:
+  **Scope:** Orchestrator searches the user's PKG for:
   - Related concepts (e.g., "design systems as infrastructure", "platform governance", "trust architectures")
-  - Relevant readings from his thesis research
-  - Potential questions to ask Naomi based on parallels to his work
+  - Relevant readings from their thesis research
+  - Potential questions to ask the presenting peer based on parallels to their work
 
   **Output:** 3-4 talking point suggestions:
-  > **You could ask Naomi:**
+  > **You could ask the presenting peer:**
   >
   > - "Have you looked at how trust is established in tokenized systems? I've been reading about constitutional frameworks as trust mechanisms in AI systems — wondering if there's a parallel."
   >
@@ -281,9 +281,9 @@ content: |
 
   ---
 
-  ## Marcus Selects "What are Tokenized Stocks?"
+  ## the user Selects "What are Tokenized Stocks?"
 
-  He taps the first intent. His tablet unfolds fully to tablet scale.
+  They tap the first intent. Their tablet unfolds fully to tablet scale.
 
   ### The Generated UI Experience
 
@@ -294,7 +294,7 @@ content: |
   ```
   ← Exit to Discussion          What are Tokenized Stocks?
 
-  From: Thesis Discussion • Naomi's presentation
+  From: Thesis Discussion • the presenting peer's presentation
   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5 min read
   ```
 
@@ -320,7 +320,7 @@ content: |
   Source: SEC Investor Education • Investopedia
   ```
 
-  **Design note:** Immediate value — Marcus gets the core answer in first 10 seconds.
+  **Design note:** Immediate value — the user gets the core answer in first 10 seconds.
 
   ---
 
@@ -356,7 +356,7 @@ content: |
       → token creation → fractional ownership
   ```
 
-  **Design note:** Visual comparison makes differences concrete. Animation is optional — Marcus controls engagement depth.
+  **Design note:** Visual comparison makes differences concrete. Animation is optional — the user controls engagement depth.
 
   ---
 
@@ -407,7 +407,7 @@ content: |
   ▶ Cross-Border Trading                            [Expand]
   ```
 
-  **Design note:** Progressive disclosure — Marcus controls depth. Not overwhelming with everything at once.
+  **Design note:** Progressive disclosure — the user controls depth. Not overwhelming with everything at once.
 
   ---
 
@@ -448,14 +448,14 @@ content: |
   • But creates regulatory challenges (which country's
     laws apply?)
 
-  Naomi is likely exploring how blockchain infrastructure
+  the presenting peer is likely exploring how blockchain infrastructure
   can democratize access to financial markets across
   borders—and the governance tensions this creates.
 
   Generated by LifeOS based on discussion context
   ```
 
-  **Design note:** Orchestrator-generated insight connecting term to Marcus's immediate context. Shows the system understands WHY Marcus is learning this.
+  **Design note:** Orchestrator-generated insight connecting term to the user's immediate context. Shows the system understands WHY the user is learning this.
 
   ---
 
@@ -472,12 +472,12 @@ content: |
   └──────────────┘  └──────────────┘  └──────────────┘
 
   Related: [Blockchain in Finance] [Fractional Ownership]
-           [Naomi's Thesis Topics]
+           [the presenting peer's Thesis Topics]
   ```
 
   **Action buttons:**
 
-  1. **"Save to Thesis Notes"** — Adds entire learning experience to Marcus's PKG under "Financial Systems Concepts"
+  1. **"Save to Thesis Notes"** — Adds entire learning experience to the user's PKG under "Financial Systems Concepts"
   2. **"Connection to My Work"** — Triggers analysis of parallels to LifeOS architecture
   3. **"Mark Complete ✓"** — Completion condition; returns to Thesis Discussion mode
 
@@ -497,7 +497,7 @@ content: |
   - **Financial Times:** Case studies, market analysis, FTX collapse coverage
   - **Academic databases:** MIT blockchain governance papers
 
-  **Key point:** Providers have no direct access to Marcus. They supply data to the Orchestrator.
+  **Key point:** Providers have no direct access to the user. They supply data to the Orchestrator.
 
   ---
 
@@ -518,7 +518,7 @@ content: |
   - ✗ Promotional content removed ("Buy tokenized stocks on our platform!")
   - ✗ Financial advice filtered ("You should invest in...")
   - ✓ Educational content prioritized
-  - ✓ Matched to Marcus's learning preferences (visual + text, concrete examples)
+  - ✓ Matched to the user's learning preferences (visual + text, concrete examples)
 
   ---
 
@@ -529,8 +529,8 @@ content: |
   - No "10 blue links" — one coherent story
 
   **Context integration:**
-  - Added "Why this matters for Naomi's thesis" section
-  - Connected to Marcus's immediate situation
+  - Added "Why this matters for the presenting peer's thesis" section
+  - Connected to the user's immediate situation
 
   **Structured for completion:**
   - Definition → How it works → Example → Deep dive
@@ -540,7 +540,7 @@ content: |
   **Attention-appropriate:**
   - Quick Context option for 10-second understanding
   - Full exploration option for deeper learning
-  - Marcus chooses engagement depth
+  - The user chooses engagement depth
 
   ---
 
@@ -560,20 +560,20 @@ content: |
 
   ## What Happens Next
 
-  Marcus reads for about 4 minutes. He watches the animated diagram. He skips the video (satisfied with the text + diagram). He taps **"Mark Complete ✓"**.
+  The user reads for about 4 minutes. They watch the animated diagram. They skip the video (satisfied with the text + diagram). They tap **"Mark Complete ✓"**.
 
-  The tablet returns to Thesis Discussion mode. The conversation has continued — Marcus missed about 5 minutes while he was reading. The session recording captured everything.
+  The tablet returns to Thesis Discussion mode. The conversation has continued — the user missed about 5 minutes while they were reading. The session recording captured everything.
 
   **PKG update:**
-  - Marcus's knowledge graph now includes "tokenized stocks" under Financial Systems Concepts
+  - the user's knowledge graph now includes "tokenized stocks" under Financial Systems Concepts
   - Tagged with: blockchain, securities, fractional ownership, cross-border trading, regulation
-  - Linked to: Naomi's thesis, thesis discussion Feb 7, SEC framework
-  - Provenance: Learned from Naomi during thesis discussion, explored via LifeOS educational intent
+  - Linked to: the presenting peer's thesis, thesis discussion Feb 7, SEC framework
+  - Provenance: Learned from the presenting peer during thesis discussion, explored via LifeOS educational intent
 
   **Future impact:**
   - If "tokenized stocks" comes up again, Orchestrator won't flag it as unfamiliar
-  - If Marcus searches for related concepts, this learning is part of his context
-  - If he's writing about financial systems in his thesis, this knowledge is retrievable
+  - If the user searches for related concepts, this learning is part of their context
+  - If they're writing about financial systems in their thesis, this knowledge is retrievable
 
   ---
 
@@ -581,21 +581,21 @@ content: |
 
   ### 1. Passive vs. Active Intents: The Automation-Agency Boundary
 
-  **Passive intents** (orchestrator-initiated) happen without Marcus's selection:
+  **Passive intents** (orchestrator-initiated) happen without the user's selection:
   - Session recording
   - Unfamiliar term detection
   - Communication hold
   - Resource aggregation
 
-  These are **proactive automation** — the system acts on Marcus's behalf based on mode context.
+  These are **proactive automation** — the system acts on the user's behalf based on mode context.
 
-  **Active intents** (user-selected) require Marcus's explicit choice:
+  **Active intents** (user-selected) require the user's explicit choice:
   - "What are Tokenized Stocks?"
   - "Quick Context"
   - "Connection to My Thesis"
   - "Surface My Knowledge"
 
-  These are **bounded actions** — Marcus chooses what to execute.
+  These are **bounded actions** — the user chooses what to execute.
 
   **The boundary question:** What should be passive vs. active? Recording the session feels appropriate as passive. But what if the Orchestrator automatically generated flashcards from unfamiliar terms? Is that helpful automation or creeping paternalism?
 
@@ -603,7 +603,7 @@ content: |
 
   ### 2. Presence vs. Learning: The Attention Tradeoff
 
-  Marcus spent 4 minutes reading about tokenized stocks. He was **not present** in the discussion during that time. The session recording captured what he missed, but he lost the live dynamic.
+  The user spent 4 minutes reading about tokenized stocks. They were **not present** in the discussion during that time. The session recording captured what they missed, but they lost the live dynamic.
 
   **The tradeoff:**
   - **Immediate learning** → Better understanding, can contribute more meaningfully
@@ -616,20 +616,20 @@ content: |
   ### 3. Provider Integration Without Direct Access: The Trust Layer
 
   Traditional model:
-  - Marcus Googles "tokenized stocks"
+  - the user Googles "tokenized stocks"
   - Gets results from SEO-optimized sources
   - Evaluates credibility himself
   - Clicks through to sites with their own business models
   - Gets distracted by related articles, ads, recommendations
 
   LifeOS model:
-  - Orchestrator queries providers on Marcus's behalf
+  - Orchestrator queries providers on the user's behalf
   - Information Integrity filters and verifies sources
   - Constitutional layer removes manipulation (ads, financial advice)
   - Orchestrator synthesizes into coherent narrative
   - Provenance visible but doesn't require navigation
 
-  **The tension:** This **removes user agency from source evaluation**. Marcus doesn't choose which sources to trust — the system pre-validates them. Is this protective (saves cognitive load, blocks manipulation) or paternalistic (removes critical thinking opportunity)?
+  **The tension:** This **removes user agency from source evaluation**. The user doesn't choose which sources to trust — the system pre-validates them. Is this protective (saves cognitive load, blocks manipulation) or paternalistic (removes critical thinking opportunity)?
 
   ---
 
@@ -637,7 +637,7 @@ content: |
 
   The "What are Tokenized Stocks?" intent has a **designed endpoint** — "Mark Complete ✓". This is intentional: bounded experiences, not infinite feeds.
 
-  But what if Marcus's curiosity isn't satisfied? The "Related" suggestions at the bottom are gentle pointers, not aggressive recommendations. They won't auto-play or demand attention.
+  But what if the user's curiosity isn't satisfied? The "Related" suggestions at the bottom are gentle pointers, not aggressive recommendations. They won't auto-play or demand attention.
 
   **The question:** Is designing for completion anti-curiosity? Does it discourage deep exploration? Or does it respect attention by making engagement optional rather than compulsive?
 
@@ -645,9 +645,9 @@ content: |
 
   ### 5. Just-in-Time Learning vs. Systematic Study
 
-  Marcus learned about tokenized stocks **because Naomi mentioned it**. This is opportunistic, context-driven learning — valuable for staying engaged in the discussion.
+  The user learned about tokenized stocks **because the presenting peer mentioned it**. This is opportunistic, context-driven learning — valuable for staying engaged in the discussion.
 
-  But is this the best way to learn? Should the Orchestrator suggest systematic study of financial systems if Marcus keeps encountering related concepts? Or does that violate the "no unsolicited recommendations" principle?
+  But is this the best way to learn? Should the Orchestrator suggest systematic study of financial systems if the user keeps encountering related concepts? Or does that violate the "no unsolicited recommendations" principle?
 
   **The boundary:** Between helpful pattern recognition ("You've encountered 5 blockchain concepts this week — want a primer?") and unwanted intervention ("I think you should learn about blockchain").
 

@@ -1,6 +1,6 @@
 # Knowledge Graph Browser
 
-A lightweight React + Vite application for browsing and exploring Marcus Chen's personal knowledge graph data.
+A lightweight React + Vite application for browsing and exploring personal knowledge graph (PKG) data.
 
 ## Features
 

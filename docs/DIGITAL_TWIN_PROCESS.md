@@ -10,7 +10,7 @@ Chris Pereira | February 2026
 
 This prototype didn't start with "I want to build a chatbot." It started with two parallel threads of work that turned out to be the same problem from different angles.
 
-**Thread 1: The Thesis.** LifeOS is a speculative design platform exploring human agency in AI-mediated life management — imagining what a personal operating system might look like in 2030. The platform already had a synthetic user, Marcus Chen, represented as a fully specified Personal Knowledge Graph (PKG). Marcus's PKG was the engine behind the system: it informed how modes would activate, how notifications would triage, how the orchestrator would make decisions. The PKG-as-system-prompt pattern was already proven infrastructure.
+**Thread 1: The Thesis.** LifeOS is a speculative design platform exploring human agency in AI-mediated life management — imagining what a personal operating system might look like in 2030. The platform previously used a synthetic user represented as a fully specified Personal Knowledge Graph (PKG). That PKG was the engine behind the system: it informed how modes would activate, how notifications would triage, how the orchestrator would make decisions. The PKG-as-system-prompt pattern was already proven infrastructure.
 
 **Thread 2: The Portfolio.** Separately, Chris had been deep in a portfolio website rebuild (ithinkitschris.com), wrestling with a specific problem: how to capture authentic voice rather than defaulting to polished portfolio-speak. This work produced detailed voice specifications, tone guidelines, and identity documents — not as academic exercises, but as functional constraints for how the site should sound.
 
@@ -288,7 +288,7 @@ EVALUATION
 
 The digital twin prototype is relevant to the LifeOS thesis on multiple levels:
 
-**1. PKG validation.** The Personal Knowledge Graph concept, developed for the synthetic user Marcus Chen, transfers directly to a real person. The same document structure that drives mode selection and triage in LifeOS drives authentic conversation in a digital twin. This validates the PKG as a general-purpose identity representation, not just a thesis-specific construct.
+**1. PKG validation.** The Personal Knowledge Graph concept, originally developed for a synthetic user, transfers directly to a real person. The same document structure that drives mode selection and triage in LifeOS drives authentic conversation in a digital twin. This validates the PKG as a general-purpose identity representation, not just a thesis-specific construct.
 
 **2. Agency in representation.** The twin is built from Chris's own source material, structured by Chris's extraction prompt, assembled by Chris, and evaluated against Chris's judgment. The human maintains full agency over how they're represented — consistent with the thesis's core argument that AI systems should enhance rather than erode human control.
 

@@ -17,10 +17,10 @@ metadata:
   setting:
     date: "Wednesday, October 16, 2030"
     time: "7:14 AM"
-    location: "Marcus's apartment, West Village, NYC"
+    location: "User's apartment (from PKG context/life)"
 
   design_questions:
-    - "The Asking Paradox: Why ask how Marcus feels when the system already knows?"
+    - "The Asking Paradox: Why ask how the user feels when the system already knows?"
     - "How many alternative timeline options should be shown?"
     - "How far downstream should timeline changes cascade?"
 
@@ -31,20 +31,20 @@ content: |
 
   **Date:** Wednesday, October 16, 2030
   **Time:** 7:14 AM
-  **Location:** Marcus's apartment, West Village, NYC
-  **Context:** Two days after his thesis critique, which went well. Prof. Martinez's feedback was constructive. Marcus is in a good stretch — sleeping well, exercising consistently, stress baseline normal.
+  **Location:** the user's apartment, home (from PKG)
+  **Context:** Two days after a thesis critique, which went well. The advisor's feedback was constructive. The user is in a good stretch — sleeping well, exercising consistently, stress baseline normal.
 
   ---
 
   ## The Wake-Up
 
-  Marcus stirs at 7:14 AM. His neural smartwatch has been tracking his sleep cycle and detected the transition from REM to light sleep. The system doesn't wake him — that would violate the constitutional directive ("Never wake Marcus for non-emergencies") — but it has been waiting for this biological signal.
+  The user stirs at 7:14 AM. Their neural smartwatch has been tracking sleep cycles and detected the transition from REM to light sleep. The system doesn't wake them — that would violate the constitutional directive ("Never wake the user for non-emergencies") — but it has been waiting for this biological signal.
 
   **What LifeOS already knows at this moment:**
 
   | Signal | Source | Reading |
   |--------|--------|--------|
-  | Sleep duration | Smartwatch | 7h 42m (above his 7.5h target) |
+  | Sleep duration | Smartwatch | 7h 42m (above their 7.5h target) |
   | Sleep quality | Smartwatch | 0.81 (above 0.72 average) |
   | Deep sleep | Smartwatch | 21% (above 18% average) |
   | REM cycles | Smartwatch | 4 complete cycles |
@@ -55,32 +55,32 @@ content: |
   | Calendar density | PKG | Moderate — studio hours, no high-stakes events |
   | Stress trajectory | 3-day trend | Declining from post-critique peak |
 
-  **The design choice:** LifeOS has a detailed, quantified picture of Marcus's state. It could present this data. It could say "Good morning Marcus, your sleep score was 81, HRV is up 15% from your weekly average, cortisol estimates suggest low stress." It doesn't.
+  **The design choice:** LifeOS has a detailed, quantified picture of the user's state. It could present this data. It could say "Good morning the user, your sleep score was 81, HRV is up 15% from your weekly average, cortisol estimates suggest low stress." It doesn't.
 
   ---
 
   ## The Check-In
 
-  Marcus picks up his foldable tablet from the nightstand. The screen wakes gently — no jarring brightness, no notification barrage. The display shows a soft, warm interface in **Restore Mode** (the system's morning default for Marcus's wake-up window).
+  The user picks up their foldable tablet from the nightstand. The screen wakes gently — no jarring brightness, no notification barrage. The display shows a soft, warm interface in **Restore Mode** (the system's morning default for the user's wake-up window).
 
   **LifeOS:**
 
-  > Good morning, Marcus.
+  > Good morning, the user.
   > How are you feeling this morning?
 
   Three things are happening here architecturally:
 
-  1. **The Orchestrator is asking, not telling.** Despite having a rich biometric picture, the system defers to Marcus's subjective experience. This is a deliberate agency-preserving design — Marcus retains narrative authority over his own state. Biometric data becomes a *validation signal*, not the primary input.
+  1. **The Orchestrator is asking, not telling.** Despite having a rich biometric picture, the system defers to the user's subjective experience. This is a deliberate agency-preserving design — the user retains narrative authority over their own state. Biometric data becomes a *validation signal*, not the primary input.
 
-  2. **The question is genuine, not performative.** If Marcus says "terrible, barely slept" despite perfect biometrics, the system adjusts. His subjective experience overrides sensor data for mode planning. The Constitution respects self-reported state over inferred state.
+  2. **The question is genuine, not performative.** If the user says "terrible, barely slept" despite perfect biometrics, the system adjusts. Their subjective experience overrides sensor data for mode planning. The Constitution respects self-reported state over inferred state.
 
-  3. **The Perception layer is active but quiet.** VLM is processing ambient context (room lighting, Marcus's movement patterns, voice tone when he responds) to enrich its confidence model — but none of this is surfaced. It runs in the background.
+  3. **The Perception layer is active but quiet.** VLM is processing ambient context (room lighting, the user's movement patterns, voice tone when he responds) to enrich its confidence model — but none of this is surfaced. It runs in the background.
 
   ---
 
-  ## Marcus's Response
+  ## the user's Response
 
-  **Marcus** (voice or text, his choice):
+  **The user** (voice or text, their choice):
 
   > "I'm feeling great, had a good sleep. What do you have for me today?"
 
@@ -90,16 +90,16 @@ content: |
   |-------|---------------|
   | "feeling great" | Self-reported positive state — aligns with biometric data (high confidence) |
   | "had a good sleep" | Confirms sleep quality — no discrepancy to flag |
-  | "What do you have for me today?" | Engagement signal — Marcus is ready for the day brief |
+  | "What do you have for me today?" | Engagement signal — the user is ready for the day brief |
   | Voice tone (via earphones/tablet mic) | Relaxed, upbeat — Perception layer confirms alignment |
 
-  The Orchestrator registers **biometric-subjective alignment** — Marcus says he feels good, and the data agrees. This is a high-confidence state assessment. (If they disagreed, the system would gently note it: *"Glad to hear it. Your body's taking a bit longer to recover though — I've built in some extra buffer this morning."*)
+  The Orchestrator registers **biometric-subjective alignment** — the user says they feel good, and the data agrees. This is a high-confidence state assessment. (If they disagreed, the system would gently note it: *"Glad to hear it. Your body's taking a bit longer to recover though — I've built in some extra buffer this morning."*)
 
   ---
 
   ## The Day Timeline
 
-  The screen transitions to the **Day Brief** — a vertical timeline calendar showing Marcus's projected day broken into mode blocks. This is the Dashboard's "Future" zone, made interactive.
+  The screen transitions to the **Day Brief** — a vertical timeline calendar showing the user's projected day broken into mode blocks. This is the Dashboard's "Future" zone, made interactive.
 
   The interface is clean: a scrollable vertical timeline where each block shows the mode name, time range, location, and a one-line summary. Color-coded by mode type. The current time (7:14 AM) is highlighted at the top.
 
@@ -114,44 +114,44 @@ content: |
   Coffee, messages, ease into the day
 
   **8:00 — 8:45 | FOCUS (Health)**
-  Morning run · West Village loop · 45 min
+  Morning run · neighborhood loop (from PKG) · 45 min
   Wednesday routine · 5K route
 
   **8:45 — 9:15 | NAVIGATION**
-  Commute to SVA studio · Tram · 25 min + walk
+  Commute to studio · Tram · 25 min + walk
   Studio hours start at 9:00
 
   **9:15 — 12:00 | FOCUS (Work)**
-  Deep thesis work — integrate critique feedback · SVA Design Studios · 2h 45m
-  Prof. Martinez's feedback from Monday
-  Prepared: 3 feedback items to address · Sarah available for peer review
+  Deep thesis work — integrate critique feedback · studio (from PKG) · 2h 45m
+  Advisor's feedback from Monday (from PKG relationships)
+  Prepared: 3 feedback items to address · Peer available for review (from PKG relationships)
 
   **12:00 — 12:45 | RESTORE**
-  Lunch break · SVA area · 45 min
+  Lunch break · nearby · 45 min
   Catch up on messages, eat, decompress
 
   **12:45 — 15:00 | FOCUS (Work)**
-  Studio collaboration + thesis refinement · SVA Design Studios · 2h 15m
+  Studio collaboration + thesis refinement · studio (from PKG) · 2h 15m
   Afternoon energy: moderate (post-lunch recovery)
 
   **15:00 — 15:30 | RESTORE**
-  Afternoon break · SVA area or nearby cafe · 30 min
+  Afternoon break · nearby or nearby cafe · 30 min
   Energy dip window — walk + coffee
 
   **15:30 — 17:00 | FOCUS (Work)**
-  Contract work block · SVA Studios or cafe · 1h 30m
+  Contract work block · studio or cafe · 1h 30m
   UX deliverables for client project
 
   **17:00 — 18:15 | FOCUS (Health)**
-  Gym session — Wednesday routine · Blink Fitness Chelsea · 75 min
+  Gym session — Wednesday routine · gym (from PKG) · 75 min
   Upper body + cardio
 
   **18:15 — 18:50 | NAVIGATION**
-  Walk home · Chelsea → West Village · 35 min
+  Walk home · gym → home neighborhood · 35 min
 
   **18:50 — 19:30 | OPEN**
   Dinner · Home · 40 min
-  Cook + eat · Call mom? (hasn't called this week)
+  Cook + eat · Call family? (hasn't called this week)
 
   **19:30 — 22:30 | ENGAGE**
   Evening leisure · Home · 3h
@@ -164,52 +164,52 @@ content: |
   **How the timeline was generated:**
 
   The Orchestrator synthesized:
-  - Calendar data: SVA studio hours (09:00-17:00), no fixed meetings
+  - Calendar data: studio hours (09:00-17:00), no fixed meetings
   - Behavioral patterns: Morning run on Wed, gym on Wed evening, 90-120 min deep work sessions
   - Energy cycles: Peak cognitive 09:00-12:00, post-lunch dip 13:00-14:30, recovery by 14:30
   - PKG context: Thesis critique feedback needs integration, contract work has pending deliverables
   - Health state: Excellent recovery — system gives full exercise schedule
-  - Relationship signals: Marcus hasn't called Mom this week (10+ day rule approaching)
+  - Relationship signals: the user hasn't called family this week (from PKG relationship rules)
   - Weather: Afternoon rain possibility factored into navigation planning
 
   ---
 
   ## The Swipe-to-Replace Interaction
 
-  Marcus scrolls through the timeline. Looks good — but the 15:30-17:00 contract work block doesn't feel right. He's been riding thesis momentum since the critique and wants to keep going.
+  The user scrolls through the timeline. Looks good — but the 15:30-17:00 contract work block doesn't feel right. They've been riding thesis momentum since the critique and want to keep going.
 
-  **Marcus swipes left on the contract work block.**
+  **The user swipes left on the contract work block.**
 
   The block slides away, revealing **three alternative options:**
 
   ### Option A — FOCUS (Work)
-  Continue thesis — methodology chapter · SVA Studios · 1h 30m
+  Continue thesis — methodology chapter · studio · 1h 30m
   Builds on morning session momentum
   ⚠ Contract deliverable shifts to Thursday
 
   ### Option B — SOCIAL
-  Peer work session with Sarah · SVA Studios · 1h 30m
-  Sarah messaged about reviewing each other's critique revisions
+  Peer work session with a close peer (from PKG) · studio · 1h 30m
+  Peer messaged about reviewing each other's critique revisions
   ⚠ Contract deliverable shifts to Thursday
 
   ### Option C — RESTORE
-  Extended break + early gym · Walk → Blink Fitness · starts 15:30
+  Extended break + early gym · Walk → gym · starts 15:30
   You've had good energy today — longer gym session while you're feeling it
   ⚠ Contract deliverable shifts to Thursday · ✓ Frees up evening time
 
   **What's happening architecturally:**
 
-  1. **The Orchestrator generates alternatives, not random options.** Each alternative is grounded in Marcus's PKG — his thesis momentum, Sarah's message about peer review, his exercise patterns, and the contract deadline flexibility.
+  1. **The Orchestrator generates alternatives, not random options.** Each alternative is grounded in the user's PKG — their thesis momentum, a peer's message about peer review, their exercise patterns, and the contract deadline flexibility.
 
   2. **Every option shows trade-offs.** The system doesn't hide consequences. All three options note the contract work shift. Option C notes the freed evening time. This is *informational friction* — making costs visible without being obstructive.
 
-  3. **The system doesn't judge.** No option is labeled "recommended" or "best." Marcus has agency. The Orchestrator surfaces options; Marcus chooses.
+  3. **The system doesn't judge.** No option is labeled "recommended" or "best." The user has agency. The Orchestrator surfaces options; the user chooses.
 
   ---
 
   ## The Cascade Effect
 
-  Marcus taps **Option A** — continue thesis work.
+  The user taps **Option A** — continue thesis work.
 
   The timeline below the changed block ripples. A brief animation shows the downstream blocks reorganizing:
 
@@ -225,14 +225,14 @@ content: |
 
   **The cascade logic:**
 
-  The contract work didn't disappear — it was **rescheduled to evening**, compressed from 1.5h to 1h (the Orchestrator knows from behavioral data that Marcus can handle UX deliverable work in shorter evening bursts), and the evening leisure block absorbs the time compression.
+  The contract work didn't disappear — it was **rescheduled to evening**, compressed from 1.5h to 1h (the Orchestrator knows from behavioral data that the user can handle UX deliverable work in shorter evening bursts), and the evening leisure block absorbs the time compression.
 
   A subtle note appears below the regenerated timeline:
 
   > Contract work moved to 19:30-20:30. Client deliverable still on track for Thursday morning. Evening leisure shortened by 1h.
   > Look OK? [Confirm] [Adjust more]
 
-  **If Marcus had chosen Option C (early gym):**
+  **If the user had chosen Option C (early gym):**
 
   The cascade would have been more dramatic:
   - 15:30-17:15 Gym (extended session — 1h 45m)
@@ -249,26 +249,26 @@ content: |
   ## Design Tensions This Scenario Surfaces
 
   ### 1. The Asking Paradox
-  LifeOS *knows* Marcus slept well. Why ask? Because **telling someone how they feel is surveillance; asking them is a relationship.** The check-in preserves Marcus's narrative authority. His subjective "I'm feeling great" is the primary input; biometrics are validation, not override.
+  LifeOS *knows* the user slept well. Why ask? Because **telling someone how they feel is surveillance; asking them is a relationship.** The check-in preserves the user's narrative authority. Their subjective "I'm feeling great" is the primary input; biometrics are validation, not override.
 
   ### 2. The Projection Problem
-  The timeline is a *prediction*, not a schedule. Every block is the Orchestrator's best guess at what mode Marcus will be in. But life doesn't follow predictions. The system needs to hold these projections loosely — they're useful for planning but should never feel like obligations.
+  The timeline is a *prediction*, not a schedule. Every block is the Orchestrator's best guess at what mode the user will be in. But life doesn't follow predictions. The system needs to hold these projections loosely — they're useful for planning but should never feel like obligations.
 
   ### 3. The Trade-off Transparency
-  When Marcus swipes away contract work, the system immediately shows what shifts. This is the "Freedom Preserved Through Explicit Trade-offs" principle in action. Marcus isn't punished for changing the plan — but he's informed of consequences.
+  When the user swipes away contract work, the system immediately shows what shifts. This is the "Freedom Preserved Through Explicit Trade-offs" principle in action. The user isn't punished for changing the plan — but they're informed of consequences.
 
   ### 4. The Alternative Generation Question [OPEN]
-  How many alternatives should the system show? On what basis? The three options shown were generated from PKG context (thesis momentum, Sarah's message, exercise patterns), but the selection criteria are a design decision. Too few feels limiting; too many feels overwhelming.
+  How many alternatives should the system show? On what basis? The three options shown were generated from PKG context (thesis momentum, a peer's message, exercise patterns), but the selection criteria are a design decision. Too few feels limiting; too many feels overwhelming.
 
   ### 5. The Downstream Regeneration Boundary
-  How far downstream should changes cascade? In this scenario, the contract work moves to evening. But what if Marcus keeps swiping? At what point does the system say "these changes affect tomorrow" and expand the scope? The cascade needs boundaries.
+  How far downstream should changes cascade? In this scenario, the contract work moves to evening. But what if the user keeps swiping? At what point does the system say "these changes affect tomorrow" and expand the scope? The cascade needs boundaries.
 
   ### 6. The Compression Ethics
   The Orchestrator compressed contract work from 1.5h to 1h when moving it to evening. This is a judgment call — the system inferred that evening contract work is viable in shorter bursts. Is this appropriate? Should compression require user confirmation?
 
   ---
 
-  This scenario demonstrates the core agency-automation negotiation: the system does the heavy lifting of synthesis and prediction, but every decision point remains in Marcus's hands. The morning brief isn't a command — it's an opening offer in an ongoing conversation between Marcus and his OS.
+  This scenario demonstrates the core agency-automation negotiation: the system does the heavy lifting of synthesis and prediction, but every decision point remains in the user's hands. The morning brief isn't a command — it's an opening offer in an ongoing conversation between the user and their OS.
 
 notes:
   - "2026-02-07: Extracted from conversation, surfaces trade-off transparency"

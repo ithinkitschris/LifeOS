@@ -18,7 +18,7 @@
 - **Thesis**: Thesis, Open Questions
 - **World**: 2030 Setting
 - **LifeOS**: Modes, Intents, Multimodal Ecosystem, System Architecture, Domains
-- **Synthetic User**: Marcus Chen
+- **PKG**: User identity (loaded from knowledge/pkg/ symlink)
 - **Testing**: Scenarios
 - Footer: Versions
 

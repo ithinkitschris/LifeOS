@@ -133,10 +133,10 @@ export default function AboutPage() {
                 </p>
               </div>
               <div className="border-l-4 border-green-400 pl-4">
-                <h4 className="font-semibold text-black mb-2">Synthetic User (PKG)</h4>
+                <h4 className="font-semibold text-black mb-2">Personal Knowledge Graph (PKG)</h4>
                 <p className="text-[11pt]">
-                  Marcus Chen's Personal Knowledge Graph provides a fully-specified user for testing scenarios.
-                  His values, relationships, and behavioral patterns ground speculative designs in realistic constraints.
+                  The PKG provides a fully-specified user identity for simulation sessions.
+                  Values, relationships, and behavioral patterns ground speculative designs in realistic constraints.
                 </p>
               </div>
               <div className="border-l-4 border-purple-400 pl-4">
@@ -156,7 +156,7 @@ export default function AboutPage() {
             </div>
             <p>
               The thesis emerges from the <strong>interplay</strong> between these components: world rules
-              constrain Marcus's PKG, which informs scenario generation, which reveals architectural gaps,
+              constrain the PKG, which informs scenario generation, which reveals architectural gaps,
               which drive prototype exploration, which surfaces new open questions, which update the world canon.
             </p>
             </div>
@@ -234,9 +234,9 @@ export default function AboutPage() {
                   <td className="py-3 text-xs font-mono text-gray-500">website/ (this interface)</td>
                 </tr>
                 <tr>
-                  <td className="py-3 font-medium">Synthetic User</td>
-                  <td className="py-3">Marcus Chen—a fully specified PKG for scenarios</td>
-                  <td className="py-3 text-xs font-mono text-gray-500">backend/data/knowledge-graph/</td>
+                  <td className="py-3 font-medium">PKG</td>
+                  <td className="py-3">Personal Knowledge Graph — identity data for simulations</td>
+                  <td className="py-3 text-xs font-mono text-gray-500">knowledge/pkg/ (symlink)</td>
                 </tr>
                 <tr>
                   <td className="py-3 font-medium">API Layer</td>
@@ -267,11 +267,11 @@ export default function AboutPage() {
               </div>
               <div className="flex items-center space-x-3">
                 <div className="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center text-sm font-semibold">2</div>
-                <span><strong>Specify Marcus's PKG</strong> to embody realistic user values and context</span>
+                <span><strong>Specify the PKG</strong> to embody realistic user values and context</span>
               </div>
               <div className="flex items-center space-x-3">
                 <div className="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center text-sm font-semibold">3</div>
-                <span><strong>Generate scenarios</strong> that put Marcus in situations with competing priorities</span>
+                <span><strong>Generate scenarios</strong> that put the user in situations with competing priorities</span>
               </div>
               <div className="flex items-center space-x-3">
                 <div className="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center text-sm font-semibold">4</div>
@@ -314,7 +314,7 @@ export default function AboutPage() {
                 <strong>LifeOS</strong> pages detail the architectural components (domains, modes, intents, ecosystem)
               </li>
               <li>
-                <strong>Marcus Chen</strong> demonstrates how a synthetic user grounds abstract concepts
+                <strong>PKG</strong> demonstrates how a fully-specified user grounds abstract concepts
               </li>
               <li>
                 <strong>Scenarios</strong> show the system under stress—revealing where it works and where it breaks

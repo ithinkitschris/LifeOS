@@ -1,6 +1,6 @@
 # LifeOS Prototype Platform
 
-A research platform for prototyping and testing LifeOS interactions. This platform provides a shared backend with Marcus's knowledge graph that multiple prototypes can query.
+A research platform for prototyping and testing LifeOS interactions. This platform provides a shared backend with the user's Personal Knowledge Graph (PKG) that multiple prototypes can query.
 
 ## Quick Start
 
@@ -43,7 +43,7 @@ lifeos-platform/
 │   │   ├── server.js           # Main entry point
 │   │   └── routes/             # API endpoints
 │   ├── data/
-│   │   ├── knowledge-graph/    # Marcus's context (JSON)
+│   │   ├── knowledge-graph/    # PKG context (JSON)
 │   │   ├── modes/              # Mode definitions (YAML)
 │   │   └── constitution/       # Values & rules (YAML)
 │   └── config/                 # LLM settings
@@ -62,7 +62,7 @@ lifeos-platform/
 
 | Endpoint | Description |
 |----------|-------------|
-| `GET /api/context/identity` | Marcus's profile |
+| `GET /api/context/identity` | User profile (from PKG) |
 | `GET /api/context/relationships` | All relationships |
 | `GET /api/context/relationships/:id` | Specific person |
 | `GET /api/context/behaviors` | Behavioral patterns |
@@ -122,7 +122,7 @@ Mode definitions are in `backend/data/modes/mode-definitions.yaml`. Edit this fi
 ### Editing Constitutional Values
 
 Values are in `backend/data/constitution/values.yaml`. Edit this file to:
-- Change Marcus's priorities
+- Change user priorities (in PKG)
 - Modify trade-off rules
 - Adjust hard boundaries
 
@@ -157,23 +157,20 @@ Changes take effect immediately (no restart needed for YAML files).
 
 ## Knowledge Graph
 
-Marcus Chen is a 23-year-old design student. The knowledge graph includes:
+The Personal Knowledge Graph (PKG) is symlinked at `knowledge/pkg/` and provides:
 
 - **Identity**: Profile, personality, preferences
-- **Relationships**: 6 core people (partner, friends, family, advisor)
+- **Relationships**: Contacts and their triage tiers
 - **Behaviors**: Daily rhythms, work patterns, stress responses
 - **Calendar**: Recurring commitments, scheduling preferences
-- **Locations**: Home, university, cafes, commute routes
+- **Locations**: Home, workspaces, commute routes
 - **Health**: Sleep, exercise, biometric patterns
 - **Communications**: Channel preferences, response patterns
-- **Digital History**: 20-year summary of digital life
+- **Values**: Core values mapped to constitutional framework
 
-### Marcus's Constitutional Profile
+### Constitutional Profile (from PKG)
 
-- **Automation preference**: 75%
-- **Primary directive**: Mental wellbeing, flow state maintenance
-- **Trust level**: High (rarely overrides)
-- **Key protection**: Reduce context-switching, protect deep work
+All user values, automation preferences, and operational rules are loaded from the PKG at runtime.
 
 ## Development
 

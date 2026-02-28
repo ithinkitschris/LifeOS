@@ -31,7 +31,7 @@
 - Claude Sonnet 4.6, streaming SSE, tool use
 
 ### lifeos-platform (current thesis) — functional, speculative
-- World canon (800 lines), synthetic user Marcus (1,740 lines), dashboard (18 pages), API
+- World canon (800 lines), PKG (previously synthetic user, now Chris's own), dashboard (18 pages), API
 - Strong thesis argument: augmentation-agency paradox
 - Core concepts: Domain > Mode > Intent > UI, Center/Periphery/Silence, Constitutional Framework
 
@@ -127,7 +127,7 @@ Chris's design craft is quintessentially him. The Council's web interface MUST b
 - **Provider Integration Model**: Apps becoming obsolete
 - **Device Ecosystem**: Speculative hardware
 - **Multi-Model Cooperation Stack**: Speculative 2030 architecture
-- **Marcus Chen**: Replaced by Chris himself
+- **Synthetic user**: Replaced by Chris's own PKG
 - **Deliverables**: Mostly change
 - **Contributions #1 and #2**: Mode-intent architecture and LifeOS as artifact
 
