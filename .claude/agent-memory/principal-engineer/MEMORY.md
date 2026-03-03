@@ -89,5 +89,29 @@
 - Onboarding context (intent, persona, company) flows into chat for persona-aware responses
 - Estimated cost: ~$0.15-0.25 per 25-message conversation with prompt caching
 
+## PKG Governance Architecture (as of 2026-02-27)
+
+### Bifrost System
+- `chris-pkg/bifrost/manifest.md` -- canonical routing table for all hosts/agents
+- Convention-enforced: defines what agents SHOULD read, not what they CAN read
+- PKG agents (Norse): Heimdall (ingress), Mimir (structure), Bifrost (egress)
+- Council agents (Greek): Athena, Apollo, Hermes, Iris, Prometheus, Chronos, Echo, Clio, Scribe
+
+### Two Enforcement Regimes
+- **Council (Claude Code CLI):** slash commands list file paths, Claude reads directly -- convention-enforced only
+- **Portfolio Twin (Next.js):** `the-council/src/lib/knowledge.js` assembles prompts via `AGENT_ROUTES` -- structurally enforced
+- The knowledge loader IS the programmatic Bifrost. Slash commands bypass it entirely.
+
+### Key Files
+- `chris-pkg/bifrost/manifest.md` -- routing table
+- `chris-pkg/private/README.md` -- access rules for guarded section
+- `the-council/src/lib/knowledge.js` -- Bifrost in code (AGENT_ROUTES + assembleSystemPrompt)
+- `the-council/.claude/commands/{agent}.md` -- slash command invocation files
+
+### Governance Gap Finding
+- Demonstrated that Claude Code can read `private/inner-life.md` from sessions with no Bifrost grant
+- This is a thesis-relevant finding: convention-enforced governance = honor-system privacy
+- Framing: the gap between convention and enforcement mirrors the agency tension in the thesis itself
+
 ## See Also
 - [architecture-decisions.md](./architecture-decisions.md) - Detailed decision records (TODO)

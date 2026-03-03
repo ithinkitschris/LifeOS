@@ -51,11 +51,14 @@
       "Read(//Users/chris/Documents/GitHub/**)",
       "Read(//Users/chris/Documents/GitHub/nextjs-boilerplate/**)",
       "Bash(wc:*)",
-      "Bash(git init:*)"
+      "Bash(git init:*)",
+      "Read(//Users/chris/.claude/**)"
     ],
     "additionalDirectories": [
       "/Users/chris/Documents/GitHub/the-council/{scripts,knowledge/directive,src/lib,agents,thesis,docs",
-      "/Users/chris/Documents/GitHub/the-council"
+      "/Users/chris/Documents/GitHub/the-council",
+      "/Users/chris/.claude",
+      "/Users/chris/Documents/GitHub/chris-pkg/scribe"
     ]
   }
 }

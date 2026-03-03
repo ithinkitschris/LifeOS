@@ -28,3 +28,6 @@ build/
 # Temporary files
 tmp/
 temp/
+
+# User testing sessions (disposable, gitignored per decision 26)
+testing/sessions/
